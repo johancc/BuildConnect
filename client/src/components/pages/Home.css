@@ -1,0 +1,25 @@
+.Home-landing {
+    display: flex;
+    width: 100vw;
+    height: 70vh;
+    padding-left: var(--l);
+    padding-right: var(--l);
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.Home-banner {
+    background-color:transparent;
+    flex-grow: 1;
+}
+
+.Home-title {
+    background: transparent;
+    flex-grow: 1;
+}
+
+.Home-desc {
+    font-family: "Roboto";
+    font-size: 24px;
+}
