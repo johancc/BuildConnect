@@ -1,4 +1,4 @@
-# Ingite
+# Ignite
 
 ## start up
 
