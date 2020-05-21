@@ -16,6 +16,7 @@
 
 .Home-title {
     background: transparent;
+    align-self: center;
     flex-grow: 1;
 }
 
