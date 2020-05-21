@@ -22,9 +22,7 @@ export default () => {
             </Button>
             <br/>
             <br/>
-            <Typography>
-                <b><p fontSize="32px">Looking to be a mentor? <a color="primary" href="/mentorjoin">Join</a></p></b>
-            </Typography>
+       
         </div>
     )
     
