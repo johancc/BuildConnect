@@ -1,0 +1,21 @@
+.Explore-card {
+    max-height: 300px;
+    max-width: 400px;
+    margin: var(-m);
+    padding: var(--m);
+    flex-grow: 1;
+    height: fit-content;
+}
+
+.Explore-list {
+    display: flex;
+    flex-direction: row;
+    padding: var(--m);
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.Explore-container {
+    min-height: 100vh;
+    height: fit-content;
+}

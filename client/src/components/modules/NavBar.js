@@ -17,7 +17,7 @@ class NavBar extends Component {
   render() {
     return (
       <Navbar collapseOnSelect fixed="sticky-top" expand="lg" variant="light">
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand className="NavBar-brand" as={Link} to="/">
           Project Learning
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

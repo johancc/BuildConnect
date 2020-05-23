@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TextField from "@material-ui/core/TextField";
 
-function VolunteerRequest() {
+function JoinRequest() {
     const [show, setShow] = useState(false);
 
     const [message, setMessage ] = useState("");
@@ -55,4 +55,4 @@ function VolunteerRequest() {
         </>
     )
 }
-export default VolunteerRequest;
+export default JoinRequest;

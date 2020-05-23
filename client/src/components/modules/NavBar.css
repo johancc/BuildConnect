@@ -12,7 +12,7 @@
 
 .NavBar-linkContainer {
   text-align: right;
-  margin-left: var(--l);
+  margin-left: var(--m);
 }
 
 .NavBar-link,
@@ -26,6 +26,7 @@
   opacity: 0.95;
 }
 
+.NavBar-brand {
+}
 .NavBar-link + .NavBar-link {
-  margin-left: var(--m);
 }

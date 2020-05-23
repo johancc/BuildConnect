@@ -9,6 +9,7 @@ import JssProvider from "react-jss/lib/JssProvider";
 import Home from "./pages/Home.js";
 import NotFound from "./pages/NotFound.js";
 import Project from "./pages/Project.js";
+import Explore from "./pages/Explore/Explore.js";
 
 // to use styles, import the necessary CSS files
 import "../utilities.css";
@@ -29,20 +30,22 @@ class App extends Component {
       
       // <> is like a <div>, but won't show
       // up in the DOM tree
+
        <JssProvider generateClassName={generateClassName}>
-         <>
-          <NavBar />
-          <div className="App-container" style={{ backgroundColor: "#f4f5f7" }}>
+        <div className="App-container" style={{ margin: 0, padding: 0 }}>
+            
+          
             <MuiThemeProvider theme={theme}>
-              <Router>
+              <NavBar />
+              <Router style={{backgroundColor: "#f4f5f7"}}>
                 <Home path="/" />
                 <Project path="/project" />
+                <Explore path="/explore" />
                 <NotFound default />
               </Router>
 
             </MuiThemeProvider>
           </div>
-        </>
         </JssProvider>  
     );
   }

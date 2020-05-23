@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Image from 'react-bootstrap/Image';
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
-import VolunteerRequest from "../modules/VolunteerRequest.js";
+import JoinRequest from "../modules/JoinRequest.js";
 
 import "./Project.css";
 
@@ -59,13 +59,6 @@ Design Details:
         })
     }
 
-    getVolunteerButton() {
-        return (
-            <>
-
-            </>
-        )
-    }
     getProjectHeader() {
         return (
             <div className="Project-header">
@@ -79,19 +72,25 @@ Design Details:
                         justifyContent: "space-evenly", // Might be better to use space-around?
                         flexDirection: "column"
                     }} >
-                        <div style={{ margin: "16px" }}>
+                        <div style={{ margin: "16px", marginLeft: "32px", marginRight: "32px"  }}>
                             <Typography color="primary">
                                 <h3>{this.state.projectData.title}</h3>
                                 <h5 style={{ color: "black" }}>{this.state.projectData.tweet_description}</h5>
                             </Typography>
                         </div>
 
-                        <div style={{ margin: "16px" }}>
+                        <div style={{ margin: "16px", marginLeft: "32px", marginRight: "32px" }}>
                             <Typography>
-                                <p><b> <Timelapse /> Posted 9 days ago </b> </p>
+                                
+                                <div style={{justifyContent: "space-between", display: "flex", flexDirection: "row", alignItems:"center"}}>
+                                    <b> <Timelapse /> Posted 9 days ago </b>
+                                    <b> <EmojiPeople /> {this.state.projectData.people_size} members</b>
+                                    <JoinRequest/>
+                                </div>
 
-                                <b> <EmojiPeople /> {this.state.projectData.people_size} members</b>
+                                
                             </Typography>
+                            
                         </div>
                     </Card>
                 </div>
@@ -172,7 +171,6 @@ Design Details:
                         <p>{this.state.projectData.contact_info}</p>
                     </Typography>
 
-                    <VolunteerRequest/>
                 </Card>          
 
             </div>
