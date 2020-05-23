@@ -7,6 +7,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 // Pages
 import Home from "./pages/Home.js";
 import NotFound from "./pages/NotFound.js";
+import Project from "./pages/Project.js";
 
 // to use styles, import the necessary CSS files
 import "../utilities.css";
@@ -20,17 +21,22 @@ class App extends Component {
   // shows up on screen
   render() {
     return (
+      
       // <> is like a <div>, but won't show
       // up in the DOM tree
-      <MuiThemeProvider theme={theme}>
-        <NavBar/>
-        <div className="App-container">
-          <Router>
-            <Home path="/"/>
-            <NotFound default/>
-          </Router>
+      <div>
+        <NavBar />
+        <div className="App-container" style={{ backgroundColor: "#f4f5f7" }}>
+          <MuiThemeProvider theme={theme}>
+            <Router>
+              <Home path="/" />
+              <Project path="/project" />
+              <NotFound default />
+            </Router>
+
+          </MuiThemeProvider>
         </div>
-      </MuiThemeProvider>
+      </div>  
     );
   }
 }

@@ -18,7 +18,7 @@ class NavBar extends Component {
     return (
       <Navbar collapseOnSelect fixed="sticky-top" expand="lg" variant="light">
         <Navbar.Brand as={Link} to="/">
-          <img src={FireBird}  alt="Ignite" className="NavBar-logo"/>
+          Project Learning
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

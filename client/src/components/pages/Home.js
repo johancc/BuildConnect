@@ -28,7 +28,7 @@ export default () => {
     
     const banner = (
         <>
-            <img src={splash} alt=""/>
+            <img src={splash} alt="" className="Home-img"/>
         </>
     )
 

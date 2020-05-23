@@ -1,0 +1,12 @@
+.Project-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+    max-height: 100px;
+}
+
+.Project-header-item {
+    max-height: 350px;
+    object-fit: cover;
+}
