@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Image from 'react-bootstrap/Image';
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import Typography from "@material-ui/core/Typography";
+import VolunteerRequest from "../modules/VolunteerRequest.js";
+
 import "./Project.css";
 
 // Styling assets
@@ -17,12 +18,13 @@ let MOCK_DATA = {
     date_started: Date.now(),
     long_description: "You should give an overview of your project here. Make it exciting.\
                        Talk about why you started this. Show people that you care.",
-    help_needed: "Talk about what skills you're looking for in team members. Should they be \
+    help_needed: "How can people help? Are there any specific things that need to be built? Should they be \
                  comfortable with python? UX? Management skills?",
     team_description: "Out team members are based on the each coast. Some of the include Alyssa P Hacker (allysa@mit.edu) and Ben Bitdiddle (benbit@mit.edu). ",
     members: "Just me.",
     link: "www.github.com/user/somethinggreat",
     contact_info: "Please email someemail@mit.edu if you have any questions.",
+    skills_needed: ["breathing", "existing", "able to send emails"]
 }
 /**
  * Displays information about a given project and allows you to
@@ -57,13 +59,20 @@ Design Details:
         })
     }
 
+    getVolunteerButton() {
+        return (
+            <>
+
+            </>
+        )
+    }
     getProjectHeader() {
         return (
             <div className="Project-header">
                 
-                <Image className="Project-item col-md-6"  style={{padding: "16px"}} src={this.state.projectData.image} alt="" fluid/>
+                <Image className="Project-item col-md-5"  style={{padding: "16px"}} src={this.state.projectData.image} alt="" fluid/>
 
-                <div className="Project-item col-md-6" style={{padding: "16px"}}>
+                <div className="Project-item col-md-7" style={{padding: "16px"}}>
                     <Card  style={{
                         height: "100%",
                         display: "flex",
@@ -91,26 +100,53 @@ Design Details:
             </div>
         )
     }
-
-    getProjectAbout() {
-       
+    getVolunteerInfo() {
         return (
             <div style={{ padding: "16px" }}>
-                <Card style={{ padding: "12px" }}>
+                <Card style={{ padding: "32px" }}>
                     <Typography color="primary">
-                        <h5>About this project</h5>
-                        
-                    </Typography>
-                    <Typography color="textSecondary">
-                        <h6><b>Description</b></h6>
-                        
+                        <h5>Help Needed</h5>
                     </Typography>
                     <Typography variant="subheader">
-                        <p>{this.state.projectData.long_description}</p>
-                    </Typography>
+                        <b>Skills needed</b>
+                        {this.state.projectData.skills_needed.map((skill, i) => {
+                            return (
+                                <div key={i}>
+                                    <span>&#8226;</span> {skill}
+                                </div>
+                            )
+                        })}
 
+                    </Typography>
+                    <Typography variant="subheader">
+                        <b>What help is needed</b>
+                        <p>{this.state.projectData.help_needed}</p>
+                    </Typography>
                 </Card>
+
             </div>
+        )
+    }
+    getProjectAbout() {
+        let volunteerInfo = this.getVolunteerInfo();
+        return (
+            <>
+                <div style={{ padding: "16px" }}>
+                    <Card style={{ padding: "32px" }}>
+                        <Typography color="primary">
+                            <h5>About this project</h5>
+                            
+                        </Typography>
+                        <Typography variant="subheader">
+                            <b>Description</b>
+                            <p>{this.state.projectData.long_description}</p>
+                        </Typography>
+
+                    </Card>
+
+                </div>
+                {volunteerInfo}
+            </>
         )
         
     }
@@ -118,7 +154,7 @@ Design Details:
     getProjectContact() {
         return (
             <div style={{padding: "16px"}}>
-                <Card style={{padding: "12px"}}>
+                <Card style={{padding: "32px"}}>
                     <Typography color="primary">
                         <h5>Project Details</h5>
                     </Typography>
@@ -135,26 +171,32 @@ Design Details:
                     <Typography variant="subheader">
                         <p>{this.state.projectData.contact_info}</p>
                     </Typography>
-                </Card>                
+
+                    <VolunteerRequest/>
+                </Card>          
+
             </div>
 
         )
     }
+
+
     render() {
         if (this.state.projectData === undefined) return <></>;
 
         let projectHeader = this.getProjectHeader();
         let projectAbout = this.getProjectAbout();
         let projectContact = this.getProjectContact();
+        let volunteerInfo = this.getVolunteerInfo();
         return (
             <div className="Project-container">
                 <div className="col-md-12" style={{padding: 0}}>
                     {projectHeader}
                 </div>
-                <div className="col-md-6" style={{padding: 0}}>
+                <div className="col-md-7" style={{padding: 0}}>
                     {projectAbout}
                 </div>
-                <div className="col-md-6" style={{ padding: 0 }}>
+                <div className="col-md-5" style={{ padding: 0 }}>
                     {projectContact}
                 </div>
             </div>
