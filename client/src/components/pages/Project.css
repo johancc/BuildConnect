@@ -1,12 +1,24 @@
-.Project-header {
+.Project-container {
+    padding: var(--l);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    height: fit-content;
-    max-height: 100px;
+    max-width: 2500px;
+    justify-content: center;
+}
+.Project-header {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.Project-header-item {
-    max-height: 350px;
+.Project-details {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+.Project-item {
+    max-height: 40vh;
     object-fit: cover;
 }

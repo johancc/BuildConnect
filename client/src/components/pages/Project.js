@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Image from 'react-bootstrap/Image';
 import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
 import Typography from "@material-ui/core/Typography";
 import "./Project.css";
 
@@ -58,40 +59,87 @@ Design Details:
         return (
             <div className="Project-header">
                 
-                <Image className="Project-header-item col-md-6" src={this.state.projectData.image} alt="" fluid/>
+                <Image className="Project-item col-md-6"  style={{padding: "16px"}} src={this.state.projectData.image} alt="" fluid/>
 
+                <div className="Project-item col-md-6" style={{padding: "16px"}}>
+                    <Card  style={{
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "space-evenly", // Might be better to use space-around?
+                        flexDirection: "column"
+                    }} >
+                        <div style={{ margin: "16px" }}>
+                            <Typography color="primary">
+                                <h3>{this.state.projectData.title}</h3>
+                                <h5 style={{ color: "black" }}>{this.state.projectData.tweet_description}</h5>
+                            </Typography>
+                        </div>
 
-                <Card className="Project-header-item col-md-6 " style={{padding: "16px", 
-                                                                       display:"flex",
-                                                                       justifyContent: "space-between",
-                                                                       flexDirection: "column" }} >
-                    <div>
-                        <Typography color="primary">
-                            <h3>{this.state.projectData.title}</h3>
-                            <h5 style={{color: "black"}}>{this.state.projectData.tweet_description}</h5>
-                        </Typography>
-                    </div>
-                    
-                    <div>
-                        <Typography>
+                        <div style={{ margin: "16px" }}>
+                            <Typography>
                                 <p><b> <Timelapse /> Posted 9 days ago </b> </p>
 
-                                <b> <EmojiPeople/> {this.state.projectData.people_size} members</b> 
-                        </Typography>
-                    </div>
-                </Card>
+                                <b> <EmojiPeople /> {this.state.projectData.people_size} members</b>
+                            </Typography>
+                        </div>
+                    </Card>
+                </div>
+                
             
             </div>
+        )
+    }
+
+    getProjectAbout() {
+       
+        return (
+            <div style={{ padding: "16px" }}>
+                <Card style={{ padding: "12px" }}>
+                    <Typography>
+                        <h5>About this project</h5>
+                        <h6><b>Description</b></h6>
+                    </Typography>
+                    <Typography color="textSecondary">
+                        <p>{this.state.projectData.long_description}</p>
+                    </Typography>
+
+                </Card>
+            </div>
+        )
+        
+    }
+
+    getProjectContact() {
+        return (
+            <div style={{padding: "16px"}}>
+                <Card style={{padding: "12px"}}>
+                    <Typography>
+                        <h5>How do I get involved?</h5>
+                    </Typography>
+                </Card>                
+            </div>
+
         )
     }
     render() {
         if (this.state.projectData === undefined) return <></>;
 
         let projectHeader = this.getProjectHeader();
+        let projectAbout = this.getProjectAbout();
+        let projectContact = this.getProjectContact();
         return (
-            <div>
-                {projectHeader}
+            <div className="Project-container">
+                <div className="col-md-12" style={{padding: 0}}>
+                    {projectHeader}
+                </div>
+                <div className="col-md-6" style={{padding: 0}}>
+                    {projectAbout}
+                </div>
+                <div className="col-md-6" style={{ padding: 0 }}>
+                    {projectContact}
+                </div>
             </div>
+            
         );
     }
 }
