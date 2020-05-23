@@ -19,8 +19,10 @@ let MOCK_DATA = {
                        Talk about why you started this. Show people that you care.",
     help_needed: "Talk about what skills you're looking for in team members. Should they be \
                  comfortable with python? UX? Management skills?",
+    team_description: "Out team members are based on the each coast. Some of the include Alyssa P Hacker (allysa@mit.edu) and Ben Bitdiddle (benbit@mit.edu). ",
     members: "Just me.",
     link: "www.github.com/user/somethinggreat",
+    contact_info: "Please email someemail@mit.edu if you have any questions.",
 }
 /**
  * Displays information about a given project and allows you to
@@ -95,11 +97,15 @@ Design Details:
         return (
             <div style={{ padding: "16px" }}>
                 <Card style={{ padding: "12px" }}>
-                    <Typography>
+                    <Typography color="primary">
                         <h5>About this project</h5>
-                        <h6><b>Description</b></h6>
+                        
                     </Typography>
                     <Typography color="textSecondary">
+                        <h6><b>Description</b></h6>
+                        
+                    </Typography>
+                    <Typography variant="subheader">
                         <p>{this.state.projectData.long_description}</p>
                     </Typography>
 
@@ -113,8 +119,21 @@ Design Details:
         return (
             <div style={{padding: "16px"}}>
                 <Card style={{padding: "12px"}}>
+                    <Typography color="primary">
+                        <h5>Project Details</h5>
+                    </Typography>
                     <Typography>
-                        <h5>How do I get involved?</h5>
+                        <b> Who is already working on this </b>
+                    </Typography>
+                    <Typography variant="subheader">
+                        <p>{this.state.projectData.team_description}</p>
+                    </Typography>
+
+                    <Typography>
+                        <b> How to get in touch </b>
+                    </Typography>
+                    <Typography variant="subheader">
+                        <p>{this.state.projectData.contact_info}</p>
                     </Typography>
                 </Card>                
             </div>
