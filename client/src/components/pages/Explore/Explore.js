@@ -4,10 +4,25 @@
  * Proptypes:
  *  None
  * 
+ * 
+ * TODO:
+ *  (5/25/2020) - Implement an actual query to the database once the server is setup 
+ *              - Some search or sorting functionality needs to be implemented.
 */
 import React, { Component } from "react";
-import ProjectCard from "../../modules/ProjectCard.js";
+import ProjectCard from "./ProjectCard.js";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import Container from "react-bootstrap/Container";
 import "./Explore.css";
+
+// Images
+import Explore1 from "../../../public/explore1.svg";
+import Explore2 from "../../../public/explore2.svg";
+import Explore3 from "../../../public/explore3.svg";
+
+const EXPLORE_IMGS = [Explore1, Explore2, Explore3];
+
+// Remove once the backend is implemented!
 let MOCK_DATA = {
     title: "The Next Big Thing",
     tweet_description: "What's the next big thing? Find out soon",
@@ -44,10 +59,14 @@ let CATEGORY_OPTIONS = ["Software", "Mechanical", "Electrical"];
 class Explore extends Component {
     constructor(props) {
         super(props);
+        let getRandomInt = (max) =>  {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
         this.state = {
             projects: Array(15).fill(MOCK_DATA),
             sort: "Newest",
             category: "Any",
+            imgIndex: getRandomInt(3),
         }
     }
 
@@ -57,12 +76,42 @@ class Explore extends Component {
     }
 
     getProjectListings() {
-       
+       return (
+           <div className="Explore-list">
+           {
+               this.state.projects.map((proj, i) => {
+                   return (
+                       <ProjectCard className="Explore-card" projectData={proj}/>
+                   )
+               })
+           }
+           </div>
+       )
+    }
+
+    getExploreTitle() {
+        const exploreImg = EXPLORE_IMGS[this.state.imgIndex];
+        return (
+            <Jumbotron fluid style={{ backgroundColor: "#ebf5fa"}}>
+                <Container>
+                    <div className="Explore-title">
+                        <div className="Explore-title-text">
+                            <h1>Find your next project.</h1>
+                            <h3>Join the community of innovative college students. Explore existing projects or post your own project for others to join. Get access to industry professional mentors for your group. </h3>
+                        </div>
+                        <img src={exploreImg} className="Explore-title-img" alt="" />
+                    </div>
+                </Container>
+            </Jumbotron>
+        )
     }
     render() {
+        let exploreTitle = this.getExploreTitle();
         let projectListings = this.getProjectListings();
+        
         return (
             <div className="Explore-container">
+                {exploreTitle}
                 {projectListings}
             </div>
         );

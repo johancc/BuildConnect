@@ -33,7 +33,6 @@ class App extends Component {
 
        <JssProvider generateClassName={generateClassName}>
         <div className="App-container" style={{ margin: 0, padding: 0 }}>
-            
           
             <MuiThemeProvider theme={theme}>
               <NavBar />
@@ -43,7 +42,6 @@ class App extends Component {
                 <Explore path="/explore" />
                 <NotFound default />
               </Router>
-
             </MuiThemeProvider>
           </div>
         </JssProvider>  

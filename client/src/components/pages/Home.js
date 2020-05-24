@@ -3,7 +3,7 @@ import "./Home.css";
 import  Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 // Assets
-import splash from "../../public/splash.svg";
+import BannerImg from "../../public/homeBanner.svg";
 
 export default () => {
 
@@ -28,27 +28,32 @@ export default () => {
     
     const banner = (
         <>
-            <img src={splash} alt="" className="Home-img"/>
+            <img src={BannerImg} alt="" className="Home-img"/>
         </>
     )
 
-    const desc = (
+
+    const topSection = (
+        <section className="Home-top">
+            <div className="Home-title col-md-6">
+                {title}
+            </div>
+            <div className="Home-banner col-md-6">
+                {banner}
+            </div>
+        </section>
+    );
+    const middleSection = (
         <section>
             <Typography>
-                <h3> Struggling to find something to do over the summer? </h3>
+                <h1>About (coming soon!) </h1>
             </Typography>
         </section>
     )
     return (
-    <div className="Home-landing">
-        <div className="Home-title col-md-6">
-            {title}
+        <div className="Home-landing" style={{height: "100vh", width: "100%"}}>
+            {topSection}
+            {middleSection}
         </div>
-        <div className="Home-banner col-md-6">
-            {banner}
-        </div>
-        <div>
-            {desc}
-        </div>
-    </div>)
+    )
 }
