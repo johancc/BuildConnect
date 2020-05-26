@@ -41,7 +41,6 @@ class UserProvider extends Component {
                     const token = await firebaseUser.getIdToken(true);
                     const verified = firebaseUser.emailVerified;
                     let user = await get("/api/user", {token: token});
-
                     if (!!user) {
                         user.verified = verified;
                         user.token = token;
@@ -49,6 +48,7 @@ class UserProvider extends Component {
                         user = { token: token};
                     }
                     this.setState({user: user});
+                    
                 } catch (err) {
                     console.log(err); // TODO: Handle properly.
                 }

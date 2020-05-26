@@ -35,8 +35,9 @@ router.get("/listProjects", firebaseMiddleware, (req, res) => {
 });
 
 router.get("/user", firebaseMiddleware, (req,res) => {
-    User.find({firebase_uid: req.user.user_id})
+    User.findOne({firebase_uid: req.user.user_id})
         .then((user) => {
+            console.log(user);
             res.send(user);
         })
         .catch((err) => {
@@ -64,10 +65,17 @@ router.get("/project", firebaseMiddleware, (req, res) => {
 router.post("/addUser", firebaseMiddleware, (req,res) => {
     
     let newUser = User(req.body.user);
+    newUser.firebase_uid = req.user.user_id;
     newUser.save()
         .then((user) => res.send(user))
         .catch((err) => res.sendStatus(500).json(err));
 });
+
+router.post("/removeUser", firebaseMiddleware, (req, res) => {
+    User.findOneAndDelete({firebase_uid: req.user.user_id})
+        .then(res.send({}))
+        .catch((err) => res.sendStatus(500).json(err));
+})
 
 
 router.post("/addProject", firebaseMiddleware, (req, res) => {

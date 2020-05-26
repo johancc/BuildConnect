@@ -5,6 +5,10 @@ import theme from "../Constants.js";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createGenerateClassName } from "@material-ui/core/styles";
 import JssProvider from "react-jss/lib/JssProvider";
+
+// Providers
+import UserProvider from "../providers/UserProvider";
+
 // Pages
 import Home from "./pages/Home/Home.js";
 import NotFound from "./pages/NotFound/NotFound.js";
@@ -31,22 +35,23 @@ class App extends Component {
       
       // <> is like a <div>, but won't show
       // up in the DOM tree
+      <UserProvider>
+        <JssProvider generateClassName={generateClassName}>
+          <div className="App-container" style={{ margin: 0, padding: 0 }}>
 
-       <JssProvider generateClassName={generateClassName}>
-        <div className="App-container" style={{ margin: 0, padding: 0 }}>
-          
             <MuiThemeProvider theme={theme}>
               <NavBar />
-              <Router style={{backgroundColor: "#f4f5f7"}}>
+              <Router style={{ backgroundColor: "#f4f5f7" }}>
                 <Home path="/" />
                 <Project path="/project/:_id" />
                 <Explore path="/explore/" />
-                <RegisterUser path="/register"/>
+                <RegisterUser path="/register" />
                 <NotFound default />
               </Router>
             </MuiThemeProvider>
           </div>
         </JssProvider>  
+      </UserProvider>     
     );
   }
 }

@@ -30,3 +30,7 @@
 }
 .NavBar-link + .NavBar-link {
 }
+
+.NavBar-loginDialog {
+  min-width: 500px;
+}
