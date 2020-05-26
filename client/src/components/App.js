@@ -10,6 +10,7 @@ import Home from "./pages/Home/Home.js";
 import NotFound from "./pages/NotFound/NotFound.js";
 import Project from "./pages/Project/Project.js";
 import Explore from "./pages/Explore/Explore.js";
+import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
 
 // to use styles, import the necessary CSS files
 import "../utilities.css";
@@ -40,6 +41,7 @@ class App extends Component {
                 <Home path="/" />
                 <Project path="/project" />
                 <Explore path="/explore" />
+                <RegisterUser path="/register"/>
                 <NotFound default />
               </Router>
             </MuiThemeProvider>

@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import Image from 'react-bootstrap/Image';
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
-import JoinRequest from "../../modules/JoinRequest.js";
+import JoinRequest from "./JoinRequest.js";
 
 import "./Project.css";
 
 // Styling assets
 import Timelapse from "@material-ui/icons/Timelapse";
 import EmojiPeople from "@material-ui/icons/EmojiPeople";
+const BULLET = "&#8226";
 
 let MOCK_DATA = {
     title: "The Next Big Thing",
@@ -111,7 +112,7 @@ Design Details:
                         {this.state.projectData.skills_needed.map((skill, i) => {
                             return (
                                 <div key={i}>
-                                    <span>&#8226;</span> {skill}
+                                    <span>{BULLET}</span> {skill}
                                 </div>
                             )
                         })}
