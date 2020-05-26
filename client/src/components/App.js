@@ -6,6 +6,8 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createGenerateClassName } from "@material-ui/core/styles";
 import JssProvider from "react-jss/lib/JssProvider";
 
+// Prevents protected pages from being directly accessed.
+import AuthenticatedPage from "./modules/AuthenticatedPage.js";
 // Providers
 import UserProvider from "../providers/UserProvider";
 
@@ -43,8 +45,8 @@ class App extends Component {
               <NavBar />
               <Router style={{ backgroundColor: "#f4f5f7" }}>
                 <Home path="/" />
-                <Project path="/project/:_id" />
-                <Explore path="/explore/" />
+                <AuthenticatedPage path="/project/:_id" component={Project}/>
+                <AuthenticatedPage path="/explore" component={Explore} />
                 <RegisterUser path="/register" />
                 <NotFound default />
               </Router>
