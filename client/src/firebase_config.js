@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 require("firebase/auth");
 
 const config = {
-    // add config here
+    // TODO: add config here
 };
 
 firebase.initializeApp(config);
