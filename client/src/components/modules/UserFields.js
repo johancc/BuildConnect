@@ -24,6 +24,9 @@ import Col from "react-bootstrap/Col";
          </Form.Group>
      );
  };
+
+
+
 export const getMajorField = (formik) => {
     return (
         <Form.Group as={Col} md="12" controlId="validationMajor">
@@ -36,7 +39,7 @@ export const getMajorField = (formik) => {
                 type="text"
                 placeholder="Your major"
             />
-            <Form.Control.Feedback type="invalid">{formik.errors.major}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{formik.errors["major"]}</Form.Control.Feedback>
         </Form.Group>
     );
 };
