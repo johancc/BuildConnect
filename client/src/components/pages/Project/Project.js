@@ -9,8 +9,7 @@ import "./Project.css";
 // Styling assets
 import Timelapse from "@material-ui/icons/Timelapse";
 import EmojiPeople from "@material-ui/icons/EmojiPeople";
-const BULLET = "&#8226";
-
+const BULLET = '\u2B24';
 let MOCK_DATA = {
     title: "The Next Big Thing",
     tweet_description: "What's the next big thing? Find out soon",
@@ -171,9 +170,7 @@ Design Details:
                     <Typography variant="subheader">
                         <p>{this.state.projectData.contact_info}</p>
                     </Typography>
-
-                </Card>          
-
+                </Card>
             </div>
 
         )

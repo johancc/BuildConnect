@@ -14,9 +14,8 @@ const useStyles = makeStyles({
     },
 });
 
-const ProjectCard = ({projectData}) => {
+const ProjectCard = ({projectData, onClick}) => {
     const classes = useStyles();
-
     return (
             <Card className={"col-md-4" + classes.root}>
                 <CardActionArea>
@@ -37,7 +36,7 @@ const ProjectCard = ({projectData}) => {
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" onClick={() => onClick(projectData._id)} >
                         Learn More
                     </Button>
                 </CardActions>

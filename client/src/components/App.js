@@ -39,8 +39,8 @@ class App extends Component {
               <NavBar />
               <Router style={{backgroundColor: "#f4f5f7"}}>
                 <Home path="/" />
-                <Project path="/project" />
-                <Explore path="/explore" />
+                <Project path="/project/:_id" />
+                <Explore path="/explore/" />
                 <RegisterUser path="/register"/>
                 <NotFound default />
               </Router>

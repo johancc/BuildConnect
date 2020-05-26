@@ -38,7 +38,8 @@ let MOCK_DATA = {
     members: "Just me.",
     link: "www.github.com/user/somethinggreat",
     contact_info: "Please email someemail@mit.edu if you have any questions.",
-    skills_needed: ["breathing", "existing", "able to send emails"]
+    skills_needed: ["breathing", "existing", "able to send emails"],
+    _id: "123456"
 }
 
 let SORT_OPTIONS = ["Newest", "Popularity"];
@@ -77,17 +78,24 @@ class Explore extends Component {
 
     }
 
+    handleSubmit(projID) {
+        this.props.navigate(`/project/${projID}`)
+    }
+
     getProjectListings() {
-       return (
-           <div className="Explore-list">
-           {
-               this.state.projects.map((proj, i) => {
-                   return (
-                       <ProjectCard className="Explore-card" projectData={proj} key={i}/>
-                   )
-               })
-           }
-           </div>
+
+        return (
+            <div className="Explore-list">
+            {
+                this.state.projects.map((proj, i) => {
+                    return (
+                        <ProjectCard className="Explore-card" projectData={proj} key={i} onClick={
+                            (projID) => this.handleSubmit(projID)
+                        }/>
+                    )
+                })
+            }
+            </div>
        )
     }
 

@@ -5,7 +5,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "@reach/router";
 import {
-    getNameField, getEmailField, getPasswordField,
+    getNameField, getEmailField, getPasswordField, getConfirmPasswordField,
     getMajorField,
 } from "../../modules/UserFields.js";
 import Jumbotron from "react-bootstrap/Jumbotron";
@@ -64,9 +64,8 @@ const RegisterUser = () => {
     });
     // Every subarray is a row.
     const fieldOrder = [
-        [getNameField, getMajorField], 
-        [getEmailField], 
-        [getPasswordField]
+        [getNameField, getEmailField, getMajorField], 
+        [getPasswordField, getConfirmPasswordField]
     ];
     const fields = fieldOrder.map((fieldRow, i) => {
         return(

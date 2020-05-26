@@ -24,11 +24,9 @@ class NavBar extends Component {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" />
           <Nav className="NavBar-container">
-
             <Nav.Link className="NavBar-link" as={Link} to="/explore">Explore</Nav.Link>
-            <Nav.Link className="NavBar-link" as={Link} to="/project">Project</Nav.Link>
+            <Nav.Link className="NavBar-link" as={Link} to="/project/123456">Project</Nav.Link>
             <Nav.Link className="NavBar-link" as={Link} to="/faq">FAQ</Nav.Link>
-            
             <Nav.Link className="NavBar-link" as={Link} to="/register">Register</Nav.Link>
             <Nav.Link className="NavBar-link" as={Link} to="/contact">Contact</Nav.Link>
           </Nav>
