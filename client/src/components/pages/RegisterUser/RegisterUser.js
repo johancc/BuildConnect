@@ -30,7 +30,7 @@ const RegisterSchema = Yup.object().shape({
             /^[A-Za-z0-9\s$&+,:;=?@#|'<>.^*()%!-]{6,}$/,
             "Password must be at least 6 characters long."
         ),
-    passwordConfirmation: Yup.string()
+    confirmpassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match.")
         .required("Password Confirmation Required."),
 });
@@ -56,16 +56,28 @@ const RegisterUser = () => {
             name: "",
             email: "",
             password: "",
-            passwordConfirmation: "",
+            confirmpassword: "",
             major: "",
         },
         onSubmit: handleSubmit,
         validationSchema: RegisterSchema,
     });
-
-    const fieldGetters = [getNameField, getEmailField, getPasswordField, getMajorField];
-
-    const fields = fieldGetters.map((field) => field(formik));
+    // Every subarray is a row.
+    const fieldOrder = [
+        [getNameField, getMajorField], 
+        [getEmailField], 
+        [getPasswordField]
+    ];
+    const fields = fieldOrder.map((fieldRow, i) => {
+        return(
+        <Form.Row key={"row" + i}>
+            {fieldRow.map((field) => {
+                return field(formik)})}
+        </Form.Row>
+        )
+        });
+    
+    //const fields = fieldGetters.map((field) => field(formik));
     const header = (
         <Jumbotron fluid style={{ backgroundColor: "#ebf5fa" }}>
             <Container>
@@ -82,10 +94,8 @@ const RegisterUser = () => {
         <div className="RegisterUser-container" style={{ backgroundColor: "#ebf5fa" }}>
             {header}
             <Form noValidate onSubmit={formik.handleSubmit}>
-                {fields.map((field, i) => {
-                    return <Form.Row key={i}>{field}</Form.Row>
-                })}
-                <Button onClick={(event) => formik.submitForm()}>Create account</Button>
+                {fields}
+                <Button onClick={() => formik.submitForm()}>Create account</Button>
             </Form>
         </div>
         
