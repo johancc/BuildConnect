@@ -57,7 +57,7 @@ if (!googleServiceAccount) {
 
 firebase.initializeApp({
   credential: firebase.credential.cert(googleServiceAccount);
-  databaseURL: "//TODO"
+  databaseURL: ""//TODO
 })
 
 // create a new express server
