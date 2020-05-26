@@ -29,7 +29,7 @@ const path = require("path"); // provide utilities for working with file and dir
 const fs = require("fs"); // needed to read credentials
 const api = require("./api"); // api endpoints
 const compression = require("compression"); 
-
+const firebase = require("firebase-admin")
 
 // Server configuration below
 require("dotenv").config();
@@ -56,8 +56,8 @@ if (!googleServiceAccount) {
 };
 
 firebase.initializeApp({
-  credential: firebase.credential.cert(googleServiceAccount);
-  databaseURL: ""//TODO
+  credential: firebase.credential.cert(googleServiceAccount),
+  //databaseURL: ""//TODO
 })
 
 // create a new express server

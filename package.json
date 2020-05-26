@@ -6,7 +6,8 @@
   "scripts": {
     "hotloader": "webpack-dev-server --config ./webpack.config.js --mode development --port 5000",
     "start": "nodemon --ignore client/",
-    "build": "webpack"
+    "build": "webpack",
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "express": "^4.16.4",
     "express-session": "^1.17.0",
     "firebase": "^7.14.5",
+    "firebase-admin": "^8.12.1",
     "formik": "^2.1.4",
     "google-auth-library": "^5.5.1",
     "mongoose": "^5.7.7",

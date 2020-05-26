@@ -14,8 +14,8 @@ const router = express.Router();
 const firebaseMiddleware = require("./auth.js");
 
 // import models so we can interact with the database
-import User from "./models/user.js";
-import Project from "./models/project.js";
+const User = require("./models/user.js");
+const Project  = require("./models/project.js");
 
 // api endpoints: all these paths will be prefixed with "/api/"
 
