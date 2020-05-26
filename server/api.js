@@ -20,7 +20,7 @@ import Project from "./models/project.js";
 // api endpoints: all these paths will be prefixed with "/api/"
 
 // GET
-router.get("/listProjects", (req, res) => {
+router.get("/listProjects", firebaseMiddleware, (req, res) => {
     const limit = req.query.limit || 10;
     const categories = req.query.categories || [];
 
@@ -61,15 +61,15 @@ router.get("/project", firebaseMiddleware, (req, res) => {
  * Returns:
  *  returns the document stored in documents
  */
-router.post("/addUser", (req,res) => {
+router.post("/addUser", firebaseMiddleware, (req,res) => {
     let newUser = User(req.body.user);
     newUser.save()
         .then((user) => res.send(user))
         .catch((err) => res.sendStatus(500).json(err));
-})
+});
 
 
-router.post("/addProject", (req, res) => {
+router.post("/addProject", firebaseMiddleware, (req, res) => {
     // Update should be reflected by the user and project documents.
     let newProject = Project(req.body.project);
     newProject.save()
