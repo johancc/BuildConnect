@@ -23,6 +23,7 @@ import Explore3 from "../../../public/explore3.svg";
 const EXPLORE_IMGS = [Explore1, Explore2, Explore3];
 
 // Remove once the backend is implemented!
+let MOCK_FACTOR = 24;
 let MOCK_DATA = {
     title: "The Next Big Thing",
     tweet_description: "What's the next big thing? Find out soon",
@@ -42,6 +43,7 @@ let MOCK_DATA = {
 
 let SORT_OPTIONS = ["Newest", "Popularity"];
 let CATEGORY_OPTIONS = ["Software", "Mechanical", "Electrical"];
+
 /**
  * Internal Spec:
  *  The search function should support tags and full-text search.
@@ -63,10 +65,10 @@ class Explore extends Component {
             return Math.floor(Math.random() * Math.floor(max));
         }
         this.state = {
-            projects: Array(15).fill(MOCK_DATA),
+            projects: Array(MOCK_FACTOR).fill(MOCK_DATA),
             sort: "Newest",
             category: "Any",
-            imgIndex: getRandomInt(3),
+            imgIndex: getRandomInt(EXPLORE_IMGS.length),
         }
     }
 
@@ -81,7 +83,7 @@ class Explore extends Component {
            {
                this.state.projects.map((proj, i) => {
                    return (
-                       <ProjectCard className="Explore-card" projectData={proj}/>
+                       <ProjectCard className="Explore-card" projectData={proj} key={i}/>
                    )
                })
            }

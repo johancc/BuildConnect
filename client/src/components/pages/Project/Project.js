@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Image from 'react-bootstrap/Image';
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
-import JoinRequest from "../modules/JoinRequest.js";
+import JoinRequest from "../../modules/JoinRequest.js";
 
 import "./Project.css";
 

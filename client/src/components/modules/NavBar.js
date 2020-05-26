@@ -28,7 +28,6 @@ class NavBar extends Component {
             <Nav.Link className="NavBar-link" as={Link} to="/explore">Explore</Nav.Link>
             <Nav.Link className="NavBar-link" as={Link} to="/project">Project</Nav.Link>
             <Nav.Link className="NavBar-link" as={Link} to="/faq">FAQ</Nav.Link>
-            <Nav.Link className="NavBar-link" as={Link} to="/whoweare">Who We Are</Nav.Link>
             <Nav.Link className="NavBar-link" as={Link} to="/contact">Contact</Nav.Link>       
           </Nav>
         </Navbar.Collapse>

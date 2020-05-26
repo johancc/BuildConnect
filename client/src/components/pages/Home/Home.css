@@ -7,7 +7,6 @@
 }
 .Home-top {
     display: flex;
-    max-height: minmax(200px, 20vh);
     width: 100%;
     padding: var(--l);
     flex-direction: row;
@@ -27,10 +26,19 @@
 
 .Home-desc {
     font-family: "Roboto";
-    font-size: 24px;
 }
 
 .Home-img {
     width: 100%;
     height: 100%;
+}
+
+.Home-middle {
+    text-align: center;
+    padding: var(--m);
+
+}
+
+.Home-middle h1 {
+    
 }

@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
     firebase_uid: String,
     name: String,
     email: String,
-    skills: [mongoose.Types.String],
     major: String,
     projects: [mongoose.Types.ObjectId],
     public: Boolean,

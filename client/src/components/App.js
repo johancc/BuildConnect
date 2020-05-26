@@ -6,9 +6,9 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createGenerateClassName } from "@material-ui/core/styles";
 import JssProvider from "react-jss/lib/JssProvider";
 // Pages
-import Home from "./pages/Home.js";
-import NotFound from "./pages/NotFound.js";
-import Project from "./pages/Project.js";
+import Home from "./pages/Home/Home.js";
+import NotFound from "./pages/NotFound/NotFound.js";
+import Project from "./pages/Project/Project.js";
 import Explore from "./pages/Explore/Explore.js";
 
 // to use styles, import the necessary CSS files
