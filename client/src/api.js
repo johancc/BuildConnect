@@ -1,4 +1,4 @@
-import { auth } from "firebase_config.js";
+import { auth } from "./firebase_config.js";
 import { post } from "./utilities.js";
 
 export const createNewUser = async (values) => {
@@ -7,7 +7,6 @@ export const createNewUser = async (values) => {
         await auth.createUserWithEmailAndPassword(values.email, values.password);
         tokenId = await auth.currentUser.getIdToken();
         await postUser(tokenId, values);
-
         await auth.currentUser.sendEmailVerification();
     } catch (err) {
         if (tokenId) await post("/api/removeUser", {token: tokenId}); // Remove from firebase if creation failed somehow.
@@ -15,7 +14,7 @@ export const createNewUser = async (values) => {
     }
 };
 
-export const updateUser = async (user, tokenId) => {
+export const updateUser = async (tokenId, user) => {
     await post("/api/updateUser", { user: user, token: tokenId});
     return user;
 }

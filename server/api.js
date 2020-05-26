@@ -62,6 +62,7 @@ router.get("/project", firebaseMiddleware, (req, res) => {
  *  returns the document stored in documents
  */
 router.post("/addUser", firebaseMiddleware, (req,res) => {
+    
     let newUser = User(req.body.user);
     newUser.save()
         .then((user) => res.send(user))

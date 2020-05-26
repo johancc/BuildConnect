@@ -3,8 +3,12 @@
  * the profile and account creation page.
  */
 import fieldGenerator from "./FieldGenerator.js";
+import React from "react";
 
- export const getNameField = (formik) => {
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+
+export const getNameField = (formik) => {
      return fieldGenerator("name", formik, 4);
  };
 
@@ -19,10 +23,38 @@ export const getEmailField = (formik) => {
 };
 
 
+// We aren't using the generic generator because we need
+// to make the password hidden.
 export const getPasswordField = (formik) => {
-    return fieldGenerator("password", formik, 6);
+    return (
+    <Form.Group as={Col} md="6" controlId={"validationpassword"}>
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+            name="password"
+            {...formik.getFieldProps("password")}
+            isInvalid={formik.touched.password && formik.errors.password}
+            required
+            type="password"
+            placeholder="Password"
+        />
+        <Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
+    </Form.Group>
+    );
 }
 
 export const getConfirmPasswordField = (formik) => {
-    return fieldGenerator("confirm password", formik, 6);
+    return (
+        <Form.Group as={Col} md="6" controlId={"validationconfirmpassword"}>
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+                name="confirmpassword"
+                {...formik.getFieldProps("confirmpassword")}
+                isInvalid={formik.touched.confirmpassword && formik.errors.confirmpassword}
+                required
+                type="password"
+                placeholder="Confirm Password"
+            />
+            <Form.Control.Feedback type="invalid">{formik.errors.confirmpassword}</Form.Control.Feedback>
+        </Form.Group>
+        );
 }

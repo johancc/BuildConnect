@@ -3,6 +3,7 @@
  */
 import React from "react";
 import Button from "react-bootstrap/Button";
+import { createNewUser } from "../../../api.js";
 import { useNavigate } from "@reach/router";
 import {
     getNameField, getEmailField, getPasswordField, getConfirmPasswordField,
