@@ -77,18 +77,20 @@ router.post("/removeUser", firebaseMiddleware, (req, res) => {
         .catch((err) => res.sendStatus(500).json(err));
 })
 
-
 router.post("/addProject", firebaseMiddleware, (req, res) => {
     // Update should be reflected by the user and project documents.
     let newProject = Project(req.body.project);
     newProject.save()
     .then((proj) => {
-        User.findById(req.body.user._id).then((user) => {
-            user.projects.append(proj._id);
+        User.findOne({firebase_uid: req.user.user_id}).then((user) => {
+            console.log(user);
+            user.projects = user.projects || [];
+            user.projects.push(proj._id);
             user.save().then((user) => res.send(user));
         })
     })
     .catch((err) => {
+        console.log(err);
         res.sendStatus(500).json(err);
     })
 });

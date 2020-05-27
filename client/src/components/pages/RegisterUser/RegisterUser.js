@@ -13,7 +13,7 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Form } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import "./RegisterUser.css";
 
 const RegisterSchema = Yup.object().shape({
@@ -42,7 +42,6 @@ const RegisterUser = () => {
     const handleSubmit = async (values) => {
         
         const user = { ...values};
-        console.log(user);
         createNewUser(user)
             .then(() => {
                 navigate("/explore");
@@ -69,13 +68,13 @@ const RegisterUser = () => {
         [getPasswordField, getConfirmPasswordField]
     ];
     const fields = fieldOrder.map((fieldRow, i) => {
-        return(
+        return (
         <Form.Row key={"row" + i}>
             {fieldRow.map((field) => {
                 return field(formik)})}
         </Form.Row>
-        )
-        });
+        );
+    });
     
     //const fields = fieldGetters.map((field) => field(formik));
     const header = (

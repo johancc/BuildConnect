@@ -1,0 +1,16 @@
+.RegisterProject-container {
+    padding: var(--l);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 2500px;
+    justify-content: center;
+}
+
+.RegisterProject-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.5em;
+}
