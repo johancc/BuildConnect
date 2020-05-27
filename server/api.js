@@ -37,7 +37,6 @@ router.get("/listProjects", firebaseMiddleware, (req, res) => {
 router.get("/user", firebaseMiddleware, (req,res) => {
     User.findOne({firebase_uid: req.user.user_id})
         .then((user) => {
-            console.log(user);
             res.send(user);
         })
         .catch((err) => {
@@ -83,14 +82,12 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
     newProject.save()
     .then((proj) => {
         User.findOne({firebase_uid: req.user.user_id}).then((user) => {
-            console.log(user);
             user.projects = user.projects || [];
             user.projects.push(proj._id);
             user.save().then((user) => res.send(user));
         })
     })
     .catch((err) => {
-        console.log(err);
         res.sendStatus(500).json(err);
     })
 });

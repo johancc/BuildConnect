@@ -16,6 +16,7 @@ import {
     getTweetDescriptionField,
     getLinkField,
     getTeamDescriptionField,
+    getDateField,
     getContactInfoField,
     getTeamSizeField,
     getHelpNeededField,
@@ -33,8 +34,7 @@ const ProjectSchema = Yup.object().shape({
     tweetDescription: Yup.string().required("Please enter a one/two sentence description."),
     description: Yup.string().required("Please enter a description of your project."),
     teamSize: Yup.number().required("Please enter the team size"),
-    //people: Yup.array(),
-    //dateStarted: Yup.date().required("Please enter the date the project started"),
+    dateStarted: Yup.date().required("Please enter the date the project started"),
     helpNeeded: Yup.string().required("Please describe the help needed in this project"),
     teamDescription: Yup.string().required("Please describe your team"),
     link: Yup.string(),
@@ -47,7 +47,6 @@ const RegisterProject = () => {
     const userProvider = useContext(UserContext);
 
     const handleSubmit = async (values) => {
-        alert("clicko!")
         const project = {...values};
         console.log(project);
         createNewProject(project, userProvider.user.token)
@@ -65,7 +64,7 @@ const RegisterProject = () => {
             tweetDescription: "",
             description: "",
             teamSize: 1,
-          //  dateStarted: Date.now(),
+            dateStarted: Date.now(),
             helpNeeded: "", 
             teamDescription: "",
             link: "",
@@ -77,8 +76,8 @@ const RegisterProject = () => {
     });
 
     const fieldOrder = [
-        [getProjectNameField, getTweetDescriptionField],
-        [getDescriptionField],
+        [getProjectNameField, getTweetDescriptionField, getDateField],
+        [getDescriptionField,],
         [getTeamDescriptionField, getTeamSizeField],
         [getHelpNeededField, getSkillsNeededField],
         [getContactInfoField, getLinkField],
