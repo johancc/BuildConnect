@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: String,
     major: String,
+    photoURL: String,
     projects: [mongoose.Types.ObjectId],
     public: Boolean,
 });

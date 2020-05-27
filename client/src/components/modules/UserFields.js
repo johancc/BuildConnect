@@ -12,8 +12,6 @@ export const getNameField = (formik) => {
      return fieldGenerator("name", formik, 4);
  };
 
-
-
 export const getMajorField = (formik) => {
     return fieldGenerator("major", formik, 4);
 };
@@ -21,7 +19,6 @@ export const getMajorField = (formik) => {
 export const getEmailField = (formik) => {
     return fieldGenerator("email", formik, 4);
 };
-
 
 // We aren't using the generic generator because we need
 // to make the password hidden.
