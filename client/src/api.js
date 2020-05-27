@@ -20,7 +20,8 @@ export const updateUser = async (tokenId, user) => {
 }
 
 export const createNewProject = async (values, tokenId) => {
-    return await (post("/api/addProject", {project: values, token: tokenId}));
+    // If the file exists read it and upload
+    return post("/api/addProject", {project: values, token: tokenId});
 }
 
 const postUser = async (tokenId, values) => {

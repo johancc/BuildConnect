@@ -78,14 +78,17 @@ router.post("/removeUser", firebaseMiddleware, (req, res) => {
 
 router.post("/addProject", firebaseMiddleware, (req, res) => {
     // Update should be reflected by the user and project documents.
+    // TODO: We are using req.body.project.imageData as the base64 image data.
+    // This should be uploaded to GCP and the resulting url stored in req.body.project.imageURL;
+
     let newProject = Project(req.body.project);
     newProject.save()
     .then((proj) => {
         User.findOne({firebase_uid: req.user.user_id}).then((user) => {
             user.projects = user.projects || [];
             user.projects.push(proj._id);
-            user.save().then((user) => res.send(user));
-        })
+            user.save().then(() => res.send(proj));
+        });
     })
     .catch((err) => {
         res.sendStatus(500).json(err);

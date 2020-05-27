@@ -15,7 +15,7 @@ export const getTweetDescriptionField = (formik) => {
 }
 
 export const getDescriptionField= (formik) => {
-    return fieldGenerator("description", formik, 12);
+    return fieldGenerator("description", formik, 10);
 }
 
 export const getLinkField = (formik) => {
@@ -53,8 +53,26 @@ export const getDateField = (formik) =>  {
                 isInvalid={formik.touched[fieldName] && formik.errors[fieldName]}
                 required
                 type="date"
-                placeholder={Date.now().toString()}
+                placeholder={Date.now()}
             />
             <Form.Control.Feedback type="invalid">{formik.errors[fieldName]}</Form.Control.Feedback>
         </Form.Group>)
+};
+
+export const getImageField = (formik, setFieldValue) => {
+    const fieldName = "image";
+    return (
+        <Form.Group as={Col} md="2" controlId={"validation" + fieldName}>
+            <Form.Label>Project Image</Form.Label>
+            <Form.Control
+                name={fieldName}
+                {...formik.getFieldProps(fieldName)}
+                isInvalid={formik.touched[fieldName] && formik.errors[fieldName]}
+                required
+                type="file"
+                accept="image/*"
+            />
+            <Form.Control.Feedback type="invalid">{formik.errors[fieldName]}</Form.Control.Feedback>
+        </Form.Group>
+    )
 }
