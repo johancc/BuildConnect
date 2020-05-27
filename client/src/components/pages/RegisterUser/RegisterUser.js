@@ -57,7 +57,7 @@ const RegisterUser = () => {
             email: "",
             password: "",
             confirmpassword: "",
-            major: "",
+            major: ""
         },
         onSubmit: handleSubmit,
         validationSchema: RegisterSchema,

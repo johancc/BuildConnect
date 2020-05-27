@@ -95,6 +95,19 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
     })
 });
 
+/**
+ * Updates a user's information.
+ * Params:
+ *  update - an object with all the fields to be updated (see user schema for possible fields)
+ *  photoData - a string with binary data of a photo
+ * Returns:
+ *  returns the user's information
+ */
+router.post("/updateUser", firebaseMiddleware, (req, res) => {
+    // TODO: extract update from req.body.update and convert photoData from req.body to a photoURL to store in update
+    // then apply the update to the User database
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
     console.log(`API route not found: ${req.method} ${req.url}`);

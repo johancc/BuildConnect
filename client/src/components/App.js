@@ -18,6 +18,7 @@ import Project from "./pages/Project/Project.js";
 import Explore from "./pages/Explore/Explore.js";
 import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
 import RegisterProject from "./pages/RegisterProject/RegisterProject.js";
+import Profile from "./pages/Profile/Profile.js";
 
 // to use styles, import the necessary CSS files
 import "../utilities.css";
@@ -49,6 +50,7 @@ class App extends Component {
                 <AuthenticatedPage path="/project/:_id" component={Project}/>
                 <AuthenticatedPage path="/explore" component={Explore} />
                 <AuthenticatedPage path="/registerProject" component={RegisterProject}/>
+                <AuthenticatedPage path="/profile" component={Profile} />
                 <RegisterUser path="/register" />
                 <NotFound default />
               </Router>

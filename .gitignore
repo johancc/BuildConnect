@@ -104,3 +104,6 @@ typings/
 
 # Firebase Service Account file
 google-credentials-heroku.json
+
+# IDE files
+.idea/

@@ -41,6 +41,7 @@ const NavBar = () => {
           <Nav.Link className="NavBar-link" as={Link} to="/explore" >Explore</Nav.Link>
           <Nav.Link className="NavBar-link" as={Link} to="/registerProject">Add a project</Nav.Link>
           <Nav.Link className="NavBar-link" as={Link} to="/project/123456">Project</Nav.Link>
+          <Nav.Link className="NavBar-link" as={Link} to="/profile">Profile</Nav.Link>
           <Button onClick={() => {
               logout()
               navigate("/");
