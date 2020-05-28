@@ -31,6 +31,7 @@ const api = require("./api"); // api endpoints
 const compression = require("compression"); 
 const firebase = require("firebase-admin")
 
+
 // Server configuration below
 require("dotenv").config();
 
@@ -124,3 +125,4 @@ const server = http.Server(app);
 server.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });
+

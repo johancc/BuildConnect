@@ -12,6 +12,8 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 import Button from "@material-ui/core/Button";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+// TODO: Delete later
+import { updateUser } from "../../api";
 
 /**
  * The navigation bar at the top of all pages. Takes no props.
@@ -36,6 +38,7 @@ const NavBar = () => {
   );
 
   const loggedIn = userProvider.user !== undefined;
+  // TODO: Delete later: Remove upload button after testing
   let userLinks = loggedIn ? (
       <>
           <Nav.Link className="NavBar-link" as={Link} to="/explore" >Explore</Nav.Link>
@@ -47,6 +50,11 @@ const NavBar = () => {
               navigate("/");
             }}>
               Sign Out
+          </Button>
+          <Button onClick={() => {
+              updateUser(userProvider.user.token, {photoData: "0101"});
+          }}>
+              Upload
           </Button>
       </>
       ) : (

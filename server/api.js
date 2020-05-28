@@ -13,9 +13,15 @@ const router = express.Router();
 // For auth
 const firebaseMiddleware = require("./auth.js");
 
+// For uploading photos to google cloud storage
+const { DEFAULT_BUCKET_NAME } = require("./cloud_auth");
+const { uploadFileToGCS, deleteFileFromGCS } = require("./google_cloud_storage.js");
+
 // import models so we can interact with the database
 const User = require("./models/user.js");
 const Project  = require("./models/project.js");
+
+const path = require("path"); // provide utilities for working with file and directory paths
 
 // api endpoints: all these paths will be prefixed with "/api/"
 
@@ -99,13 +105,22 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
  * Updates a user's information.
  * Params:
  *  update - an object with all the fields to be updated (see user schema for possible fields)
- *  photoData - a string with binary data of a photo
+ *  imageData - a string object with image data
  * Returns:
  *  returns the user's information
  */
 router.post("/updateUser", firebaseMiddleware, (req, res) => {
-    // TODO: extract update from req.body.update and convert photoData from req.body to a photoURL to store in update
-    // then apply the update to the User database
+    // TODO:
+    //  0) verify user has access, otherwise return error
+    //  1) extract update from req.body.update
+    //  2) if req.body contains imageData => upload imageData to google cloud:
+    //      a) if successful:
+    //          i) if user has old photoURL: remove old photo from google cloud
+    //          ii) add {photoURL: new URL} to `update`
+    //      b) else: do nothing (or return error)?
+    //  3) update the user's entry in mongo db with `update`
+
+    res.send({OK: 'ok'});
 });
 
 // anything else falls to this "not found" case
