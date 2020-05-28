@@ -12,6 +12,15 @@ const {v4: uuidv4 } = require('uuid');
 // Returns the public url of an uploaded file
 const getPublicURL = (bucketName, fileName) => `https://storage.googleapis.com/${bucketName}/${fileName}`;
 
+// Returns the file name given a public url
+const getFileNameFromURL = (URL) => {
+    try {
+        return URL.match(`https://storage.googleapis.com/.*/(.*)`)[1];
+    } catch {
+        return "";
+    }
+}
+
 // Default options for uploading files
 const DEFAULT_OPTIONS = {
     metadata: {
@@ -27,13 +36,14 @@ const DEFAULT_OPTIONS = {
 //  options: options for uploading
 // Returns:
 //  returns the public url of the uploaded file
+// TODO: Debug this to work with updateUser
 const uploadFileToGCS  = (fileContent, bucketName, options) => {
     options = options || DEFAULT_OPTIONS
     const bucket = storage.bucket(bucketName);
     const fileName = uuidv4();
     const file = bucket.file(fileName)
 
-    file.save(fileContent, options, function(err) {
+    return file.save(fileContent, options, function(err) {
         if (!err) {
             return getPublicURL(bucketName, fileName)
         } else {
@@ -70,5 +80,6 @@ const deleteFileFromGCS = (fileName, bucketName) => {
 module.exports = {
     uploadFileToGCS,
     uploadLocalFileToGCS,
-    deleteFileFromGCS
+    deleteFileFromGCS,
+    getFileNameFromURL
 }

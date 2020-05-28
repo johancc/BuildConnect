@@ -15,7 +15,7 @@ const firebaseMiddleware = require("./auth.js");
 
 // For uploading photos to google cloud storage
 const { DEFAULT_BUCKET_NAME } = require("./cloud_auth");
-const { uploadFileToGCS, deleteFileFromGCS } = require("./google_cloud_storage.js");
+const { uploadFileToGCS, deleteFileFromGCS, getFileNameFromURL } = require("./google_cloud_storage.js");
 
 // import models so we can interact with the database
 const User = require("./models/user.js");
@@ -119,12 +119,27 @@ router.post("/updateUser", firebaseMiddleware, (req, res) => {
     //  1) extract update from req.body.update
     //  2) if req.body contains imageData => upload imageData to google cloud:
     //      a) if successful:
-    //          i) if user has old photoURL: remove old photo from google cloud
-    //          ii) add {photoURL: new URL} to `update`
+    //          i) add {photoURL: new URL} to `update`
+    //          ii) if user has old photoURL: remove old photo from google cloud
     //      b) else: do nothing (or return error)?
     //  3) update the user's entry in mongo db with `update`
 
-    res.send({OK: 'ok'});
+    // TODO: DED, not sure how to implement this thing
+
+    let photoData = req.body.user.photoData;
+    delete req.body.user.photoData;
+    console.log("attempting to upload")
+    uploadFileToGCS(photoData, DEFAULT_BUCKET_NAME, async (url) => {
+        if (url) req.body.user.photoURL = url;
+        console.log(url);
+        User.updateOne({firebase_uid: req.user.user_id}, req.body.user)
+            .then((user) => {
+                res.send(user);
+            })
+            .catch(err =>
+                res.sendStatus(500).json({err}));
+    });
+
 });
 
 
