@@ -24,6 +24,12 @@ export const createNewProject = async (values, tokenId) => {
     return post("/api/addProject", {project: values, token: tokenId});
 }
 
+export const requestToJoin = async (message, projectID, tokenId) => {
+    return post("/api/requestToJoin", {message: message,  projectID: projectID, token: tokenId})
+};
+
+
 const postUser = async (tokenId, values) => {
     return await post("/api/addUser", {user: values, token: tokenId});
 }
+

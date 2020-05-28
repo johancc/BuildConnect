@@ -22,6 +22,7 @@ let MOCK_DATA = {
                  comfortable with python? UX? Management skills?",
     team_description: "Out team members are based on the each coast. Some of the include Alyssa P Hacker (allysa@mit.edu) and Ben Bitdiddle (benbit@mit.edu). ",
     members: "Just me.",
+    _id: "5ecf187e83152f015ce8364f",
     link: "www.github.com/user/somethinggreat",
     contact_info: "Please email someemail@mit.edu if you have any questions.",
     skills_needed: ["breathing", "existing", "able to send emails"]
@@ -85,7 +86,7 @@ Design Details:
                                 <div style={{justifyContent: "space-between", display: "flex", flexDirection: "row", alignItems:"center"}}>
                                     <b> <Timelapse /> Posted 9 days ago </b>
                                     <b> <EmojiPeople /> {this.state.projectData.people_size} members</b>
-                                    <JoinRequest/>
+                                    <JoinRequest projectID={this.state.projectData._id}/>
                                 </div>
 
                                 
@@ -183,7 +184,6 @@ Design Details:
         let projectHeader = this.getProjectHeader();
         let projectAbout = this.getProjectAbout();
         let projectContact = this.getProjectContact();
-        let volunteerInfo = this.getVolunteerInfo();
         return (
             <div className="Project-container">
                 <div className="col-md-12" style={{padding: 0}}>
