@@ -63,9 +63,6 @@ const sendJoinRequestEmails = async (user, message, ownerEmail, cb) => {
     }
 
     transporter.sendMail(verificationEmailOptions, (err, info) => {
-        console.log("Sent!")
-        console.log(err);
-        console.log(info);
         console.log(nodemailer.getTestMessageUrl(info));
         cb({})
     });
