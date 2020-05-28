@@ -51,10 +51,9 @@ const NavBar = () => {
             }}>
               Sign Out
           </Button>
-          <Button onClick={async () => {
-              userProvider.user.photoData = "1234";
-              const r = await updateUser(userProvider.user.token, userProvider.user);
-              console.log(r);
+          <Button onClick={ () => {
+              userProvider.user.photoData = "123456789";
+              updateUser(userProvider.user.token, userProvider.user);
           }}>
               Upload
           </Button>

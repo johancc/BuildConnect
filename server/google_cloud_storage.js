@@ -30,27 +30,39 @@ const DEFAULT_OPTIONS = {
     validation: "md5"
 };
 
-// Params:
-//  fileContent: file content to upload
-//  bucketName: name of bucket to upload to
-//  options: options for uploading
-// Returns:
-//  returns the public url of the uploaded file
-// TODO: Debug this to work with updateUser
-const uploadFileToGCS  = (fileContent, bucketName, options) => {
-    options = options || DEFAULT_OPTIONS
+// // Params:
+// //  fileContent: file content to upload
+// //  bucketName: name of bucket to upload to
+// //  options: options for uploading
+// // Returns:
+// //  returns the public url of the uploaded file
+// const uploadFileToGCS  = (fileContent, bucketName, options) => {
+//     options = options || DEFAULT_OPTIONS
+//     const bucket = storage.bucket(bucketName);
+//     const fileName = uuidv4();
+//     const file = bucket.file(fileName)
+
+//     return file.save(fileContent, options, function(err) {
+//         if (!err) {
+//             return getPublicURL(bucketName, fileName)
+//         } else {
+//             return ""
+//         }
+//     })
+// };
+
+const uploadFileToGCS =  (fileContent, bucketName, options ) => {
+    options = options || DEFAULT_OPTIONS;
     const bucket = storage.bucket(bucketName);
     const fileName = uuidv4();
     const file = bucket.file(fileName)
-
-    return file.save(fileContent, options, function(err) {
-        if (!err) {
-            return getPublicURL(bucketName, fileName)
-        } else {
-            return ""
-        }
-    })
-};
+    return file
+            .save(fileContent, options)
+            .then((err) => {
+                if (err.length !== 0) return;
+                return getPublicURL(bucketName, fileName);
+            });
+}
 
 // Params:
 //  localFilePath: local path of the file
@@ -81,5 +93,6 @@ module.exports = {
     uploadFileToGCS,
     uploadLocalFileToGCS,
     deleteFileFromGCS,
-    getFileNameFromURL
+    getFileNameFromURL,
+    getPublicURL,
 }

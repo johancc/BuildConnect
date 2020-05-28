@@ -1,9 +1,10 @@
-const path = require("path"); // provide utilities for working with file and directory paths
-const cloud = require("@google-cloud/storage")
+// Read API key
+const path = require("path"); 
+require("dotenv").config();
 
-// connect to google cloud account
 const serviceKey = path.join(__dirname, "..", "/google-cloud-credentials-heroku.json");
-console.log(serviceKey);
+// Google Cloud Auth & Storage 
+const cloud = require("@google-cloud/storage")
 const { Storage } = cloud;
 const storage = new Storage({
     keyFilename: serviceKey,
