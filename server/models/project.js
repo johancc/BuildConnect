@@ -12,7 +12,8 @@ const projectSchema = new mongoose.Schema({
     teamDescription: String,
     link: String,
     contactInfo: String,
-    skillsNeeded: String
+    skillsNeeded: String,
+    projectOwner: mongoose.Types.ObjectId,
 });
 
 // compile model from schema

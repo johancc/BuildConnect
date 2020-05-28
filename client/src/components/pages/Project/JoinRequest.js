@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TextField from "@material-ui/core/TextField";
 
-function JoinRequest() {
-    const [show, setShow] = useState(false);
+import { UserContext } from "../../../providers/UserProvider.js";
+import { requestToJoin } from "../../../api.js";
 
+
+const JoinRequest = ({projectID}) => {
+    const [show, setShow] = useState(false);
+    const userProvider = useContext(UserContext);
     const [message, setMessage ] = useState("");
 
     let handleSubmit = (event) => {
-        alert("Messsage sent!")
         event.preventDefault();
-    }
+        console.log("sending...")
+        requestToJoin(message, projectID, userProvider.user.token)
+            .then((resp) => {
+                alert("Message sent!");
+                setMessage("");
+                setShow(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     return (
         <>
             <Button variant="primary" onClick={() => setShow(true)} >
@@ -34,7 +48,7 @@ function JoinRequest() {
                         <p> You can include a note about why you're interested and anything else
                             the project owner should know.
                         </p>
-                        <form noValidate autoComplete="off">
+                        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                             
                             <TextField
                                 id="message"
@@ -44,8 +58,13 @@ function JoinRequest() {
                                 fullWidth
                                 helperText="What do you like about this project?"
                                 multiline
+                                value={message}
+                                onInput={e => setMessage(e.target.value)}
                                 rows={4}
                                 rowsMax={6}
+                            />
+                            <Button
+                             type="submit"
                             />
                         </form>
                     </>

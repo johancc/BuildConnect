@@ -21,7 +21,9 @@ const { uploadFileToGCS, deleteFileFromGCS } = require("./google_cloud_storage.j
 const User = require("./models/user.js");
 const Project  = require("./models/project.js");
 
-const path = require("path"); // provide utilities for working with file and directory paths
+// Email utilities.
+const email = require("./email.js");
+
 
 // api endpoints: all these paths will be prefixed with "/api/"
 
@@ -88,17 +90,19 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
     // This should be uploaded to GCP and the resulting url stored in req.body.project.imageURL;
 
     let newProject = Project(req.body.project);
-    newProject.save()
-    .then((proj) => {
-        User.findOne({firebase_uid: req.user.user_id}).then((user) => {
-            user.projects = user.projects || [];
-            user.projects.push(proj._id);
-            user.save().then(() => res.send(proj));
-        });
-    })
-    .catch((err) => {
+    User.findOne({firebase_uid: req.user.user_id}).then((projOwner) => {
+        newProject.projectOwner = projOwner._id;
+
+        // Only update the user's projects once the project is saved.
+        newProject.save()
+            .then((proj) => {
+                projOwner.projects = projOwner.projects || [];
+                projOwner.projects.push(proj._id);
+                projOwner.save().then(()=> res.send(proj));  
+            })
+    }).catch((err) => {
         res.sendStatus(500).json(err);
-    })
+    });
 });
 
 /**
@@ -122,6 +126,42 @@ router.post("/updateUser", firebaseMiddleware, (req, res) => {
 
     res.send({OK: 'ok'});
 });
+
+
+/**
+ * Parameters:
+ *      message - a string with the personal message to be sent to the project owner.
+ *      user - an object detailing the user that is making the request
+ *      projectID - a string, the UID for the project.
+ */
+router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
+    
+    /**
+     * Order of operations:
+     *  Find the project that the user is requesting to join
+     *  Find who the owner is based on the projectOwnerID
+     *  Email the owner and the user a join and confirmation email respectively.
+     */
+
+    const { message, projectID } = req.body;
+    // Find the project owner.
+    Project.findOne({_id:projectID})
+        .then((proj) =>  User.findOne({_id: proj.projectOwner}))
+        .then((owner) => {
+            const ownerEmail = owner.email;
+            // Find the user's email.
+            return User.findOne({firebase_uid: req.user.user_id})
+                .then((user) => {
+                    return email.sendJoinRequestEmails(user, message, ownerEmail)
+                })
+                
+        }).then((resp) => {
+            res.send(resp);
+        })
+        .catch((err) => {
+            res.sendStatus(500).json(err);
+        })
+})
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
