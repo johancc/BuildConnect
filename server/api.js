@@ -166,12 +166,10 @@ router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
             const ownerEmail = owner.email;
             // Find the user's email.
             return User.findOne({firebase_uid: req.user.user_id})
-                .then((user) => {
-                    return email.sendJoinRequestEmails(user, message, ownerEmail)
+                .then( async (user) => {
+                    email.sendJoinRequestEmails(user, message, ownerEmail, () => res.send({}))
                 })
                 
-        }).then((resp) => {
-            res.send(resp);
         })
         .catch((err) => {
             res.sendStatus(500).json(err);
