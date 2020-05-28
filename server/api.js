@@ -70,12 +70,26 @@ router.get("/project", firebaseMiddleware, (req, res) => {
  *  returns the document stored in documents
  */
 router.post("/addUser", firebaseMiddleware, (req,res) => {
-    
-    let newUser = User(req.body.user);
-    newUser.firebase_uid = req.user.user_id;
-    newUser.save()
-        .then((user) => res.send(user))
-        .catch((err) => res.sendStatus(500).json(err));
+    let userData = req.body.user;
+    userData.firebase_uid = req.user.user_id;
+
+    if (userData.photoData) {
+        // Upload profile pic to GCP
+        return uploadFileToGCS(userData.photoData, DEFAULT_BUCKET_NAME)
+            .then((photoURL) => {
+                delete userData.photoData;
+                if (!photoURL) return userData;
+                userData.photoURL = photoURL;
+                return userData;
+            })
+            .then((userData) => User(userData).save())
+            .then((user) => res.send(user))
+            .catch((err) => res.sendStatus(500).json(err));
+    } else {
+        User(userData).save()
+            .then((user) => res.send(user))
+            .catch((err) => res.sendStatus(500).json(err));
+    }
 });
 
 router.post("/removeUser", firebaseMiddleware, (req, res) => {
@@ -125,7 +139,6 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
  * Updates a user's information.
  * Params:
  *  update - an object with all the fields to be updated (see user schema for possible fields)
- *  imageData - a string object with image data
  * Returns:
  *  returns the user's information
  */
@@ -158,20 +171,54 @@ router.post("/updateUser", firebaseMiddleware, (req, res) => {
 
 
 /**
+ * Updates a user's information.
+ * Params:
+ *  update - an object with all the fields to be updated (see user schema for possible fields)
+ * Returns:
+ *  returns the user's information
+ */
+
+ router.post("/updateProject", firebaseMiddleware, (req, res) => {
+     let updateData = req.body.project;
+
+     if (updateData.photoData) {
+         return uploadFileToGCS(updateData.data, DEFAULT_BUCKET_NAME)
+            .then((photoURL) => {
+                delete updateData.data;
+                if (!photoURL) return updateData;
+                updateData.photoURL = photoURL;
+                return updateData;
+            })
+            .then((updateData) => Project.updateOne({_id: updateData._id}, updateData))
+            .then(Project.findOne({_id: updateData._id}))
+            .then((proj) => res.send(proj))
+            .catch((err) => {
+                res.sendStatus(500).json(err);
+            })
+     } else {
+         Project.updateOne({_id: updateData._id}, updateData)
+                .then(() => Project.findOne({_id: updateData._id}))
+                .then((proj) => res.send(proj))
+                .catch((err) => {
+                    res.sendStatus(500).json(err);
+                });
+     }
+ })
+
+
+/**
  * Parameters:
  *      message - a string with the personal message to be sent to the project owner.
  *      user - an object detailing the user that is making the request
  *      projectID - a string, the UID for the project.
  */
 router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
-    
     /**
      * Order of operations:
      *  Find the project that the user is requesting to join
      *  Find who the owner is based on the projectOwnerID
      *  Email the owner and the user a join and confirmation email respectively.
      */
-
     const { message, projectID } = req.body;
     // Find the project owner.
     Project.findOne({_id:projectID})
