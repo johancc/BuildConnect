@@ -86,20 +86,36 @@ router.post("/removeUser", firebaseMiddleware, (req, res) => {
 
 router.post("/addProject", firebaseMiddleware, (req, res) => {
     // Update should be reflected by the user and project documents.
-    // TODO: We are using req.body.project.imageData as the base64 image data.
     // This should be uploaded to GCP and the resulting url stored in req.body.project.imageURL;
-
-    let newProject = Project(req.body.project);
+    let projectData = req.body.project;
     User.findOne({firebase_uid: req.user.user_id}).then((projOwner) => {
-        newProject.projectOwner = projOwner._id;
+        projectData.projectOwner = projOwner._id;
 
-        // Only update the user's projects once the project is saved.
-        newProject.save()
-            .then((proj) => {
-                projOwner.projects = projOwner.projects || [];
-                projOwner.projects.push(proj._id);
-                projOwner.save().then(()=> res.send(proj));  
-            })
+        // Upload if photoData is provided.
+        if (projectData.photoData) {
+            return uploadFileToGCS(projectData.photoData, DEFAULT_BUCKET_NAME)
+                .then((photoURL) => {
+                    delete projectData.photoData;
+                    if (!photoURL) return projectData;
+                    console.log(photoURL)
+                    projectData.photoURL = photoURL;
+                })
+                .then((projectData) => Project(projectData).save())
+                .then((proj) => {
+                    projOwner.projects = projOwner.projects || [];
+                    projOwner.projects.push(proj._id);
+                    projOwner.save().then(() => res.send(proj));  
+                })
+                .catch((err) => res.sendStatus(500).json(err));
+        } else {
+            Project(projectData).save()
+                .then((proj) => {
+                    projOwner.projects = projOwner.projects || [];
+                    projOwner.projects.push(proj._id);
+                    projOwner.save().then(() => res.send(proj));
+                })
+        }
+            
     }).catch((err) => {
         res.sendStatus(500).json(err);
     });
@@ -114,16 +130,6 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
  *  returns the user's information
  */
 router.post("/updateUser", firebaseMiddleware, (req, res) => {
-    // TODO:
-    //  0) verify user has access, otherwise return error
-    //  1) extract update from req.body.update
-    //  2) if req.body contains imageData => upload imageData to google cloud:
-    //      a) if successful:
-    //          i) add {photoURL: new URL} to `update`
-    //          ii) if user has old photoURL: remove old photo from google cloud
-    //      b) else: do nothing (or return error)?
-    //  3) update the user's entry in mongo db with `update`
-
     let updateData = req.body.user;
     if (updateData.photoData) {
         return uploadFileToGCS(updateData.photoData, DEFAULT_BUCKET_NAME)
@@ -135,14 +141,14 @@ router.post("/updateUser", firebaseMiddleware, (req, res) => {
                 return updateData;
             })
             .then((updateData) => User.updateOne({firebase_uid: req.user.user_id}, updateData))
-            .then( User.findOne({firebase_uid: req.user.user_id}).then((user) => res.send(user)))
+            .then(User.findOne({firebase_uid: req.user.user_id}).then((user) => res.send(user)))
             .catch((err) => {
                 res.sendStatus(500).json(err);
             })
     } else {
         User.updateOne({firebase_uid: req.user.user_id}, updateData)
-            .then((user) => {
-                res.send(user)
+            .then(() => {
+                User.findOne({firebase_uid: req.user.user_id}).then((user) => res.send(user));
             })
             .catch((err) => {
                 res.sendStatus(500).json(err);

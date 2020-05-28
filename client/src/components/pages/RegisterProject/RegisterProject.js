@@ -50,11 +50,9 @@ const RegisterProject = () => {
 
     const loadImage = (imageFile, cb) => {
         const reader = new FileReader();
-        let imageData = undefined;
-        reader.addEventListener("load", (event) => {
-            imageData = event.target.value;
-            cb(imageData);
-        });
+        reader.onload = (e) => {
+            cb(e.target.result);
+        }
         reader.readAsDataURL(imageFile);
     };
 
@@ -63,17 +61,15 @@ const RegisterProject = () => {
         // TODO: this is yank please fix at some point.
         let imageFile = document.getElementById("validationimage").files[0];
         loadImage(imageFile, (imageData) => {
-            project.imageData = imageData;
+            project.photoData = imageData;
             createNewProject(project, userProvider.user.token)
                 .then((proj) => {
                     navigate(`project/${proj._id}`)
                 })
-                .catch((err) => {
-                    console.log(err);
+                .catch(() => {
                     alert("Unable to create new project.")
                 });
-        })
-        //
+        });
     }
 
     const formik = useFormik({

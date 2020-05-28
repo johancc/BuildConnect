@@ -12,8 +12,6 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 import Button from "@material-ui/core/Button";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-// TODO: Delete later
-import { updateUser } from "../../api";
 
 /**
  * The navigation bar at the top of all pages. Takes no props.
@@ -50,12 +48,6 @@ const NavBar = () => {
               navigate("/");
             }}>
               Sign Out
-          </Button>
-          <Button onClick={ () => {
-              userProvider.user.photoData = "123456789";
-              updateUser(userProvider.user.token, userProvider.user);
-          }}>
-              Upload
           </Button>
       </>
       ) : (

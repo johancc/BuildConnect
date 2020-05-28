@@ -66,8 +66,8 @@ const app = express();
 app.use(validator.checkRoutes);
 
 // set up bodyParser, which allows us to process POST requests
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb', extended: true }))
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 
 // use compression to improve speed
 app.use(compression());

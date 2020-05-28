@@ -5,7 +5,7 @@ const projectSchema = new mongoose.Schema({
     projectName: String,
     tweetDescription: String,
     description: String,
-    imageUrl: String,
+    photoURL: String,
     teamSize: Number,
     dateStarted: Date,
     helpNeeded: String,

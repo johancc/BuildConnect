@@ -15,9 +15,7 @@ export const createNewUser = async (values) => {
 };
 
 export const updateUser = async (tokenId, user) => {
-    let resp =  await post("/api/updateUser", { user: user, token: tokenId});
-    console.log(resp);
-    return resp;
+    return await post("/api/updateUser", { user: user, token: tokenId});
 }
 
 export const createNewProject = async (values, tokenId) => {
