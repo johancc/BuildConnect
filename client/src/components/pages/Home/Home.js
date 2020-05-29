@@ -43,13 +43,13 @@ const makeSmallTitle = (title) => {
 const Home = () => {
 
     const applyButtons = (
-        <div class="container">
-            <div class="row justify-content-md-center">
-                <div class="col-md-4">
+        <div className="container">
+            <div className="row justify-content-md-center">
+                <div className="col-md-4">
                     <RoundedButton label={"Apply as a Student "} callback={() => alert("Open form")} />
 
                 </div>
-                <div class="col-md-4">
+                <div className="col-md-4">
                     <RoundedButton label={"Apply as a Mentor"} callback={() => alert("open form")} />
 
                 </div>

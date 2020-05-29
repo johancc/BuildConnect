@@ -81,7 +81,7 @@ const NavBar = () => {
                 <Navbar.Toggle className="NavBar-toggle" aria-controls="responsive-navbar-nav"  />
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
 
-                    <Nav pullRight className="NavBar-linkContainer">
+                    <Nav className={`NavBar-linkContainer ${'ml-auto'}`}>
                         <Nav.Link as={Link} to="/about">
                             <div className="NavBar-link">
                                 About Us
