@@ -1,4 +1,6 @@
 import React from "react";
+import RoundedButton from "../../modules/RoundedButton.js";
+
 import "./Contact.css";
 
 const makeSection = (title, subtitle) => {
@@ -21,5 +23,6 @@ export default () => {
     <div className="u-screenCenter">
         {makeSmallTitle("Contact Us")}
         {makeSection("Have questions or suggestions for new features? Send us a message.")}
+        <RoundedButton label={"Send us an email"} callback={() => alert("email")} />
     </div>)
 }

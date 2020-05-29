@@ -4,15 +4,15 @@ import "./About.css";
 const makeSection = (title, subtitle) => {
     return (
         <div width="100%" height="100%">
-            <div className="Contact-title">{title}</div>
-            <div className="Contact-subtitle">{subtitle}</div>
+            <div className="About-title">{title}</div>
+            <div className="About-subtitle">{subtitle}</div>
         </div>
     )
 }
 
 const makeSmallTitle = (title) => {
     return (
-        <div className="Contact-smallTitle">{title}</div>
+        <div className="About-smallTitle">{title}</div>
     )
 }
 

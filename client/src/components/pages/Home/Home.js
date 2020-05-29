@@ -3,10 +3,10 @@ import React from "react";
 
 // Styling
 import "./Home.css";
-import Buttom from "react-bootstrap/Button";
 import FancyCard from "../../modules/FancyCard.js";
 import Testimonial from "./Testimonial.js";
 import Staircase from "./Staircase.js";
+import RoundedButton from "../../modules/RoundedButton.js";
 
 const MOCK_DATA = {
     img: "https://miro.medium.com/max/2560/1*yOmBkzDKE6HuWOvrWw1E1Q.jpeg",
@@ -42,6 +42,20 @@ const makeSmallTitle = (title) => {
 }
 const Home = () => {
 
+    const applyButtons = (
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-4">
+                    <RoundedButton label={"Apply as a Student "} callback={() => alert("Open form")} />
+
+                </div>
+                <div class="col-md-4">
+                    <RoundedButton label={"Apply as a Mentor"} callback={() => alert("open form")} />
+
+                </div>
+            </div>
+        </div>
+    )
     const joinSection = makeSection("Find projects that align with your skillsets and interest", "Join the community of innovative college students, explore existing...");
     const projectBox = (moveBoxDown(FancyCard(MOCK_DATA.img, MOCK_DATA.title, MOCK_DATA.description)));
     
@@ -56,6 +70,7 @@ const Home = () => {
         <div>
             {makeSmallTitle("Contact Us")}
             {makeSection("Have questions or suggestions for new features? Send us a message.")}
+            <RoundedButton label={"Send us an email"} callback={() => alert("email")}/>
         </div>
     )
 
@@ -74,7 +89,10 @@ const Home = () => {
                     <div className="Home-title">Explore new projects and about connections</div>
                     <div className="Home-subtitle">Join the community of innovative college students, Explore existing projects or post your own for others to join, Get access to industry professional mentors for your group.</div>
                 </div>
-              </section>
+            </section>
+            <div className="u-screenCenter">
+                {applyButtons}
+            </div>
             <section id="showcase">
                 
                 <div className="Home-showcase">

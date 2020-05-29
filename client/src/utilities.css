@@ -57,6 +57,12 @@ form {
   flex-direction: column;
 }
 
+.u-flex-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .u-flex-justifyCenter {
   justify-content: center;
 }
@@ -102,3 +108,4 @@ form {
       margin-right: var(--screen-xl);
     }
 }
+
