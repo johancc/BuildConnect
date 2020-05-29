@@ -3,10 +3,16 @@ import React, { useState, useContext } from "react";
 // Routing 
 import { Link, navigate } from "@reach/router";
 import { Nav, Navbar } from "react-bootstrap";
+import Login from "./Login";
 
 // Styling assets.
 import "../../utilities.css";
 import "./NavBar.css";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import {useTheme} from "@material-ui/core/styles";
 
 /**
  * Navigation bar that should be on top of all pages. 
@@ -14,7 +20,27 @@ import "./NavBar.css";
  * Renders links conditional on whether the user is logged in or not.
  */
 
- const NavBar = () => {
+const loginButtonStyle = {
+    color: "#FFFFFF",
+    backgroundColor: "#DF4F59",
+    textTransform: 'none',
+
+}
+
+const NavBar = () => {
+    const [open, setOpen] = useState(false);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const loginDialog = (
+        <div className="Navbar-loginDialog">
+            <Dialog fullScreen={fullScreen} aria-labelledby="loginDialog" open={open} onClose={() => setOpen(false)}>
+                <DialogTitle>Login</DialogTitle>
+                <Login onLogin={()=> setOpen(false)} />
+            </Dialog>
+        </div>
+    );
+
     return (
         <div className="u-screenCenter">
             <Navbar collapseOnSelect fixed="sticky-top" expand="sm" variant="light">
@@ -23,7 +49,7 @@ import "./NavBar.css";
                 </Navbar.Brand>
                 <Navbar.Toggle className="NavBar-toggle" aria-controls="responsive-navbar-nav"  />
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
-                    
+
                     <Nav pullRight className="NavBar-linkContainer">
                         <Nav.Link as={Link} to="/about">
                             <div className="NavBar-link">
@@ -35,11 +61,15 @@ import "./NavBar.css";
                                 Contact
                             </div>
                         </Nav.Link>
-                        <Nav.Link as={Link} to="/login">
+                        <Nav.Link as={Link} to="/register">
                             <div className="NavBar-link">
-                                Login
+                                Register
                             </div>
                         </Nav.Link>
+                        <Button className="NavBar-link" style={loginButtonStyle} onClick={() => setOpen(true)}>
+                            Sign In
+                        </Button>
+                        {loginDialog}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
