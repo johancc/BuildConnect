@@ -4,6 +4,8 @@ import React, { useState, useContext } from "react";
 import { Link, navigate } from "@reach/router";
 import { Nav, Navbar } from "react-bootstrap";
 import Login from "./Login";
+import { auth } from "../../firebase_config.js";
+import { UserContext } from "../../providers/UserProvider.js";
 
 // Styling assets.
 import "../../utilities.css";
@@ -20,7 +22,7 @@ import {useTheme} from "@material-ui/core/styles";
  * Renders links conditional on whether the user is logged in or not.
  */
 
-const loginButtonStyle = {
+const buttonStyle = {
     color: "#FFFFFF",
     backgroundColor: "#DF4F59",
     textTransform: 'none',
@@ -29,6 +31,10 @@ const loginButtonStyle = {
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
+    const userProvider = useContext(UserContext);
+    const logout = () => {
+        auth.signOut();
+    }
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -40,6 +46,31 @@ const NavBar = () => {
             </Dialog>
         </div>
     );
+    const loggedIn = userProvider.user !== undefined;
+
+    const userLinks = loggedIn ? (
+        <>
+            <Button className="NavBar-link" style={buttonStyle} onClick={() => {
+                logout()
+                navigate("/");
+            }}>
+                Sign out
+            </Button>
+        </>
+    ) : (
+        <>
+            <Nav.Link as={Link} to="/register">
+                <div className="NavBar-link">
+                    Register
+                </div>
+            </Nav.Link>
+            <Button className="NavBar-link" style={buttonStyle} onClick={() => setOpen(true)}>
+                Sign In
+            </Button>
+            {loginDialog}
+        </>
+    )
+
 
     return (
         <div className="u-screenCenter">
@@ -61,15 +92,7 @@ const NavBar = () => {
                                 Contact
                             </div>
                         </Nav.Link>
-                        <Nav.Link as={Link} to="/register">
-                            <div className="NavBar-link">
-                                Register
-                            </div>
-                        </Nav.Link>
-                        <Button className="NavBar-link" style={loginButtonStyle} onClick={() => setOpen(true)}>
-                            Sign In
-                        </Button>
-                        {loginDialog}
+                        {userLinks}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
