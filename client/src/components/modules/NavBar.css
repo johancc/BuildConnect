@@ -1,36 +1,45 @@
-.NavBar-container {
-  padding: var(--m);
-  background-color: var(--white);
-  font-size: 20px;
+
+.NavBar-logotitle {
+    /* BuildConnect */
+    position: absolute;
+    width: 78px;
+    height: 15px;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+    color: #FFFFFF;
 }
 
 .NavBar-logo {
-  padding: var(--m);
-  width: 50px;
-  height: auto;
+    position: absolute;
+    width: 11.94px;
+    height: 12.12px;
+    background: #000;
 }
 
-.NavBar-linkContainer {
-  text-align: right;
-  margin-left: var(--m);
+.NavBar-toggle {
+  border: none;
+  outline: none;
 }
 
-.NavBar-link,
-.NavBar-link:visited {
-  color: var(--black);
-  opacity: 0.9;
-  text-decoration: none;
+.NavBar-link {
+    /* Any other link aside from the brand. */
+ 
+    padding-right: var(--xl);
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+
+    opacity: 0.85;
+    color: #000000;
 }
 
 .NavBar-link:hover {
-  opacity: 0.95;
-}
-
-.NavBar-brand {
-}
-.NavBar-link + .NavBar-link {
-}
-
-.NavBar-loginDialog {
-  min-width: 500px;
+    opacity: 1;
 }

@@ -13,6 +13,8 @@ import UserProvider from "../providers/UserProvider";
 
 // Pages
 import Home from "./pages/Home/Home.js";
+import About from "./pages/About/About.js";
+import Contact from "./pages/Contact/Contact.js";
 import NotFound from "./pages/NotFound/NotFound.js";
 import Project from "./pages/Project/Project.js";
 import Explore from "./pages/Explore/Explore.js";
@@ -45,8 +47,10 @@ class App extends Component {
 
             <MuiThemeProvider theme={theme}>
               <NavBar />
-              <Router style={{ backgroundColor: "#f4f5f7" }}>
+              <Router>
                 <Home path="/" />
+                <About path="/about"/>
+                <Contact path="/contact"/>
                 <AuthenticatedPage path="/project/:_id" component={Project}/>
                 <AuthenticatedPage path="/explore" component={Explore} />
                 <AuthenticatedPage path="/registerProject" component={RegisterProject}/>
