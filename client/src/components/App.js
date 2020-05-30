@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component, useRef} from "react";
 import NavBar from "./modules/NavBar.js";
 import { Router } from "@reach/router";
 import theme from "../Constants.js";
@@ -33,7 +33,6 @@ const generateClassName = createGenerateClassName({
  * Define the "App" component as a class.
  */
 class App extends Component {
-
   // required method: whatever is returned defines what
   // shows up on screen
   render() {
@@ -46,7 +45,7 @@ class App extends Component {
           <div className="App-container" style={{ margin: 0, padding: 0 }}>
 
             <MuiThemeProvider theme={theme}>
-              <NavBar />
+              <NavBar/>
               <Router>
                 <Home path="/" />
                 <About path="/about"/>

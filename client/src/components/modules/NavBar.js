@@ -7,6 +7,9 @@ import Login from "./Login";
 import { auth } from "../../firebase_config.js";
 import { UserContext } from "../../providers/UserProvider.js";
 
+// Scrolling
+import { refs, scrollToRefOrPage } from "./Ref.js";
+
 // Styling assets.
 import "../../utilities.css";
 import "./NavBar.css";
@@ -80,14 +83,13 @@ const NavBar = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle className="NavBar-toggle" aria-controls="responsive-navbar-nav"  />
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
-
                     <Nav className={`NavBar-linkContainer ${'ml-auto'}`}>
-                        <Nav.Link as={Link} to="/about">
+                        <Nav.Link onClick={() => scrollToRefOrPage(refs.about, "/about")}>
                             <div className="NavBar-link">
                                 About Us
                             </div>
                         </Nav.Link>
-                        <Nav.Link as={Link} to="/contact">
+                        <Nav.Link onClick={() => scrollToRefOrPage(refs.contact, "/contact")}>
                             <div className="NavBar-link">
                                 Contact
                             </div>
