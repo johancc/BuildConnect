@@ -96,8 +96,12 @@ const Home = () => {
             <div className="u-screenCenter Home-showcaseSection Home-flex">
                 <div className="col-md-7" >{joinTitle}</div>
                 <div className="col-md-5">
-                    <img src={ProjectTop} width="100%" />
-                    <img src={ProjectBotom} width="100%" />
+                    {moveBoxDown(
+                        <>
+                        <img src={ProjectTop} width="100%" />
+                        <img src={ProjectBotom} width="100%" />
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -108,8 +112,12 @@ const Home = () => {
             <div className="u-screenCenter Home-showcaseSection Home-flex">
                 <div className="col-md-7">{communitySection}</div>
                 <div className="col-md-5">
-                    <img src={PortfolioTop} width="100%" />
-                    <img src={PortfolioBottom} width="100%" />
+                    {moveBoxDown(
+                        <>
+                            <img src={PortfolioTop} width="100%" />
+                            <img src={PortfolioBottom} width="100%" />
+                        </>
+                    )}
                 </div>
             </div>
         </div>
