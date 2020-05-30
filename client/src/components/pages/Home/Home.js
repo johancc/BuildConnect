@@ -70,6 +70,16 @@ const Home = () => {
             </div>
         </div>
     ));
+    const applyButtonsRow = moveBoxDown((
+        <div className="container">
+            <div className="row justify-content-md-center" style={{marginBottom: "1em"}}>
+                <RoundedButtonLink label={"Apply as a Student "} link={APPLY_STUDENT}/>
+            </div>
+            <div className="row justify-content-md-center" style={{ marginTop: "1em" }}>
+                <RoundedButtonLink label={"Apply as a Mentor"} link={APPLY_MENTOR} />
+            </div>
+        </div>
+    ))
     const titleSection = (
         <div className="u-screenCenter Home-flex Home-titleContainer">
             <div className="col-md-12">
@@ -94,7 +104,9 @@ const Home = () => {
     const joinSection = (
         <div className="Home-showcase graybg">
             <div className="u-screenCenter Home-showcaseSection Home-flex">
-                <div className="col-md-7" >{joinTitle}</div>
+                <div className="col-md-7" >
+                    {joinTitle}
+                </div>
                 <div className="col-md-5">
                     {moveBoxDown(
                         <>
@@ -110,7 +122,10 @@ const Home = () => {
                 <div className="col-md-5">{mentorBox}</div>
             </div>
             <div className="u-screenCenter Home-showcaseSection Home-flex">
-                <div className="col-md-7">{communitySection}</div>
+                <div className="col-md-7">
+                    {communitySection}
+                    {applyButtonsRow}
+                </div>
                 <div className="col-md-5">
                     {moveBoxDown(
                         <>
