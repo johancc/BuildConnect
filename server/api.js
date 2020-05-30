@@ -75,17 +75,6 @@ router.get("/whitelist/:email", (req, res) => {
         });
 })
 
-// Returns a list of all emails in the whitelist
-router.get("/whitelistEmails", (req, res) => {
-    Email.find()
-        .then((emails) => {
-            res.send(emails);
-        })
-        .catch((err) => {
-            res.sendStatus(500).json(err);
-        })
-})
-
 /**
  * Adds a user to the database. 
  * Params:

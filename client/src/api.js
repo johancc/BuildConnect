@@ -37,8 +37,3 @@ export const canEmailRegister = async (emailAddress) => {
     const emails = await get("/api/whitelist/" + emailAddress);
     return emails.length > 0;
 }
-
-// Returns all whitelisted emails that can register
-export const getWhitelistEmails = async() => {
-    return await get("/api/whitelistEmails");
-}
