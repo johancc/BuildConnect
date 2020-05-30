@@ -57,7 +57,7 @@ const Home = () => {
 
     const joinSection = makeSection("Find projects that align with your skillsets and interest", "Join the community of innovative college students, explore existing...");
 
-    const applyButtons = (
+    const applyButtons = moveBoxDown((
         <div className="container">
             <div className="row justify-content-md-center">
 
@@ -70,7 +70,7 @@ const Home = () => {
 
         </div>
         </div>
-    )
+    ));
 
     const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", "Keep in constant touch with mentors and get their feedback")
     const mentorBox = moveBoxDown((
