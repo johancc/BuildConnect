@@ -1,5 +1,5 @@
 import { auth } from "./firebase_config.js";
-import { post } from "./utilities.js";
+import { post, get } from "./utilities.js";
 
 export const createNewUser = async (values) => {
     let tokenId = undefined; 
@@ -28,7 +28,12 @@ export const requestToJoin = async (message, projectID, tokenId) => {
 };
 
 
-const postUser = async (tokenId, values) => {
+export const postUser = async (tokenId, values) => {
     return await post("/api/addUser", {user: values, token: tokenId});
 }
 
+// Returns whether the given emailAddress can register (is in whitelist)
+export const canEmailRegister = async (emailAddress) => {
+    const emails = await get("/api/whitelist/" + emailAddress);
+    return emails.length > 0;
+}
