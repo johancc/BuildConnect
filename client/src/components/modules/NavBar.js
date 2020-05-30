@@ -11,13 +11,14 @@ import { UserContext } from "../../providers/UserProvider.js";
 import { refs, scrollToRefOrPage } from "./Ref.js";
 
 // Styling assets.
-import "../../utilities.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/js/bootstrap.js";
 import "./NavBar.css";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import {useTheme} from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 
 // logo asset
 import logo from "../../assets/images/logo.svg";
@@ -47,7 +48,7 @@ const NavBar = () => {
         <div className="Navbar-loginDialog">
             <Dialog fullScreen={fullScreen} aria-labelledby="loginDialog" open={open} onClose={() => setOpen(false)}>
                 <DialogTitle>Login</DialogTitle>
-                <Login onLogin={()=> setOpen(false)} />
+                <Login onLogin={() => setOpen(false)} />
             </Dialog>
         </div>
     );
@@ -63,46 +64,45 @@ const NavBar = () => {
             </Button>
         </>
     ) : (
-        <>
-            {/* <Nav.Link as={Link} to="/register">
+            <>
+                {/* <Nav.Link as={Link} to="/register">
                 <div className="NavBar-link">
                     Register
                 </div>
             </Nav.Link> */}
-            <Button className="NavBar-link" style={buttonStyle} onClick={() => setOpen(true)}>
-                Sign In
+                <Button className="NavBar-link" style={buttonStyle} onClick={() => setOpen(true)}>
+                    Sign In
             </Button>
-            {loginDialog}
-        </>
-    )
+                {loginDialog}
+            </>
+        )
 
 
     return (
-        <div className="u-screenCenter">
-            <Navbar collapseOnSelect fixed="sticky-top" expand="sm" variant="light">
-                <Navbar.Brand className=".NavBar-logotitle" as={Link} to="/">
-                    <img className="logo-image" src={logo}/>
+
+        <Navbar collapseOnSelect fixed="sticky-top" expand="lg" variant="light">
+            <Navbar.Brand className=".NavBar-logotitle" as={Link} to="/">
+                <img className="logo-image" src={logo} />
                     BuildConnect
                 </Navbar.Brand>
-                <Navbar.Toggle className="NavBar-toggle" aria-controls="responsive-navbar-nav"  />
-                <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
-                    <Nav className={`NavBar-linkContainer ${'ml-auto'}`}>
-                        <Nav.Link onClick={() => scrollToRefOrPage(refs.about, "/about")}>
-                            <div className="NavBar-link">
-                                About Us
+            <Navbar.Toggle className="NavBar-toggle" aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
+                <Nav className={`NavBar-linkContainer ${'ml-auto'}`}>
+                    <Nav.Link onClick={() => scrollToRefOrPage(refs.about, "/about")}>
+                        <div className="NavBar-link">
+                            About Us
                             </div>
-                        </Nav.Link>
-                        <Nav.Link onClick={() => scrollToRefOrPage(refs.contact, "/contact")}>
-                            <div className="NavBar-link">
-                                Contact
+                    </Nav.Link>
+                    <Nav.Link onClick={() => scrollToRefOrPage(refs.contact, "/contact")}>
+                        <div className="NavBar-link">
+                            Contact
                             </div>
-                        </Nav.Link>
-                        {userLinks}
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        </div>
+                    </Nav.Link>
+                    {userLinks}
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
     )
- }
+}
 
- export default NavBar;
+export default NavBar;
