@@ -15,10 +15,8 @@
 }
 
 .NavBar-logo {
-    position: absolute;
-    width: 11.94px;
-    height: 12.12px;
-    background: #000;
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
 .NavBar-toggle {
@@ -42,6 +40,12 @@
 
 .NavBar-link:hover {
     opacity: 1;
+}
+
+.logo-image {
+    padding-right: 5px;
+    width: 35px;
+    height: 30px;
 }
 
 .Button {

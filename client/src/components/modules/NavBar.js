@@ -19,6 +19,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {useTheme} from "@material-ui/core/styles";
 
+// logo asset
+import logo from "../../assets/images/logo.svg";
+
 /**
  * Navigation bar that should be on top of all pages. 
  * Takes no props, but needs to be under UserProvider.
@@ -78,8 +81,9 @@ const NavBar = () => {
     return (
         <div className="u-screenCenter">
             <Navbar collapseOnSelect fixed="sticky-top" expand="sm" variant="light">
-                <Navbar.Brand as={Link} to="/">
-                    <div className="NavBar-logo-title">BuildConnect</div>
+                <Navbar.Brand className=".NavBar-logotitle" as={Link} to="/">
+                    <img className="logo-image" src={logo}/>
+                    BuildConnect
                 </Navbar.Brand>
                 <Navbar.Toggle className="NavBar-toggle" aria-controls="responsive-navbar-nav"  />
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
