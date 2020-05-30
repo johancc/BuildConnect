@@ -20,6 +20,7 @@ const { uploadFileToGCS, getPublicURL, deleteFileFromGCS, getFileNameFromURL } =
 // import models so we can interact with the database
 const User = require("./models/user.js");
 const Project  = require("./models/project.js");
+const Email = require("./models/email.js");
 
 // Email utilities.
 const email = require("./email.js");
@@ -61,6 +62,29 @@ router.get("/project", firebaseMiddleware, (req, res) => {
             res.sendStatus(500).json(err);
         });
 });
+
+// Returns a list of emails from whitelist that match the given email address
+router.get("/whitelist/:email", (req, res) => {
+    const emailAddress = req.params.email;
+    Email.find({address: emailAddress})
+        .then((emails) => {
+            res.send(emails);
+        })
+        .catch((err) => {
+            res.sendStatus(500).json(err);
+        });
+})
+
+// Returns a list of all emails in the whitelist
+router.get("/whitelistEmails", (req, res) => {
+    Email.find()
+        .then((emails) => {
+            res.send(emails);
+        })
+        .catch((err) => {
+            res.sendStatus(500).json(err);
+        })
+})
 
 /**
  * Adds a user to the database. 
