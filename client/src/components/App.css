@@ -1,7 +1,14 @@
-.App-container {
-  width: 100vw;
-  height: 100vh;
-  margin: 0px;
-  padding: 0px;
-  max-width: 100%;
+
+
+#wrapper {
+    height:100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#wrapper td {
+    vertical-align: middle;
+    text-align: center;
 }

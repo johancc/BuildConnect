@@ -141,7 +141,7 @@ const Home = () => {
     return (
         <>
             <section id="title" >
-                    {titleSection}
+                {titleSection}
             </section>
             <section id="join">
                 {joinSection}

@@ -37,30 +37,29 @@ class App extends Component {
   // shows up on screen
   render() {
     return (
-      
-      // <> is like a <div>, but won't show
-      // up in the DOM tree
-      <UserProvider>
-        <JssProvider generateClassName={generateClassName}>
-          <div className="App-container" style={{ margin: 0, padding: 0 }}>
+      <div className="contentWrap">
+        <UserProvider>
+          <JssProvider generateClassName={generateClassName}>
+            <div className="App-container">
 
-            <MuiThemeProvider theme={theme}>
-              <NavBar/>
-              <Router>
-                <Home path="/" />
-                <About path="/about"/>
-                <Contact path="/contact"/>
-                <AuthenticatedPage path="/project/:_id" component={Project}/>
-                <AuthenticatedPage path="/explore" component={Explore} />
-                <AuthenticatedPage path="/registerProject" component={RegisterProject}/>
-                <AuthenticatedPage path="/profile" component={Profile} />
-                <RegisterUser path="/register" />
-                <NotFound default />
-              </Router>
-            </MuiThemeProvider>
-          </div>
-        </JssProvider>  
-      </UserProvider>     
+              <MuiThemeProvider theme={theme}>
+                <NavBar />
+                <Router>
+                  <Home path="/" />
+                  <About path="/about" />
+                  <Contact path="/contact" />
+                  <AuthenticatedPage path="/project/:_id" component={Project} />
+                  <AuthenticatedPage path="/explore" component={Explore} />
+                  <AuthenticatedPage path="/registerProject" component={RegisterProject} />
+                  <AuthenticatedPage path="/profile" component={Profile} />
+                  <RegisterUser path="/register" />
+                  <NotFound default />
+                </Router>
+              </MuiThemeProvider>
+            </div>
+          </JssProvider>
+        </UserProvider>     
+      </div>
     );
   }
 }
