@@ -5,7 +5,7 @@ import { refs, scrollToRef } from "../../modules/Ref.js";
 
 // Styling
 import "./Home.css";
-import RoundedButton, { RoundedButtonLink } from "../../modules/RoundedButton.js";
+import { RoundedButtonLink } from "../../modules/RoundedButton.js";
 
 // Images
 // Join
@@ -74,7 +74,7 @@ const Home = () => {
         <div className="u-screenCenter Home-flex Home-titleContainer">
             <div className="col-md-12">
                 <div className="Home-title">Explore new projects and build connections</div>
-                <div className="Home-subtitle">Join the community of innovative college students, Explore existing projects or post your own for others to join, Get access to industry professional mentors for your group.</div>
+                <div className="Home-subtitle">Join the community of innovative college students. Explore existing projects or post your own for others to join. Get access to industry professional mentors for your group.</div>
                 {applyButtons}
             </div>
         </div>
