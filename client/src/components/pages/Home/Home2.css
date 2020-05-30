@@ -1,0 +1,44 @@
+.Home-landing {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.Home-top {
+    display: flex;
+    width: 100%;
+    padding: var(--l);
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #ebf5fa;
+}
+.Home-banner {
+    background-color:transparent;
+    flex-grow: 1;
+}
+
+.Home-title {
+    background: transparent;
+    align-self: center;
+    flex-grow: 1;
+}
+
+.Home-desc {
+    font-family: "Roboto";
+}
+
+.Home-img {
+    width: 100%;
+    height: 100%;
+}
+
+.Home-middle {
+    text-align: center;
+    padding: var(--m);
+
+}
+
+.Home-middle h1 {
+    
+}

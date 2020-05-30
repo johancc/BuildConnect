@@ -60,7 +60,7 @@ class Login extends Component {
             <Container fluid="sm" style={{minWidth: "400px", padding: "16px"}}>
                 <Row>
                     <Col md="12" >
-                        <h1>Sign In</h1>
+                        <h1 style={{textAlign: "left", marginLeft: "0px", paddingLeft: "0px"}}>Sign In </h1>
                         <Form>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>

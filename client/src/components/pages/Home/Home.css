@@ -1,44 +1,87 @@
-.Home-landing {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    flex-direction: row;
-    flex-wrap: wrap;
+.Home-container {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: left;
+    background-color: white;
 }
-.Home-top {
-    display: flex;
-    width: 100%;
-    padding: var(--l);
-    flex-direction: row;
-    flex-wrap: wrap;
-    background-color: #ebf5fa;
+/*
+When the screen is too small
+*/
+@media (max-width: 575px) {
+    .Home-container {
+        text-align: center;
+    }
 }
-.Home-banner {
-    background-color:transparent;
-    flex-grow: 1;
+
+
+/*
+
+TITLE SECTION 
+
+*/
+.Home-titleContainer {
+    padding-top: 6em;
+    padding-bottom: 6em;
+    
 }
 
 .Home-title {
-    background: transparent;
-    align-self: center;
-    flex-grow: 1;
+    /* identical to box height */
+    font-size: 48px;
+    line-height: 58px;
+    margin-bottom: 24px;
+    max-width: 22em;
 }
 
-.Home-desc {
-    font-family: "Roboto";
+.Home-subtitle {
+    max-width: 22em;
+    font-size: 24px;
+    line-height: 40px;
 }
 
-.Home-img {
-    width: 100%;
+.Home-smallTitle {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 40px;
+}
+
+.Home-apply {
+    margin: var(--m);
+    min-height: 3em;
+}
+/* SHOWCASE SECTION */
+
+.Home-showcase {
+    background-color: #f2f2f2;
+    padding-top: 6em;
+    padding-bottom: 11em;
     height: 100%;
 }
 
-.Home-middle {
-    text-align: center;
-    padding: var(--m);
-
+.Home-showcaseSection {
+    margin-bottom: 5em;
 }
 
-.Home-middle h1 {
+.Home-showcaseElements {
     
+    max-width: 100%;
+
 }
+
+.Home-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 575px) {
+    .Home-flex {
+      margin-left: var(--screen-xl);
+      margin-right: var(--screen-xl);
+    }
+}
+

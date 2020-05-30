@@ -1,0 +1,32 @@
+.FancyCard-container {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 1 2 2;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    background-color: white;
+    border-radius: 15px 50px 30px 5px;
+    text-align: left;
+}
+
+
+img {
+    object-fit: cover;
+    width: 100%;
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin: var(--l);
+    padding: 8px;
+}
+p {
+    margin: var(--l);
+    padding: 8px;
+    height: 70%;
+    font-size: 16px;
+    line-height: 40px;
+} 
