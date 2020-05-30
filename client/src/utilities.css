@@ -109,3 +109,10 @@ form {
     }
 }
 
+
+.graybg {
+  background-color: #f2f2f2;
+}
+.whitebg {
+  background-color: white;
+}

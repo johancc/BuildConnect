@@ -20,4 +20,12 @@ const RoundedButton = ({label, callback}) => {
     )
 }
 
+export const RoundedButtonLink = ({label, link}) => {
+    return (
+        <Button as="a" variant="outline" style={buttonStyle} href={link} target="_blank">
+            {label}
+        </Button>
+    )
+}
+
 export default RoundedButton;
