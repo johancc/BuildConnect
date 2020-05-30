@@ -26,7 +26,6 @@ const buttonStyle = {
     color: "#FFFFFF",
     backgroundColor: "#DF4F59",
     textTransform: 'none',
-
 }
 
 const NavBar = () => {

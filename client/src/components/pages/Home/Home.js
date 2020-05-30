@@ -42,23 +42,20 @@ const makeSmallTitle = (title) => {
 }
 const Home = () => {
 
-    const applyButtons = (
-        <div className="container">
-            <div className="row justify-content-md-center">
-                <div className="col-md-4">
-                    <RoundedButton label={"Apply as a Student "} callback={() => alert("Open form")} />
-
-                </div>
-                <div className="col-md-4">
-                    <RoundedButton label={"Apply as a Mentor"} callback={() => alert("open form")} />
-
-                </div>
-            </div>
-        </div>
-    )
     const joinSection = makeSection("Find projects that align with your skillsets and interest", "Join the community of innovative college students, explore existing...");
     const projectBox = (moveBoxDown(FancyCard(MOCK_DATA.img, MOCK_DATA.title, MOCK_DATA.description)));
-    
+    const applyButtons = moveBoxDown((
+        <div className="row justify-content-md-center">
+
+            <div className="col-md-3  Home-apply">
+                <RoundedButton label={"Apply as a Student "} callback={() => alert("Open form")} />
+            </div>
+            <div className="col-md-3  Home-apply">
+                <RoundedButton label={"Apply as a Mentor"} callback={() => alert("open form")} />
+            </div>
+
+        </div>
+    ))
 
     const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", "Keep in constant touch with mentors and get their feedback")
     const mentorBox = moveBoxDown(Testimonial("", "", MOCK_DATA.quote, ""));
@@ -70,7 +67,9 @@ const Home = () => {
         <div>
             {makeSmallTitle("Contact Us")}
             {makeSection("Have questions or suggestions for new features? Send us a message.")}
-            <RoundedButton label={"Send us an email"} callback={() => alert("email")}/>
+            <div className="col-md-3 Home-apply">
+                <RoundedButton label={"Contact us"} callback={() => alert("open email")} />
+            </div>
         </div>
     )
 
@@ -84,15 +83,13 @@ const Home = () => {
     )
     return (
         <>
-            <section id="title" className="Home-flex Home-titleContainer">
-                <div className="col-md-12">
-                    <div className="Home-title">Explore new projects and about connections</div>
-                    <div className="Home-subtitle">Join the community of innovative college students, Explore existing projects or post your own for others to join, Get access to industry professional mentors for your group.</div>
-                </div>
-            </section>
-            <div className="u-screenCenter">
+        <section id="title" className="Home-titleContainer">
+            <div className="container">
+                <div className="Home-title">Explore new projects and build connections</div>
+                <div className="Home-subtitle">Join the community of innovative college students, Explore existing projects or post your own for others to join, Get access to industry professional mentors for your group.</div>
                 {applyButtons}
             </div>
+        </section>
             <section id="showcase">
                 
                 <div className="Home-showcase">
