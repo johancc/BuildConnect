@@ -14,11 +14,6 @@
     color: #FFFFFF;
 }
 
-.NavBar-logo {
-    display: grid;
-    grid-template-columns: 50% 50%;
-}
-
 .NavBar-toggle {
   border: none;
   outline: none;
