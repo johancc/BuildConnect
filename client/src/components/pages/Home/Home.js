@@ -19,8 +19,8 @@ import PortfolioTop from "../../../assets/images/portfolio_top.svg";
 import PortfolioBottom from "../../../assets/images/portfolio_bottom.svg";
 
 const EMAIL = "buildconnectteam@gmail.com";
-const APPLY_STUDENT = "https://forms.gle/6vmx1AMtjzw3kbZY9";
-const APPLY_MENTOR = "https://forms.gle/W2GGGDUW3J6NEZnYA";
+const APPLY_MENTOR = "https://forms.gle/6vmx1AMtjzw3kbZY9";
+const APPLY_STUDENT = "https://forms.gle/W2GGGDUW3J6NEZnYA";
 const MOCK_DATA = {
     img: "https://miro.medium.com/max/2560/1*yOmBkzDKE6HuWOvrWw1E1Q.jpeg",
     title: "Get Artsy at Home",
