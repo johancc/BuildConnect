@@ -11,8 +11,6 @@ import { UserContext } from "../../providers/UserProvider.js";
 import { refs, scrollToRefOrPage } from "./Ref.js";
 
 // Styling assets.
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "bootstrap/dist/js/bootstrap.js";
 import "./NavBar.css";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -65,14 +63,9 @@ const NavBar = () => {
         </>
     ) : (
             <>
-                {/* <Nav.Link as={Link} to="/register">
-                <div className="NavBar-link">
-                    Register
-                </div>
-            </Nav.Link> */}
                 <Button className="NavBar-link" style={buttonStyle} onClick={() => setOpen(true)}>
                     Sign In
-            </Button>
+                </Button>
                 {loginDialog}
             </>
         )

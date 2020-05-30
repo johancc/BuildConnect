@@ -1,10 +1,6 @@
-import React, {Component, useRef} from "react";
+import React, {Component } from "react";
 import NavBar from "./modules/NavBar.js";
 import { Router } from "@reach/router";
-import theme from "../Constants.js";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import { createGenerateClassName } from "@material-ui/core/styles";
-import JssProvider from "react-jss/lib/JssProvider";
 
 // Prevents protected pages from being directly accessed.
 import AuthenticatedPage from "./modules/AuthenticatedPage.js";
@@ -25,9 +21,6 @@ import Profile from "./pages/Profile/Profile.js";
 // to use styles, import the necessary CSS files
 import "../utilities.css";
 import "./App.css";
-const generateClassName = createGenerateClassName({
-  dangerouslyUseGlobalCSS: true
-});
 
 /**
  * Define the "App" component as a class.
@@ -39,10 +32,8 @@ class App extends Component {
     return (
       <div className="contentWrap">
         <UserProvider>
-          <JssProvider generateClassName={generateClassName}>
             <div className="App-container">
 
-              <MuiThemeProvider theme={theme}>
                 <NavBar />
                 <Router>
                   <Home path="/" />
@@ -55,9 +46,7 @@ class App extends Component {
                   <RegisterUser path="/register" />
                   <NotFound default />
                 </Router>
-              </MuiThemeProvider>
             </div>
-          </JssProvider>
         </UserProvider>     
       </div>
     );
