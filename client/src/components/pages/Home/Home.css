@@ -23,8 +23,7 @@ TITLE SECTION
 */
 .Home-titleContainer {
     padding-top: 6em;
-    padding-bottom: 6em;
-    
+    padding-bottom: 6em;   
 }
 
 .Home-title {
@@ -32,7 +31,6 @@ TITLE SECTION
     font-size: 48px;
     line-height: 58px;
     margin-bottom: 24px;
-    max-width: 22em;
 }
 
 .Home-subtitle {

@@ -55,106 +55,101 @@ const makeSmallTitle = (title) => {
 }
 const Home = () => {
 
-    const joinSection = makeSection("Find projects that align with your skillsets and interest", "Join the community of innovative college students, explore existing...");
-
+    // TITLE 
     const applyButtons = moveBoxDown((
         <div className="container">
             <div className="row justify-content-md-center">
 
-            <div className="col-md-3  Home-apply">
-                    <RoundedButtonLink label={"Apply as a Student "} link={APPLY_STUDENT} newTab/>
-            </div>
-            <div className="col-md-3  Home-apply">
-                <RoundedButtonLink label={"Apply as a Mentor"} link={APPLY_MENTOR}/>
-            </div>
-
-        </div>
-        </div>
-    ));
-
-    const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", "Keep in constant touch with mentors and get their feedback")
-    const mentorBox = moveBoxDown((
-        <>
-        <img src={MentorTop} width="100%"/>
-        <img src={MentorBottom} width="100%" />
-        </>
-    ));
-    
-    const communitySection = makeSection(MOCK_DATA.portfolio, MOCK_DATA.join);
-    const award = moveBoxDown((
-        <img src={PortfolioTop} width="100%"/>
-    ))
-
-
-    const contactSection = (
-        <div>
-          
-                {makeSmallTitle("Contact Us")}
-       
-           
-                {makeSection("Have questions or suggestions for new features?")}
-
-       
-                <div className="row">
-                    <div className="col-md-4">
-                        <RoundedButtonLink label={"Send a message"} link={"mailto:"+EMAIL} />
-                    </div>
-                   
+                <div className="col-md-3  Home-apply">
+                    <RoundedButtonLink label={"Apply as a Student "} link={APPLY_STUDENT} newTab />
+                </div>
+                <div className="col-md-3  Home-apply">
+                    <RoundedButtonLink label={"Apply as a Mentor"} link={APPLY_MENTOR} />
                 </div>
 
-                {moveBoxDown(makeSmallTitle(EMAIL))}
-
-                {makeSmallTitle("Grace Hsu - Johan Cervantes - Yanni Wang - Vanasa Liu")}
             </div>
-
-    )
-    const aboutSection = (
-        <div>
-            {makeSmallTitle("About Us")}
-            {makeSection("We are a group of undergraduates from various universities who were brought together with the goal of helping students who lost their summer plans to recreate the work experience as closely as possible. ")}
         </div>
-    );
-
-    return (
-        <>
-        <section id="title" className="Home-titleContainer">
-            <div className="container">
+    ));
+    const titleSection = (
+        <div className="u-screenCenter Home-flex Home-titleContainer">
+            <div className="col-md-12">
                 <div className="Home-title">Explore new projects and build connections</div>
                 <div className="Home-subtitle">Join the community of innovative college students, Explore existing projects or post your own for others to join, Get access to industry professional mentors for your group.</div>
                 {applyButtons}
             </div>
-        </section>
-            <section id="showcase">
-                
-                <div className="Home-showcase graybg">
-                    
-                    <div className="u-screenCenter Home-showcaseSection Home-flex">
-                        <div className="col-md-7" >{joinSection}</div>
-                        <div className="col-md-5">
-                            <img src={ProjectTop} width="100%" />
-                            <img src={ProjectBotom} width="100%" />
-                        </div>
-                    </div>
-                    
-                    <div className=" u-screenCenter Home-showcaseSection Home-flex">
-                        <div className="col-md-7">{mentorSection}</div>
-                        <div className="col-md-5">{mentorBox}</div>
-                    </div>
-                    <div className="u-screenCenter Home-showcaseSection Home-flex">
-                        <div className="col-md-7">{communitySection}</div>
-                        <div className="col-md-5">
-                            <img src={PortfolioTop} width="100%" />
-                            <img src={PortfolioBottom} width="100%" />
-                        </div>
-                    </div>
+        </div>
+    );
+
+    // JOIN
+
+    const joinTitle = makeSection("Find projects that align with your skillsets and interest", "Join the community of innovative college students, explore existing...");
+    const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", "Keep in constant touch with mentors and get their feedback")
+    const mentorBox = moveBoxDown((
+        <>
+            <img src={MentorTop} width="100%"/>
+            <img src={MentorBottom} width="100%" />
+        </>
+    ));
+    const communitySection = makeSection(MOCK_DATA.portfolio, MOCK_DATA.join);
+    const joinSection = (
+        <div className="Home-showcase graybg">
+            <div className="u-screenCenter Home-showcaseSection Home-flex">
+                <div className="col-md-7" >{joinTitle}</div>
+                <div className="col-md-5">
+                    <img src={ProjectTop} width="100%" />
+                    <img src={ProjectBotom} width="100%" />
                 </div>
+            </div>
+
+            <div className=" u-screenCenter Home-showcaseSection Home-flex">
+                <div className="col-md-7">{mentorSection}</div>
+                <div className="col-md-5">{mentorBox}</div>
+            </div>
+            <div className="u-screenCenter Home-showcaseSection Home-flex">
+                <div className="col-md-7">{communitySection}</div>
+                <div className="col-md-5">
+                    <img src={PortfolioTop} width="100%" />
+                    <img src={PortfolioBottom} width="100%" />
+                </div>
+            </div>
+        </div>
+    );
+
+    // CONTACT
+    const emailUsButton = (
+        <div className="row">
+            <div className="col-md-4">
+                <RoundedButtonLink label={"Send a message"} link={"mailto:"+EMAIL} />
+            </div>
+        </div>);
+    const contactSection = (
+        <div className="col-md-12">
+                {makeSmallTitle("Contact Us")}
+                {makeSection("Have questions or suggestions for new features?")}
+                {emailUsButton}
+                {moveBoxDown(makeSmallTitle(EMAIL))}
+                {makeSmallTitle("Grace Hsu - Johan Cervantes - Yanni Wang - Vanasa Liu")}
+        </div>);
+
+    // ABOUT
+    const aboutSection = (
+        <div className="col-md-12">
+            {makeSmallTitle("About Us")}
+            {makeSection("We are a group of undergraduates from various universities who were brought together with the goal of helping students who lost their summer plans to recreate the work experience as closely as possible. ")}
+        </div>);
+
+    return (
+        <>
+            <section id="title" >
+                    {titleSection}
             </section>
-        
-            
-            <section ref={ (ref) => refs.about=ref} id="about" className="Home-flex Home-titleContainer u-screenCenter">
+            <section id="join">
+                {joinSection}
+            </section>    
+            <section ref={(ref) => refs.about = ref} id="about" className="u-screenCenter Home-flex Home-titleContainer">
                 {aboutSection}
             </section>
-            <section ref={(ref) => refs.contact = ref} id="contact" className="Home-flex Home-titleContainer u-screenCenter">
+            <section ref={(ref) => refs.contact = ref} id="contact" className="u-screenCenter Home-flex Home-titleContainer">
                 {contactSection}
             </section>
         </>
