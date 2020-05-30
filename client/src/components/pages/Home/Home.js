@@ -5,11 +5,22 @@ import { refs, scrollToRef } from "../../modules/Ref.js";
 
 // Styling
 import "./Home.css";
-import FancyCard from "../../modules/FancyCard.js";
-import Testimonial from "./Testimonial.js";
-import Staircase from "./Staircase.js";
-import RoundedButton from "../../modules/RoundedButton.js";
+import RoundedButton, { RoundedButtonLink } from "../../modules/RoundedButton.js";
 
+// Images
+// Join
+import ProjectTop from "../../../assets/images/volunteer_top.svg";
+import ProjectBotom from "../../../assets/images/volunteer_bottom.svg";
+// Mentor
+import MentorTop from "../../../assets/images/mentor_top.svg";
+import MentorBottom from "../../../assets/images/mentor_bottom.svg";
+// Portfolio
+import PortfolioTop from "../../../assets/images/portfolio_top.svg";
+import PortfolioBottom from "../../../assets/images/portfolio_bottom.svg";
+
+const EMAIL = "buildconnectteam@gmail.com";
+const APPLY_STUDENT = "https://forms.gle/6vmx1AMtjzw3kbZY9";
+const APPLY_MENTOR = "https://forms.gle/W2GGGDUW3J6NEZnYA";
 const MOCK_DATA = {
     img: "https://miro.medium.com/max/2560/1*yOmBkzDKE6HuWOvrWw1E1Q.jpeg",
     title: "Get Artsy at Home",
@@ -45,44 +56,65 @@ const makeSmallTitle = (title) => {
 const Home = () => {
 
     const joinSection = makeSection("Find projects that align with your skillsets and interest", "Join the community of innovative college students, explore existing...");
-    const projectBox = (moveBoxDown(FancyCard(MOCK_DATA.img, MOCK_DATA.title, MOCK_DATA.description)));
-    const applyButtons = moveBoxDown((
-        <div className="row justify-content-md-center">
+
+    const applyButtons = (
+        <div className="container">
+            <div className="row justify-content-md-center">
 
             <div className="col-md-3  Home-apply">
-                <RoundedButton label={"Apply as a Student "} callback={() => alert("Open form")} />
+                    <RoundedButtonLink label={"Apply as a Student "} link={APPLY_STUDENT} newTab/>
             </div>
             <div className="col-md-3  Home-apply">
-                <RoundedButton label={"Apply as a Mentor"} callback={() => alert("open form")} />
+                <RoundedButtonLink label={"Apply as a Mentor"} link={APPLY_MENTOR}/>
             </div>
 
         </div>
-    ))
-
-    const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", "Keep in constant touch with mentors and get their feedback")
-    const mentorBox = moveBoxDown(Testimonial("", "", MOCK_DATA.quote, ""));
-    
-    const communitySection = makeSection(MOCK_DATA.portfolio, MOCK_DATA.join);
-    const award = moveBoxDown((<Staircase />))
-
-    const contactSection = (
-        <div>
-            {makeSmallTitle("Contact Us")}
-            {makeSection("Have questions or suggestions for new features? Send us a message.")}
-            <div className="col-md-3 Home-apply">
-                <RoundedButton label={"Contact us"} callback={() => alert("open email")} />
-            </div>
         </div>
     )
 
+    const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", "Keep in constant touch with mentors and get their feedback")
+    const mentorBox = moveBoxDown((
+        <>
+        <img src={MentorTop} width="100%"/>
+        <img src={MentorBottom} width="100%" />
+        </>
+    ));
+    
+    const communitySection = makeSection(MOCK_DATA.portfolio, MOCK_DATA.join);
+    const award = moveBoxDown((
+        <img src={PortfolioTop} width="100%"/>
+    ))
+
+
+    const contactSection = (
+        <div>
+          
+                {makeSmallTitle("Contact Us")}
+       
+           
+                {makeSection("Have questions or suggestions for new features?")}
+
+       
+                <div className="row">
+                    <div className="col-md-4">
+                        <RoundedButtonLink label={"Send a message"} link={"mailto:"+EMAIL} />
+                    </div>
+                   
+                </div>
+
+                {moveBoxDown(makeSmallTitle(EMAIL))}
+
+                {makeSmallTitle("Grace Hsu - Johan Cervantes - Yanni Wang - Vanasa Liu")}
+            </div>
+
+    )
     const aboutSection = (
         <div>
             {makeSmallTitle("About Us")}
             {makeSection("We are a group of undergraduates from various universities who were brought together with the goal of helping students who lost their summer plans to recreate the work experience as closely as possible. ")}
-            {makeSmallTitle("buildconnect@gmail.com")}
         </div>
+    );
 
-    )
     return (
         <>
         <section id="title" className="Home-titleContainer">
@@ -94,28 +126,36 @@ const Home = () => {
         </section>
             <section id="showcase">
                 
-                <div className="Home-showcase">
+                <div className="Home-showcase graybg">
                     
                     <div className="u-screenCenter Home-showcaseSection Home-flex">
-                        <div className="col-md-7">{joinSection}</div>
-                        <div className="col-md-5">{projectBox}</div>
+                        <div className="col-md-7" >{joinSection}</div>
+                        <div className="col-md-5">
+                            <img src={ProjectTop} width="100%" />
+                            <img src={ProjectBotom} width="100%" />
+                        </div>
                     </div>
+                    
                     <div className=" u-screenCenter Home-showcaseSection Home-flex">
                         <div className="col-md-7">{mentorSection}</div>
                         <div className="col-md-5">{mentorBox}</div>
                     </div>
                     <div className="u-screenCenter Home-showcaseSection Home-flex">
                         <div className="col-md-7">{communitySection}</div>
-                        <div className="col-md-5">{award}</div>
+                        <div className="col-md-5">
+                            <img src={PortfolioTop} width="100%" />
+                            <img src={PortfolioBottom} width="100%" />
+                        </div>
                     </div>
                 </div>
             </section>
         
-            <section ref={ (ref) => refs.contact=ref} id="contact" className="Home-flex Home-titleContainer u-screenCenter">
-                {contactSection}
-            </section>
+            
             <section ref={ (ref) => refs.about=ref} id="about" className="Home-flex Home-titleContainer u-screenCenter">
                 {aboutSection}
+            </section>
+            <section ref={(ref) => refs.contact = ref} id="contact" className="Home-flex Home-titleContainer u-screenCenter">
+                {contactSection}
             </section>
         </>
     );
