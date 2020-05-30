@@ -64,11 +64,11 @@ const NavBar = () => {
         </>
     ) : (
         <>
-            <Nav.Link as={Link} to="/register">
+            {/* <Nav.Link as={Link} to="/register">
                 <div className="NavBar-link">
                     Register
                 </div>
-            </Nav.Link>
+            </Nav.Link> */}
             <Button className="NavBar-link" style={buttonStyle} onClick={() => setOpen(true)}>
                 Sign In
             </Button>
