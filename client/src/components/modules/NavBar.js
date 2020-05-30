@@ -7,6 +7,9 @@ import Login from "./Login";
 import { auth } from "../../firebase_config.js";
 import { UserContext } from "../../providers/UserProvider.js";
 
+// Scrolling
+import { refs, scrollToRefOrPage } from "./Ref.js";
+
 // Styling assets.
 import "../../utilities.css";
 import "./NavBar.css";
@@ -15,6 +18,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {useTheme} from "@material-ui/core/styles";
+
+// logo asset
+import logo from "../../assets/images/logo.svg";
 
 /**
  * Navigation bar that should be on top of all pages. 
@@ -74,19 +80,19 @@ const NavBar = () => {
     return (
         <div className="u-screenCenter">
             <Navbar collapseOnSelect fixed="sticky-top" expand="sm" variant="light">
-                <Navbar.Brand as={Link} to="/">
-                    <div className="NavBar-logo-title">BuildConnect</div>
+                <Navbar.Brand className=".NavBar-logotitle" as={Link} to="/">
+                    <img className="logo-image" src={logo}/>
+                    BuildConnect
                 </Navbar.Brand>
                 <Navbar.Toggle className="NavBar-toggle" aria-controls="responsive-navbar-nav"  />
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
-
                     <Nav className={`NavBar-linkContainer ${'ml-auto'}`}>
-                        <Nav.Link as={Link} to="/about">
+                        <Nav.Link onClick={() => scrollToRefOrPage(refs.about, "/about")}>
                             <div className="NavBar-link">
                                 About Us
                             </div>
                         </Nav.Link>
-                        <Nav.Link as={Link} to="/contact">
+                        <Nav.Link onClick={() => scrollToRefOrPage(refs.contact, "/contact")}>
                             <div className="NavBar-link">
                                 Contact
                             </div>

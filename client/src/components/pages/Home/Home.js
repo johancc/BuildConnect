@@ -1,5 +1,7 @@
 import React from "react";
 
+// Scrolling
+import { refs, scrollToRef } from "../../modules/Ref.js";
 
 // Styling
 import "./Home.css";
@@ -109,13 +111,12 @@ const Home = () => {
                 </div>
             </section>
         
-            <section id="contact" className="Home-flex Home-titleContainer u-screenCenter">
+            <section ref={ (ref) => refs.contact=ref} id="contact" className="Home-flex Home-titleContainer u-screenCenter">
                 {contactSection}
             </section>
-            <section id="about" className="Home-flex Home-titleContainer u-screenCenter">
+            <section ref={ (ref) => refs.about=ref} id="about" className="Home-flex Home-titleContainer u-screenCenter">
                 {aboutSection}
             </section>
-
         </>
     );
 }
