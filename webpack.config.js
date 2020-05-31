@@ -63,7 +63,10 @@ module.exports = {
   resolve: {
     extensions: ["*", ".js", ".jsx"],
   },
-  plugins: [
+  optimization: {
+    minimize: true 
+  },
+  plugins: [   
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
 
@@ -83,8 +86,7 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
-    }),
-  
+    })
   ],
   devServer: {
     historyApiFallback: true,
