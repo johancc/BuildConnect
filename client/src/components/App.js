@@ -1,6 +1,8 @@
 import React, { Component, Suspense, lazy } from "react";
 import NavBar from "./modules/NavBar.js";
-import { Router } from "@reach/router";
+import { Router, createHistory, LocationProvider } from "@reach/router";
+// GOOGLE ANALYTICS
+import ReactGA from "react-ga";
 
 // NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
 // Prevents protected pages from being directly accessed.
@@ -23,38 +25,46 @@ const NotFound = lazy(() => import("./pages/NotFound/NotFound.js"));
 import "../utilities.css";
 import "./App.css";
 
+ReactGA.initialize("UA-167697452-1");
+const history = createHistory(window);
+
 /**
  * Define the "App" component as a class.
  */
-class App extends Component {
-  // required method: whatever is returned defines what
-  // shows up on screen
-  render() {
+const App = () => {
+ 
+     // Tracking website usage.
+    history.listen(window => {
+      ReactGA.pageview(window.location.pathname + window.location.search);
+      console.log('page=>', window.location.pathname);
+    });
+
     return (
       <div className="contentWrap">
         <Suspense fallback={<div/>}>
           <UserProvider>
-            <div className="App-container">
+            <LocationProvider history={history}>
+              <div className="App-container">
+                <NavBar />
+                <Router>
+                  <Home path="/" />
 
-              <NavBar />
-              <Router>
-                <Home path="/" />
-
-                {/* 
+                  {/* 
                     NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
                   {<AuthenticatedPage path="/project/:_id" component={Project} />
                   <AuthenticatedPage path="/explore" component={Explore} />
                   <AuthenticatedPage path="/registerProject" component={RegisterProject} />
                   <AuthenticatedPage path="/profile" component={Profile} />
                   <RegisterUser path="/register" />} */}
-                <NotFound default />
-              </Router>
-            </div>
+                  <NotFound default />
+                </Router>
+              </div>
+            </LocationProvider>  
           </UserProvider>    
         </Suspense> 
       </div>
     );
   }
-}
+
 
 export default App;
