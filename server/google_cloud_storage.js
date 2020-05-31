@@ -30,27 +30,6 @@ const DEFAULT_OPTIONS = {
     validation: "md5"
 };
 
-// // Params:
-// //  fileContent: file content to upload
-// //  bucketName: name of bucket to upload to
-// //  options: options for uploading
-// // Returns:
-// //  returns the public url of the uploaded file
-// const uploadFileToGCS  = (fileContent, bucketName, options) => {
-//     options = options || DEFAULT_OPTIONS
-//     const bucket = storage.bucket(bucketName);
-//     const fileName = uuidv4();
-//     const file = bucket.file(fileName)
-
-//     return file.save(fileContent, options, function(err) {
-//         if (!err) {
-//             return getPublicURL(bucketName, fileName)
-//         } else {
-//             return ""
-//         }
-//     })
-// };
-
 const uploadFileToGCS =  (fileContent, bucketName, options ) => {
     options = options || DEFAULT_OPTIONS;
     const bucket = storage.bucket(bucketName);

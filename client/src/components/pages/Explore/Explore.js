@@ -42,8 +42,6 @@ let MOCK_DATA = {
     _id: "123456"
 }
 
-let SORT_OPTIONS = ["Newest", "Popularity"];
-let CATEGORY_OPTIONS = ["Software", "Mechanical", "Electrical"];
 
 /**
  * Internal Spec:

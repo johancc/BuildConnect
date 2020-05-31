@@ -6,7 +6,7 @@
   "scripts": {
     "hotloader": "webpack-dev-server --config ./webpack.config.js --mode development --port 5000",
     "start": "nodemon --ignore client/",
-    "build": "webpack",
+    "build": "webpack --optimize-minimize",
     "postinstall": "node postinstall.js"
   },
   "repository": {
@@ -25,7 +25,6 @@
     "bootstrap": "^4.5.0",
     "compression": "^1.7.4",
     "compression-webpack-plugin": "^4.0.0",
-    "connect-ensure-login": "^0.1.1",
     "core-js": "^3.3.6",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
@@ -33,7 +32,6 @@
     "firebase": "^7.14.5",
     "firebase-admin": "^8.12.1",
     "formik": "^2.1.4",
-    "google-auth-library": "^5.5.1",
     "handlebars": "^4.7.6",
     "mongoose": "^5.7.7",
     "nodemailer": "^6.4.6",
@@ -42,10 +40,6 @@
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.7.0",
     "react-google-login": "^5.0.7",
-    "react-jss": "^8.0.0",
-    "react-router-dom": "^4.3.1",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0",
     "terser-webpack-plugin": "^3.0.2",
     "url-loader": "^1.1.2",
     "uuid": "^8.1.0",
