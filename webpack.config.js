@@ -64,7 +64,7 @@ module.exports = {
     extensions: ["*", ".js", ".jsx"],
   },
   optimization: {
-    minimize: true 
+    minimize: false 
   },
   plugins: [   
     new webpack.HotModuleReplacementPlugin(),

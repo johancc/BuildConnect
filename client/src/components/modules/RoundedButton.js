@@ -12,9 +12,13 @@ const buttonStyle = {
 }
 
 
-const RoundedButton = ({label, callback}) => {
+const RoundedButton = ({label, callback, bgcolor}) => {
+    let style = buttonStyle;
+    if (bgcolor) {
+        style.backgroundColor = bgcolor;
+    }
     return (
-        <Button variant="outline" style={buttonStyle} onClick={callback}>
+        <Button className="btn-lg"  variant="outline" style={style} onClick={callback}>
             {label}
         </Button>
     )

@@ -21,8 +21,9 @@ html { font-family: 'Inter', sans-serif; }
   html { font-family: 'Inter var', sans-serif; }
 }
 :root {
-  --primary: #000000;
-  --primary--dim: rgba(0, 0, 0, 0.884);
+  --primary: #13133A;
+  --primary--light: #A7D2FB;
+  --secondary: #DF4F59;
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
   --grey: #f7f7f7;

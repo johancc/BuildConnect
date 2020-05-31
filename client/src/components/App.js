@@ -1,4 +1,4 @@
-import React, { Component, Suspense, lazy } from "react";
+import React, { Suspense, lazy } from "react";
 import NavBar from "./modules/NavBar.js";
 import { Router, createHistory, LocationProvider } from "@reach/router";
 // GOOGLE ANALYTICS
@@ -15,7 +15,7 @@ const Home = lazy(()=> import("./pages/Home/Home.js"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound.js"));
 
 // NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
-// import Project from "./pages/Project/Project.js";
+import Project from "./pages/Project/Projectv2.js";
 // import Explore from "./pages/Explore/Explore.js";
 // import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
 // import RegisterProject from "./pages/RegisterProject/RegisterProject.js";
@@ -36,7 +36,6 @@ const App = () => {
      // Tracking website usage.
     history.listen(window => {
       ReactGA.pageview(window.location.pathname + window.location.search);
-      console.log('page=>', window.location.pathname);
     });
 
     return (
@@ -48,7 +47,7 @@ const App = () => {
                 <NavBar />
                 <Router>
                   <Home path="/" />
-
+                  <Project path="/project"/>
                   {/* 
                     NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
                   {<AuthenticatedPage path="/project/:_id" component={Project} />
