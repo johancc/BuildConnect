@@ -31,7 +31,8 @@ module.exports = {
     publicPath: "/",
     filename: "bundle.js",
   },
-  devtool: "inline-source-map",
+
+  devtool: "",
   module: {
     rules: [
       {
@@ -63,9 +64,6 @@ module.exports = {
   resolve: {
     extensions: ["*", ".js", ".jsx"],
   },
-  optimization: {
-    minimize: false 
-  },
   plugins: [   
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
@@ -94,10 +92,6 @@ module.exports = {
     hot: true,
     proxy: {
       "/api": "http://localhost:3000",
-      "/socket.io/*": {
-        target: "http://localhost:3000",
-        ws: true,
-      },
     },
   },
 };
