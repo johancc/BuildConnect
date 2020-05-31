@@ -25,7 +25,7 @@ const NotFound = lazy(() => import("./pages/NotFound/NotFound.js"));
 import "../utilities.css";
 import "./App.css";
 
-ReactGA.initialize("UA-167697452-1");
+ReactGA.initialize("UA-167697452-2");
 const history = createHistory(window);
 
 /**
