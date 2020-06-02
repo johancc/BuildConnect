@@ -94,8 +94,7 @@ const Home = () => {
 
     const joinTitle = makeSection("Find projects that align with your skillsets and interests", 
         "Choose from curated opportunities or create your own");
-    const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", 
-    "Keep in constant touch with mentors and get their feedback")
+    const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", "")
     const mentorBox = moveBoxDown((
         <>
             <img src={MentorTop} width="100%"/>
