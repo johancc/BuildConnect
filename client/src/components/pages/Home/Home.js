@@ -27,7 +27,7 @@ const MOCK_DATA = {
     description: "Build an interactive museum experience by using GANs to stylize the world around you.",
     quote: "\"In order to decide on the most useful datasets for this project, I think you should talk to people who have been doing research in the field. I know someone in the healthcare industry that I’d be happy to make an introduction for you!\" ",
     portfolio: "Create and showcase portfolio-worthy work to potential job opportunities",
-    join: "Join the community of innovative college students, explore existing ",
+    join: "",
 
 }
 
@@ -92,8 +92,10 @@ const Home = () => {
 
     // JOIN
 
-    const joinTitle = makeSection("Find projects that align with your skillsets and interest", "Join the community of innovative college students, explore existing...");
-    const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", "Keep in constant touch with mentors and get their feedback")
+    const joinTitle = makeSection("Find projects that align with your skillsets and interests", 
+        "Choose from curated opportunities or create your own");
+    const mentorSection = makeSection("Keep in constant touch with mentors and get their feedback", 
+    "Keep in constant touch with mentors and get their feedback")
     const mentorBox = moveBoxDown((
         <>
             <img src={MentorTop} width="100%"/>

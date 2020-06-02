@@ -37,6 +37,8 @@
     "mongoose": "^5.7.7",
     "nodemailer": "^6.4.6",
     "nodemon": "^1.19.4",
+    "pace": "0.0.4",
+    "pace-js": "^1.0.2",
     "react": "^16.7.0",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.7.0",
