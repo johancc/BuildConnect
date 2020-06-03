@@ -12,14 +12,15 @@ import Col from "react-bootstrap/Col";
  * @param {Number} md - bootstrap grid size
  * @param {String} placeholder - field hint to appear before the user touches the field.
  */
-const fieldGenerator = (fieldName, formik, md, placeholder) => {
+const fieldGenerator = (fieldName, fieldTitle, formik, md, placeholder) => {
     // Preprocessing
     md = md.toString();
     let fieldNameNoSpace = removeWhitespace(fieldName); 
     return (
     <Form.Group as={Col} md={md} controlId={"validation" + fieldNameNoSpace}>
-        <Form.Label>{toTitleCase(fieldName)}</Form.Label>
+        <Form.Label>{fieldTitle}</Form.Label>
         <Form.Control
+            className="underline"
             name={fieldNameNoSpace}
             {...formik.getFieldProps(fieldNameNoSpace)}
             isInvalid={formik.touched[fieldNameNoSpace] && formik.errors[fieldNameNoSpace]}
@@ -42,7 +43,7 @@ const toTitleCase = (str) => {
 }
 
 const removeWhitespace = (str) => {
-    return str = str.replace(/\s/g, '');
+    return str.replace(/\s/g, '');
 }
 
 

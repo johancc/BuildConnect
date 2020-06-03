@@ -1,6 +1,6 @@
 /*
 |--------------------------------------------------------------------------
-| webpack.config.js -- Configuration for Webpack
+| webpack.configOLD.js -- (Non-optimized) Configuration for Webpack
 |--------------------------------------------------------------------------
 |
 | Webpack turns all the clientside HTML, CSS, Javascript into one bundle.js file.
@@ -21,77 +21,57 @@ const entryFile = path.resolve(__dirname, "client", "src", "index.js");
 const outputDir = path.resolve(__dirname, "client", "dist");
 
 const webpack = require("webpack");
-const CompressionPlugin = require("compression-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  entry: ["@babel/polyfill", entryFile],
-  output: {
-    path: outputDir,
-    publicPath: "/",
-    filename: "bundle.js",
-  },
-
-  devtool: "",
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.(scss|css)$/,
-        use: [
-          {
-            loader: "style-loader",
-          },
-          {
-            loader: "css-loader",
-          },
-        ],
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          {
-            loader: "url-loader",
-          },
-        ],
-      },
-    ],
-  },
-  resolve: {
-    extensions: ["*", ".js", ".jsx"],
-  },
-  plugins: [   
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin(),
-
-    new CompressionPlugin({
-      algorithm: "gzip",
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8,
-    }),
-    new TerserPlugin({
-      parallel: true,
-      terserOptions: {
-        ecma: 6,
-      },
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    })
-  ],
-  devServer: {
-    historyApiFallback: true,
-    contentBase: "./client/dist",
-    hot: true,
-    proxy: {
-      "/api": "http://localhost:3000",
+    entry: ["@babel/polyfill", entryFile],
+    output: {
+        path: outputDir,
+        publicPath: "/",
+        filename: "bundle.js",
     },
-  },
+    devtool: "inline-source-map",
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                loader: "babel-loader",
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.(scss|css)$/,
+                use: [
+                    {
+                        loader: "style-loader",
+                    },
+                    {
+                        loader: "css-loader",
+                    },
+                ],
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    {
+                        loader: "url-loader",
+                    },
+                ],
+            },
+        ],
+    },
+    resolve: {
+        extensions: ["*", ".js", ".jsx"],
+    },
+    plugins: [new webpack.HotModuleReplacementPlugin()],
+    devServer: {
+        historyApiFallback: true,
+        contentBase: "./client/dist",
+        hot: true,
+        proxy: {
+            "/api": "http://localhost:3000",
+            "/socket.io/*": {
+                target: "http://localhost:3000",
+                ws: true,
+            },
+        },
+    },
 };

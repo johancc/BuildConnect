@@ -17,7 +17,7 @@ const NotFound = lazy(() => import("./pages/NotFound/NotFound.js"));
 // NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
 import Project from "./pages/Project/Projectv2.js";
 // import Explore from "./pages/Explore/Explore.js";
-// import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
+import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
 // import RegisterProject from "./pages/RegisterProject/RegisterProject.js";
 // import Profile from "./pages/Profile/Profile.js";
 
@@ -53,8 +53,8 @@ const App = () => {
                   {<AuthenticatedPage path="/project/:_id" component={Project} />
                   <AuthenticatedPage path="/explore" component={Explore} />
                   <AuthenticatedPage path="/registerProject" component={RegisterProject} />
-                  <AuthenticatedPage path="/profile" component={Profile} />
-                  <RegisterUser path="/register" />} */}
+                  <AuthenticatedPage path="/profile" component={Profile} />  */}
+                  <RegisterUser path="/register" />
                   <NotFound default />
                 </Router>
               </div>

@@ -7,20 +7,87 @@
     justify-content: center;
 }
 
+.header-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 575px) {
+    .header-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
 .RegisterUser-title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     padding: 1.5em;
+    background-image: url("../../../assets/images/apply_txtbox.svg");
+}
+
+.Title-first {
+    font-style: normal;
+    margin-bottom: 30px;
+}
+
+.Register-image {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .RegisterUser-text {
     flex-grow: 1;
 }
-.RegisterUser-img {
-    flex-grow: 1;
-    object-fit: cover;
-    height: 100%;
-    max-height: 260px;
+
+.Register-form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 575px) {
+    .Register-form-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.field-row-label {
+    width: auto;
+    padding: 0px 15px 0px 15px;
+    display:inline-block;
+    background-color: #13133A;
+    color: white;
+    border-radius: 2px;
+    margin-top: 30px;
+}
+
+input.form-control {
+    border: 0;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
+input.form-control.is_invalid {
+    border: 0;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
+.form-group {
+    margin: 15px 0 10px 0 !important;
+}
+
+.Register-submit #button {
+    width: 342px;
+    height: 64px;
+}
+
+.Register-submit {
+    display: flex;
+    justify-content: flex-end;
+    align-content: flex-end;
+    flex-wrap: wrap;
 }
