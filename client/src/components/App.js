@@ -6,7 +6,7 @@ import ReactGA from "react-ga";
 
 // NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
 // Prevents protected pages from being directly accessed.
-// import AuthenticatedPage from "./modules/AuthenticatedPage.js";
+import AuthenticatedPage from "./modules/AuthenticatedPage.js";
 // Providers
 import UserProvider from "../providers/UserProvider";
 
@@ -18,7 +18,7 @@ const NotFound = lazy(() => import("./pages/NotFound/NotFound.js"));
 import Project from "./pages/Project/Projectv2.js";
 // import Explore from "./pages/Explore/Explore.js";
 import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
-// import RegisterProject from "./pages/RegisterProject/RegisterProject.js";
+import RegisterProject from "./pages/RegisterProject/RegisterProject.js";
 // import Profile from "./pages/Profile/Profile.js";
 
 // to use styles, import the necessary CSS files
@@ -52,8 +52,10 @@ const App = () => {
                     NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
                   {<AuthenticatedPage path="/project/:_id" component={Project} />
                   <AuthenticatedPage path="/explore" component={Explore} />
+                  <AuthenticatedPage path="/profile" component={Profile} />
                   <AuthenticatedPage path="/registerProject" component={RegisterProject} />
-                  <AuthenticatedPage path="/profile" component={Profile} />  */}
+                  */}
+                  <RegisterProject path="registerProject" />
                   <RegisterUser path="/register" />
                   <NotFound default />
                 </Router>

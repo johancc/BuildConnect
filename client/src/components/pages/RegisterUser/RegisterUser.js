@@ -16,6 +16,7 @@ import Form from "react-bootstrap/Form";
 import "./RegisterUser.css";
 import ProjectTxtImg from "../../../assets/images/apply_txtbox.svg";
 import ProjectImg from "../../../assets/images/apply_project.svg";
+import GoIcon from "../../../assets/icons/go.svg";
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your name."),
@@ -75,7 +76,7 @@ const RegisterUser = () => {
     const fields = fieldOrder.map((fieldRow, i) => {
         return (
         <div>
-            <div className="field-row-label">
+            <div className="form-field-label">
                 {fieldOrderLabels[i]}
             </div>
             <Form.Row key={"row" + i}>
@@ -89,7 +90,7 @@ const RegisterUser = () => {
     const headerTitleStyle = {
         backgroundColor: "#ffffff",
         backgroundImage: `url(${ProjectTxtImg})`,
-        backgroundSize: "auto",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         padding: "50px 40px 50px 40px"
     }
@@ -97,28 +98,30 @@ const RegisterUser = () => {
     //const fields = fieldGetters.map((field) => field(formik));
     const header = (
         <div className="header-container">
-            <div className="Register-title" style={headerTitleStyle}>
-                <h1 className="Title-first">Join the community</h1>
+            <div className="header-text" style={headerTitleStyle}>
+                <h1 className="header-title">Join the community</h1>
                 <h4>Join the community of innovative college students,</h4>
                 <h4>Explore existing projects or post your own for others to join.</h4>
             </div>
-            <div className="Register-image">
+            <div className="header-image">
                 <img src={ProjectImg} />
             </div>
         </div>
     )
     return (
-        <div className="RegisterUser-container" style={{ backgroundColor: "#ffffff" }}>
+        <div className="col" style={{ backgroundColor: "#ffffff" }}>
             <div>
                 {header}
             </div>
-            <div className="Register-form-container">
-                <Form noValidate onSubmit={formik.handleSubmit}>
-                    {fields}
-                </Form>
-                <div className="Register-submit">
+            <div className="form-container">
+                <div className="form">
+                    <Form noValidate onSubmit={formik.handleSubmit}>
+                        {fields}
+                    </Form>
+                </div>
+                <div className="form-submit">
                     <div id="button">
-                        <RoundedButton label="Create Your Account" callback={() => formik.submitForm()} />
+                        <RoundedButton label="Create Your Account" icon={GoIcon} callback={() => formik.submitForm()} />
                     </div>
                 </div>
             </div>

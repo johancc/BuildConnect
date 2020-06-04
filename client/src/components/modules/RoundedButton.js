@@ -34,11 +34,11 @@ const RoundedButton = ({label, icon, callback, bgcolor}) => {
         <Button className="btn-lg"  variant="outline" style={style} onClick={callback}>
             <div className="container">
                 <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-md-10">
                         {label}
                     </div>
-                    <div className="col-md-4">
-                        {icon}
+                    <div className="col-md-2">
+                        <img src={icon} />
                     </div>
                 </div>
             </div>

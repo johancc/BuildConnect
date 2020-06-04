@@ -46,7 +46,9 @@ const ProjectSchema = Yup.object().shape({
 
 const RegisterProject = () => {
     const navigate = useNavigate();
-    const userProvider = useContext(UserContext);
+    // TODO: replace with useContext(UserContext) when authentication is fixed instead of this dummy token
+    // const userProvider = useContext(UserContext);
+    const userProvider = {user: {token: "token"}};
 
     const loadImage = (imageFile, cb) => {
         const reader = new FileReader();

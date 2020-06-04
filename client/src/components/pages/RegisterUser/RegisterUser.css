@@ -19,42 +19,31 @@
     }
 }
 
-.RegisterUser-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding: 1.5em;
-    background-image: url("../../../assets/images/apply_txtbox.svg");
-}
-
-.Title-first {
+.header-title {
     font-style: normal;
     margin-bottom: 30px;
 }
 
-.Register-image {
+.header-image {
     display: flex;
     justify-content: flex-end;
 }
 
-.RegisterUser-text {
-    flex-grow: 1;
-}
-
-.Register-form-container {
+.form-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin-left: 50px;
+    margin-bottom: 25px;
 }
 
 @media (max-width: 575px) {
-    .Register-form-container {
+    .form-container {
         display: flex;
         flex-wrap: wrap;
     }
 }
 
-.field-row-label {
+.form-field-label {
     width: auto;
     padding: 0px 15px 0px 15px;
     display:inline-block;
@@ -70,22 +59,16 @@ input.form-control {
     border-radius: 0;
 }
 
-input.form-control.is_invalid {
-    border: 0;
-    border-bottom: 1px solid black;
-    border-radius: 0;
-}
-
 .form-group {
     margin: 15px 0 10px 0 !important;
 }
 
-.Register-submit #button {
+.form-submit #button {
     width: 342px;
     height: 64px;
 }
 
-.Register-submit {
+.form-submit {
     display: flex;
     justify-content: flex-end;
     align-content: flex-end;
