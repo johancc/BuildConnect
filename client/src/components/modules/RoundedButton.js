@@ -12,14 +12,36 @@ const buttonStyle = {
 }
 
 
-const RoundedButton = ({label, callback, bgcolor}) => {
+const RoundedButton = ({label, icon, callback, bgcolor}) => {
     let style = buttonStyle;
     if (bgcolor) {
         style.backgroundColor = bgcolor;
     }
+    if (!label || label.length===0) {
+        return (
+            <Button className="btn-lg" variant="outline" style={style} onClick={callback}>
+                {icon}
+            </Button>
+        )
+    } else if (!icon) {
+        return (
+            <Button className="btn-lg" variant="outline" style={style} onClick={callback}>
+                {label}
+            </Button>
+        )
+    }
     return (
         <Button className="btn-lg"  variant="outline" style={style} onClick={callback}>
-            {label}
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-8">
+                        {label}
+                    </div>
+                    <div className="col-md-4">
+                        {icon}
+                    </div>
+                </div>
+            </div>
         </Button>
     )
 }
