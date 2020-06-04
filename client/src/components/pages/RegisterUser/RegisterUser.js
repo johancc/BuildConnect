@@ -2,8 +2,7 @@
  * Registers a user
  */
 import React from "react";
-import Button from "react-bootstrap/Button";
-import RoundedButton from "../../modules/RoundedButton.js";
+import { RegisterHeader, RegisterForm } from "../../modules/RegisterFields.js";
 import { createNewUser } from "../../../api.js";
 import { useNavigate } from "@reach/router";
 import {
@@ -14,9 +13,8 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Form from "react-bootstrap/Form";
 import "./RegisterUser.css";
-import ProjectTxtImg from "../../../assets/images/apply_txtbox.svg";
+import ProjectBackground from "../../../assets/images/apply_txtbox.svg";
 import ProjectImg from "../../../assets/images/apply_project.svg";
-import GoIcon from "../../../assets/icons/go.svg";
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your name."),
@@ -42,7 +40,7 @@ const RegisterUser = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (values) => {
-        
+
         const user = { ...values};
         createNewUser(user)
             .then(() => {
@@ -66,7 +64,7 @@ const RegisterUser = () => {
     });
     // Every subarray is a row.
     const fieldOrder = [
-        [getNameField, getEmailField, getMajorField], 
+        [getNameField, getEmailField, getMajorField],
         [getPasswordField, getConfirmPasswordField]
     ];
     const fieldOrderLabels = [
@@ -75,58 +73,29 @@ const RegisterUser = () => {
     ]
     const fields = fieldOrder.map((fieldRow, i) => {
         return (
-        <div>
-            <div className="form-field-label">
-                {fieldOrderLabels[i]}
+            <div>
+                <div className="form-field-label">
+                    {fieldOrderLabels[i]}
+                </div>
+                <Form.Row key={"row" + i}>
+                    {fieldRow.map((field) => {
+                        return field(formik)})}
+                </Form.Row>
             </div>
-            <Form.Row key={"row" + i}>
-                {fieldRow.map((field) => {
-                    return field(formik)})}
-            </Form.Row>
-        </div>
         );
     });
 
-    const headerTitleStyle = {
-        backgroundColor: "#ffffff",
-        backgroundImage: `url(${ProjectTxtImg})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        padding: "50px 40px 50px 40px"
-    }
-    
-    //const fields = fieldGetters.map((field) => field(formik));
-    const header = (
-        <div className="header-container">
-            <div className="header-text" style={headerTitleStyle}>
-                <h1 className="header-title">Join the community</h1>
-                <h4>Join the community of innovative college students,</h4>
-                <h4>Explore existing projects or post your own for others to join.</h4>
-            </div>
-            <div className="header-image">
-                <img src={ProjectImg} />
-            </div>
-        </div>
-    )
+    const headerTitle = "Join the community";
+    const headerBody = ["Join the community of innovative college students,",
+        "Explore existing projects or post your own for others to join."]
+    const submitLabel = "Create Your Account";
+
     return (
         <div className="col" style={{ backgroundColor: "#ffffff" }}>
-            <div>
-                {header}
-            </div>
-            <div className="form-container">
-                <div className="form">
-                    <Form noValidate onSubmit={formik.handleSubmit}>
-                        {fields}
-                    </Form>
-                </div>
-                <div className="form-submit">
-                    <div id="button">
-                        <RoundedButton label="Create Your Account" icon={GoIcon} callback={() => formik.submitForm()} />
-                    </div>
-                </div>
-            </div>
+            <RegisterHeader title={headerTitle} body={headerBody} background={ProjectBackground} headerImage={ProjectImg} />
+            <RegisterForm formik={formik} fields={fields} submitLabel={submitLabel} />
         </div>
-        
+
     )
 
 };

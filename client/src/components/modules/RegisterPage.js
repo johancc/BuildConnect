@@ -1,1 +1,0 @@
-// This file contains a generator to create new register pages
