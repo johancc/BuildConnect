@@ -25,9 +25,7 @@ const ProjectDetail = (title, text) => {
                     {text}
                 </div>
             </div>
-    </div>
-
-    );
+    </div>);
 }
 /**
  * Displays the information about a given project and allows
