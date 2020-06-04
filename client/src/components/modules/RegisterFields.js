@@ -63,7 +63,7 @@ export const RegisterForm = ({formik, fieldOrder, fieldOrderLabels, submitLabel}
                 </div>
                 <div className="form-submit">
                     <div id="button">
-                        <RoundedButton label={submitLabel} icon={GoIcon} callback={() => formik.submitForm()} />
+                        <RoundedButton label={submitLabel} icon={GoIcon} bgcolor="#13133A" callback={() => formik.submitForm()} />
                     </div>
                 </div>
             </div>

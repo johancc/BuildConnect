@@ -13,7 +13,7 @@ const buttonStyle = {
 
 
 const RoundedButton = ({label, icon, callback, bgcolor}) => {
-    let style = buttonStyle;
+    let style = {...buttonStyle };
     if (bgcolor) {
         style.backgroundColor = bgcolor;
     }

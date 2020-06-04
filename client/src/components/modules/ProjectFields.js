@@ -19,7 +19,7 @@ export const getDescriptionField= (formik) => {
 }
 
 export const getLinkField = (formik) => {
-    return fieldGenerator("link", "List a website", formik, 12, "abc123.com");
+    return fieldGenerator("link", "List a website", formik, 8, "abc123.com");
 };
 
 export const getTeamDescriptionField = (formik) => {
@@ -27,15 +27,15 @@ export const getTeamDescriptionField = (formik) => {
 };
 
 export const getTeamSizeField = (formik) => {
-    return fieldGenerator("team Size", "What is your ideal team size?", formik, 12, "E.g. 5");
+    return fieldGenerator("team Size", "What is your ideal team size?", formik, 8, "E.g. 5");
 }
 
 export const getContactInfoField = (formik) => {
-    return fieldGenerator("contact Info", "List an email for students to contact", formik, 12, "abcxyz@gmail.com");
+    return fieldGenerator("contact Info", "List an email for students to contact", formik, 8, "abcxyz@gmail.com");
 };
 
 export const getSkillsNeededField = (formik) => {
-    return fieldGenerator("skills Needed", "Describe the skills you need to complete this project", formik, 12, "");
+    return fieldGenerator("skills Needed", "Describe the skills you need to complete this project", formik, 12, "We have 3 people. All of us are engineers from Carnegie Mellon. We're looking for at least 2 more people, preferably PM and a designer.");
 };
 
 export const getHelpNeededField = (formik) => {
