@@ -71,19 +71,6 @@ const RegisterUser = () => {
         "Email",
         "Password"
     ]
-    const fields = fieldOrder.map((fieldRow, i) => {
-        return (
-            <div>
-                <div className="form-field-label">
-                    {fieldOrderLabels[i]}
-                </div>
-                <Form.Row key={"row" + i}>
-                    {fieldRow.map((field) => {
-                        return field(formik)})}
-                </Form.Row>
-            </div>
-        );
-    });
 
     const headerTitle = "Join the community";
     const headerBody = ["Join the community of innovative college students,",
@@ -93,7 +80,7 @@ const RegisterUser = () => {
     return (
         <div className="col" style={{ backgroundColor: "#ffffff" }}>
             <RegisterHeader title={headerTitle} body={headerBody} background={ProjectBackground} headerImage={ProjectImg} />
-            <RegisterForm formik={formik} fields={fields} submitLabel={submitLabel} />
+            <RegisterForm formik={formik} fieldOrder={fieldOrder} fieldOrderLabels={fieldOrderLabels} submitLabel={submitLabel} />
         </div>
 
     )

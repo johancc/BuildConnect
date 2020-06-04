@@ -30,7 +30,21 @@ export const RegisterHeader = ({title, body, background, headerImage})  => {
     )
 }
 
-export const RegisterForm = ({formik, fields, submitLabel}) => {
+export const RegisterForm = ({formik, fieldOrder, fieldOrderLabels, submitLabel}) => {
+    const fields = fieldOrder.map((fieldRow, i) => {
+        return (
+            <div>
+                <div className="form-field-label">
+                    {fieldOrderLabels[i]}
+                </div>
+                <Form.Row key={"row" + i}>
+                    {fieldRow.map((field) => {
+                        return field(formik)})}
+                </Form.Row>
+            </div>
+        );
+    });
+
     return (
         <div className="form-container">
             <div className="form">

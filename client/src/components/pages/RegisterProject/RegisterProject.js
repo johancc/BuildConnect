@@ -103,14 +103,14 @@ const RegisterProject = () => {
             }
             reader.readAsDataURL(file);
     }
-    
+
+    // TODO: discuss during meeting what to do with getSkillsNeededField and getDescriptionField
     let fieldOrder = [
-        [getProjectNameField, getTweetDescriptionField, getDateField],
-        [getDescriptionField, (formik) => getImageField(formik, handleImageLoad)],
-        [getTeamDescriptionField, getTeamSizeField],
-        [getHelpNeededField, getSkillsNeededField],
-        [getContactInfoField, getLinkField],
-    ];
+        [getProjectNameField, getTweetDescriptionField, getDateField, (formik) => getImageField(formik, handleImageLoad)],
+        [getTeamDescriptionField, getSkillsNeededField, getTeamSizeField],
+        [getContactInfoField, getLinkField]
+    ]
+
     const fields = fieldOrder.map((fieldRow, i)  => {
         return (
             <Form.Row key={`row${i}`}>
@@ -119,7 +119,7 @@ const RegisterProject = () => {
                 })}
             </Form.Row>
         );
-    });    
+    });
 
     const header = (
         <Jumbotron fluid style={{ backgroundColor: "#ebf5fa" }}>
