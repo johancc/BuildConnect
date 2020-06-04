@@ -16,12 +16,12 @@ const MOCK_DATA = {
 
 const ProjectDetail = (title, text) => {
     return (
-    <div className="col-md-4 projectDetails">
-            <div className="projectDetail">
-                <div className="projectDetail-label">
+    <div className="col-md-4">
+            <div className="ProjectBox">
+                <div className="ProjectBox-label">
                     {title}
                 </div>
-                <div className="projectDetail-text">
+                <div className="ProjectBox-text" width="fit-content">
                     {text}
                 </div>
             </div>
@@ -47,47 +47,58 @@ class Project extends Component {
     }
 
     getTitleRow = () => {
-        const titleLeft = (
-            <div className="col-md-6">
-                <div className="title" style={{marginTop: "2em", marginBottom: "1em"}}>
-                    {this.state.projectData.title}
-                    {/* // TODO */}
-                    {this.state.projectData.mentor ? <></> : <> </>}
-                </div>
-                <div className="description">{this.state.projectData.shortDescription}</div>
-            </div>
-        );
-        const titleRight = (
-            <>
-                <div className="col-md-3 align-self-center offset-down bottom ">
-                    <div className="stats">10 Members</div>
-                    <div className="stats">9 Days ago</div>
-                </div>
-                <div className="col-md-3 align-self-center offset-down bottom">
-                    <RoundedButton label="Join" bgcolor="#13133A"/>
-                </div>
-            </>
-        );
-
-        return (
+        const mainText = (
             <div className="container">
                 <div className="row">
-                    {titleLeft}
-                    {titleRight}
+                    <div className="col-md-8">
+                        <div className="title" style={{ marginTop: "1em" }}>
+                            {this.state.projectData.title}
+                        </div>
+                        <div className="description">
+                            {this.state.projectData.shortDescription}
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+        )
+        const infoRow = (
+            <div className="container">
+
+                <div className="row justify-content-between " >
+                    <div className="col-md-2 infobarLabel">
+                        People Needed <br />
+                        <div className="infobarInfo">2 Members</div>
+
+                </div>
+                    <div className="col-md-2 infobarLabel">
+                        Project Owner <br />
+                        <div className="infobarInfo">Michael Li</div>
+                </div>
+                    <div className="col-md-2 infobarLabel">
+                        Mentor <br />
+                        <div className="infobarInfo">Marzia</div>
+                </div>
+                    <div className="col-md-2 infobarLabel">
+                        Project Timeline <br />
+                        <div className="infobarInfo">1 Month</div>
+                </div>
+                <div className="col-md-2 infoBarLabel">
+                    <RoundedButton label="Join" bgcolor="#13133A" />
+                </div>
+                </div>
+            </div>
+        )
+        return (
+            <div>
+                    {mainText}
+                    <br/>
+                    <br/>
+                    {infoRow}
             </div>
         )
     }
 
-    getProjectImage = () => {
-        return (
-            <div className="container" style={{maxHeight: "250px"}}>
-                <div className="row">
-                    <img className="Project-title-img col-md-12 offset-down" src={this.state.projectData.imageURL}/>
-                </div>
-            </div>
-        )
-    }
 
     getProjectDetails = () => {
         let details = [
@@ -99,7 +110,7 @@ class Project extends Component {
         return (
             <div className="container">
 
-                <div className=" row">
+                <div className="row">
                         {details.map((detail) => ProjectDetail(detail[0], detail[1]))}
                 </div>
             </div>
@@ -109,15 +120,13 @@ class Project extends Component {
         if (this.state.projectData === undefined) return <></>
 
         const titleRow = this.getTitleRow();
-        const projectImage = this.getProjectImage();
         const projectDetails = this.getProjectDetails();
 
         return (
-            <>
+            <div className="project">
                 {titleRow}
-                {projectImage}
                 {projectDetails}
-            </>
+            </div>
         )
     }
 }
