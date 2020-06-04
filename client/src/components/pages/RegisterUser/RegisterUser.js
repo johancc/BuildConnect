@@ -45,7 +45,7 @@ const RegisterUser = () => {
         const user = { ...values};
         createNewUser(user)
             .then(() => {
-                navigate("/explore");
+                navigate("/");
             })
             .catch((err) => {
                 alert("Unable to register for some reason.")
