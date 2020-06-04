@@ -12,9 +12,8 @@ import {
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Form from "react-bootstrap/Form";
-import "./RegisterUser.css";
-import ProjectBackground from "../../../assets/images/apply_txtbox.svg";
-import ProjectImg from "../../../assets/images/apply_project.svg";
+import HeaderBackground from "../../../assets/images/apply_txtbox.svg";
+import HeaderImage from "../../../assets/images/apply_project.svg";
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your name."),
@@ -73,17 +72,18 @@ const RegisterUser = () => {
     ]
 
     const headerTitle = "Join the community";
-    const headerBody = ["Join the community of innovative college students,",
-        "Explore existing projects or post your own for others to join."]
+    const headerBody = [
+        "Join the community of innovative college students,",
+        "Explore existing projects or post your own for others to join."
+    ];
     const submitLabel = "Create Your Account";
 
     return (
         <div className="col" style={{ backgroundColor: "#ffffff" }}>
-            <RegisterHeader title={headerTitle} body={headerBody} background={ProjectBackground} headerImage={ProjectImg} />
+            <RegisterHeader title={headerTitle} body={headerBody} background={HeaderBackground} headerImage={HeaderImage} />
             <RegisterForm formik={formik} fieldOrder={fieldOrder} fieldOrderLabels={fieldOrderLabels} submitLabel={submitLabel} />
         </div>
-
-    )
+    );
 
 };
 

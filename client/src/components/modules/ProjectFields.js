@@ -7,11 +7,11 @@ import Form from "react-bootstrap/Form";
 import fieldGenerator from "./FieldGenerator.js";
 
 export const getProjectNameField = (formik) => {
-    return fieldGenerator("project Name", "project Name", formik, 12);
+    return fieldGenerator("project Name", "What will you name this project?", formik, 12, "Project title");
 };
 
 export const getTweetDescriptionField = (formik) => {
-    return fieldGenerator("tweet Description", "tweet Description", formik, 12, "Describe your team in a sentence or two.");
+    return fieldGenerator("tweet Description", "Describe your project in 3 sentences or less", formik, 12, "Build an interactive museum experience! Make art at home and transform them using different GANs. Then, find your match with a current museum piece.");
 }
 
 export const getDescriptionField= (formik) => {
@@ -19,23 +19,23 @@ export const getDescriptionField= (formik) => {
 }
 
 export const getLinkField = (formik) => {
-    return fieldGenerator("link", "link", formik, 12);
+    return fieldGenerator("link", "List a website", formik, 12, "abc123.com");
 };
 
 export const getTeamDescriptionField = (formik) => {
-    return fieldGenerator("team Description", "team Description", formik, 12);
+    return fieldGenerator("team Description", "Describe the current state of your team", formik, 12, "We have 3 people. All of us are engineers from Carnegie Mellon. We're looking for at least 2 more people, preferably PM and a designer.");
 };
 
 export const getTeamSizeField = (formik) => {
-    return fieldGenerator("team Size", "team Size", formik, 12);
+    return fieldGenerator("team Size", "What is your ideal team size?", formik, 12, "E.g. 5");
 }
 
 export const getContactInfoField = (formik) => {
-    return fieldGenerator("contact Info", "contact Info", formik, 12);
+    return fieldGenerator("contact Info", "List an email for students to contact", formik, 12, "abcxyz@gmail.com");
 };
 
 export const getSkillsNeededField = (formik) => {
-    return fieldGenerator("skills Needed", "skills Needed", formik, 12);
+    return fieldGenerator("skills Needed", "Describe the skills you need to complete this project", formik, 12, "");
 };
 
 export const getHelpNeededField = (formik) => {
@@ -46,7 +46,7 @@ export const getDateField = (formik) =>  {
     const fieldName = "dateStarted";
     return (
         <Form.Group as={Col} md="4" controlId={"validation"+fieldName}>
-            <Form.Label>Date Started</Form.Label>
+            <Form.Label>When did you start this project?</Form.Label>
             <Form.Control
                 name={fieldName}
                 {...formik.getFieldProps(fieldName)}
@@ -63,7 +63,7 @@ export const getImageField = (formik, setFieldValue) => {
     const fieldName = "image";
     return (
         <Form.Group as={Col} md="12" controlId={"validation" + fieldName}>
-            <Form.Label>Project Image</Form.Label>
+            <Form.Label> Upload a cover image (600 pixels x 400 pixels recommended) </Form.Label>
             <Form.Control
                 name={fieldName}
                 {...formik.getFieldProps(fieldName)}

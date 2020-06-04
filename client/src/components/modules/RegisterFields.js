@@ -4,6 +4,10 @@ import Form from "react-bootstrap/Form";
 import RoundedButton from "./RoundedButton";
 import GoIcon from "../../assets/icons/go.svg";
 
+// Styling
+import './RegisterFields.css';
+
+// Component for the header of a register page. Contains a banner with text and an image.
 export const RegisterHeader = ({title, body, background, headerImage})  => {
     const headerTitleStyle = {
         backgroundColor: "#ffffff",
@@ -18,18 +22,22 @@ export const RegisterHeader = ({title, body, background, headerImage})  => {
     );
 
     return (
-        <div className="header-container">
-            <div className="header-text" style={headerTitleStyle}>
-                <h1 className="header-title">{title}</h1>
-                {bodyItems}
-            </div>
-            <div className="header-image">
-                <img src={headerImage} />
+        <div className="RegisterFields">
+            <div className="header-container">
+                <div className="header-text" style={headerTitleStyle}>
+                    <h1 className="header-title">{title}</h1>
+                    {bodyItems}
+                </div>
+                <div className="header-image">
+                    <img src={headerImage} />
+                </div>
             </div>
         </div>
     )
 }
 
+// Component for the form of a register page. Fields are grouped by fieldOrder subarrays and are each group is labeled
+// by the corresponding label in `fieldOrderLabels`. The submit button is labeled by `submitLabel`.
 export const RegisterForm = ({formik, fieldOrder, fieldOrderLabels, submitLabel}) => {
     const fields = fieldOrder.map((fieldRow, i) => {
         return (
@@ -46,15 +54,17 @@ export const RegisterForm = ({formik, fieldOrder, fieldOrderLabels, submitLabel}
     });
 
     return (
-        <div className="form-container">
-            <div className="form">
-                <Form noValidate onSubmit={formik.handleSubmit}>
-                    {fields}
-                </Form>
-            </div>
-            <div className="form-submit">
-                <div id="button">
-                    <RoundedButton label={submitLabel} icon={GoIcon} callback={() => formik.submitForm()} />
+        <div className="RegisterFields">
+            <div className="form-container">
+                <div className="form">
+                    <Form noValidate onSubmit={formik.handleSubmit}>
+                        {fields}
+                    </Form>
+                </div>
+                <div className="form-submit">
+                    <div id="button">
+                        <RoundedButton label={submitLabel} icon={GoIcon} callback={() => formik.submitForm()} />
+                    </div>
                 </div>
             </div>
         </div>

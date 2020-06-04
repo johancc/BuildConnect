@@ -29,6 +29,9 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import "./RegisterProject.css";
+import { RegisterForm, RegisterHeader } from "../../modules/RegisterFields";
+import HeaderBackground from "../../../assets/images/apply_txtbox.svg";
+import HeaderImage from "../../../assets/images/rocket.svg";
 
 const ProjectSchema = Yup.object().shape({
     projectName: Yup.string().required("Please enter a project name"),
@@ -111,40 +114,25 @@ const RegisterProject = () => {
         [getContactInfoField, getLinkField]
     ]
 
-    const fields = fieldOrder.map((fieldRow, i)  => {
-        return (
-            <Form.Row key={`row${i}`}>
-                {fieldRow.map((field) => {
-                    return field(formik);
-                })}
-            </Form.Row>
-        );
-    });
+    const fieldOrderLabels = [
+        "The Project",
+        "The Team",
+        "Contact Information"
+    ]
 
-    const header = (
-        <Jumbotron fluid style={{ backgroundColor: "#ebf5fa" }}>
-            <Container>
-                <div className="RegisterProject-title">
-                    <div>
-                        <h1>Register</h1>
-                        <h3>Join the community of innovative college students. Explore existing projects or post your own project for others to join. Get access to industry professional mentors for your group. </h3>
-                    </div>
-                </div>
-            </Container>
-        </Jumbotron>
-    );
+    const headerTitle = "Launch Your Idea";
+    const headerBody = [
+        "Looking for team members or mentors?",
+        "Your project must be longer than 4 weeks long and have more than 2 people."
+    ];
+    const submitLabel = "Submit your project";
 
     return (
-        <div className="RegisterProject-container" style={{ backgroundColor: "#ebf5fa"}}>
-            {header}
-            <Form noValidate onSubmit={() => {
-                formik.handleSubmit()
-            }}>
-                {fields}
-                <Button onClick={() => formik.submitForm()}>Create project</Button>
-            </Form>
+        <div className="col" style={{ backgroundColor: "#ffffff" }}>
+            <RegisterHeader title={headerTitle} body={headerBody} background={HeaderBackground} headerImage={HeaderImage} />
+            <RegisterForm formik={formik} fieldOrder={fieldOrder} fieldOrderLabels={fieldOrderLabels} submitLabel={submitLabel} />
         </div>
-    )
+    );
 };
 
 export default RegisterProject;
