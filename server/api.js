@@ -25,7 +25,6 @@ const Email = require("./models/email.js");
 // Email utilities.
 const email = require("./email.js");
 
-
 // api endpoints: all these paths will be prefixed with "/api/"
 
 // GET
@@ -85,7 +84,6 @@ router.get("/whitelist/:email", (req, res) => {
 router.post("/addUser", firebaseMiddleware, (req,res) => {
     let userData = req.body.user;
     userData.firebase_uid = req.user.user_id;
-
     if (userData.photoData) {
         // Upload profile pic to GCP
         return uploadFileToGCS(userData.photoData, DEFAULT_BUCKET_NAME)
