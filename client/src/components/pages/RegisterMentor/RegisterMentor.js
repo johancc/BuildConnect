@@ -1,0 +1,3 @@
+/**
+ * Registers a new mentor
+ */
