@@ -77,3 +77,13 @@ input.form-control {
     align-content: flex-end;
     flex-wrap: wrap;
 }
+
+.header-image img {
+    position: absolute;
+}
+
+@media (max-width: 575px) {
+    .header-image img {
+        position: static;
+    }
+}
