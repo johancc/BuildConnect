@@ -1,12 +1,13 @@
-.project {
+.greybg {
     background: #F5F7FB;
+}
+.project {
+    
     width: 100%;
     height: 100%;
+    margin-bottom: var(--xl);
 }
-.BottomSection {
-    background: #F5F7FB;
-    border-radius: 6px;
-}
+
 .ProjectBox {
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
@@ -69,4 +70,29 @@
     font-weight: normal;
     font-size: 24px;
     line-height: 29px;
+}
+
+.extraDetails  h3{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #13133A;
+}
+
+.extraDetails p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #13133A;
+}
+
+.roundedBox {
+    background: #FFFFFF;
+    border: 1px solid #DEDEDE;
+    box-sizing: border-box;
+    border-radius: 4px;
 }
