@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,  } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TextField from "@material-ui/core/TextField";
-
+import RoundedButton from "../../../components/modules/RoundedButton.js"
 import { UserContext } from "../../../providers/UserProvider.js";
 import { requestToJoin } from "../../../api.js";
 
@@ -14,7 +14,6 @@ const JoinRequest = ({projectID}) => {
 
     let handleSubmit = (event) => {
         event.preventDefault();
-        console.log("sending...")
         requestToJoin(message, projectID, userProvider.user.token)
             .then((resp) => {
                 alert("Message sent!");
@@ -28,9 +27,9 @@ const JoinRequest = ({projectID}) => {
 
     return (
         <>
-            <Button variant="primary" onClick={() => setShow(true)} >
+            <RoundedButton label="Join" bgcolor="#13133A" callback={() => setShow(true)} >
                 Volunteer
-            </Button>
+            </RoundedButton>
             <Modal
                 show={show}
                 onHide={() => setShow(false)}

@@ -1,13 +1,12 @@
 /**
- * TODOS 1:43AM:
- *      Add the icons to the site
- *      make the inforow two columns justified between, with the left column having a row with space-between
- *      Move from hardcode to server reply.
- *      Find a background balance.
- * 
+ * TODO (6/6/2020):
+ *  - Make a resource component for the info box
+ *  - Add the modal to the join button
+ *  - For the sake of all that is good in coding, refactor this code.
  */
 
 import React, { Component } from "react";
+import JoinRequest from "./JoinRequest.js";
 import "./Project.css";
 
 // Styling
@@ -135,7 +134,8 @@ class Project extends Component {
                     <div className="col-md-4 justify-content-end infoBarLabel ">
                         
                         <div className="col-md-6 float-right">
-                            <RoundedButton label="Join" bgcolor="#13133A" />
+                            
+                            <JoinRequest projectID={this.state.projectData._id}/>
                         </div>
                     </div>
                 </div>
