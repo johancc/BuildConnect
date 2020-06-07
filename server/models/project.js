@@ -10,9 +10,9 @@ const projectSchema = new mongoose.Schema({
     durationDays: Number,
     helpNeeded: String,
     teamDescription: String,
-    link: [String],
+    link: String,
     contactInfo: String,
-    skillsNeeded: [String],
+    skillsNeeded: String,
     projectOwner: mongoose.Types.ObjectId,
 });
 
