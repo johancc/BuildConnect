@@ -17,6 +17,7 @@ const NotFound = lazy(() => import("./pages/NotFound/NotFound.js"));
 // NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
 import Project from "./pages/Project/Projectv2.js";
 import Explore from "./pages/Explore/ExploreV2.js";
+import Mentors from "./pages/Mentors/Mentors.js";
 // import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
 // import RegisterProject from "./pages/RegisterProject/RegisterProject.js";
 // import Profile from "./pages/Profile/Profile.js";
@@ -49,6 +50,7 @@ const App = () => {
                 <Home path="/" />
                 <Project path="/project" />
                 <Explore path="/explore" />
+                <Mentors path="/mentors" />
                 {/* 
                     NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
                   {<AuthenticatedPage path="/project/:_id" component={Project} />

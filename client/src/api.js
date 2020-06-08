@@ -27,6 +27,9 @@ export const requestToJoin = async (message, projectID, tokenId) => {
     return post("/api/requestToJoin", {message: message,  projectID: projectID, token: tokenId})
 };
 
+export const requestMentor = async (message, mentor, tokenId) => {
+    return post("/api/requestMentor", {message: message, mentor: mentor, token: tokenId});
+};
 
 export const postUser = async (tokenId, values) => {
     return await post("/api/addUser", {user: values, token: tokenId});

@@ -1,0 +1,43 @@
+.title h1 {
+ font-weight: 500;
+    font-size: 48px;
+    line-height: 58px;
+    color: #13133A;
+}
+
+.title h3 {
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 40px;
+    color: #13133A;
+}
+
+
+
+.mentorCard {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    box-sizing: border-box;
+    border-radius: 6px;
+    
+}
+
+.mentorCard h3 {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #13133A;
+    padding-left: var(--s);
+}
+
+.mentorCard p {
+    padding-left: var(--s);
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #13133A;
+}
