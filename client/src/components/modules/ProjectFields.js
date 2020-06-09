@@ -10,12 +10,12 @@ export const getProjectNameField = (formik) => {
     return fieldGenerator("project Name", "What will you name this project?", formik, 12, "Project title");
 };
 
-export const getTweetDescriptionField = (formik) => {
-    return fieldGenerator("tweet Description", "Describe your project in 3 sentences or less", formik, 12, "Build an interactive museum experience! Make art at home and transform them using different GANs. Then, find your match with a current museum piece.");
+export const getShortDescriptionField = (formik) => {
+    return fieldGenerator("short Description", "Describe your project in 2 sentences or less", formik, 12, "Make museums more interactive!", "textarea");
 }
 
-export const getDescriptionField= (formik) => {
-    return fieldGenerator("description", "description", formik, 12);
+export const getLongDescriptionField= (formik) => {
+    return fieldGenerator("long Description", "Describe your project in more detail", formik, 12, "Build an interactive museum experience! Make art at home and transform them using different GANs. Then, find your match with a current museum piece.", "textarea");
 }
 
 export const getLinkField = (formik) => {
@@ -23,7 +23,7 @@ export const getLinkField = (formik) => {
 };
 
 export const getTeamDescriptionField = (formik) => {
-    return fieldGenerator("team Description", "Describe the current state of your team", formik, 12, "We have 3 people. All of us are engineers from Carnegie Mellon. We're looking for at least 2 more people, preferably PM and a designer.");
+    return fieldGenerator("team Description", "Describe the current state of your team", formik, 12, "We have 3 people. All of us are engineers from Carnegie Mellon. We're looking for at least 2 more people, preferably PM and a designer.", "textarea");
 };
 
 export const getTeamSizeField = (formik) => {
@@ -35,11 +35,11 @@ export const getContactInfoField = (formik) => {
 };
 
 export const getSkillsNeededField = (formik) => {
-    return fieldGenerator("skills Needed", "Describe the skills you need to complete this project", formik, 12, "We have 3 people. All of us are engineers from Carnegie Mellon. We're looking for at least 2 more people, preferably PM and a designer.");
+    return fieldGenerator("skills Needed", "Describe the skills you need to complete this project", formik, 12, "Python, Javascript, Tensorflow, Figma");
 };
 
 export const getHelpNeededField = (formik) => {
-    return fieldGenerator("help Needed", "help Needed", formik, 12, "What help are you looking for?")
+    return fieldGenerator("help Needed", "What help are you looking for?", formik, 12, "We are looking for a designer to design our UI and a PM to lead the team!", "textarea");
 };
 
 export const getDateField = (formik) =>  {

@@ -11,8 +11,9 @@ import Col from "react-bootstrap/Col";
  * @param {Formik} formik - formik instace 
  * @param {Number} md - bootstrap grid size
  * @param {String} placeholder - field hint to appear before the user touches the field.
+ * @param {String} htmlType - the type of the underlying HTML element to use when rendering
  */
-const fieldGenerator = (fieldName, fieldTitle, formik, md, placeholder) => {
+const fieldGenerator = (fieldName, fieldTitle, formik, md, placeholder, htmlType="input") => {
     // Preprocessing
     md = md.toString();
     let fieldNameNoSpace = removeWhitespace(fieldName); 
@@ -27,6 +28,7 @@ const fieldGenerator = (fieldName, fieldTitle, formik, md, placeholder) => {
             required
             type="text"
             placeholder={ placeholder || "Your " + fieldName}
+            as={htmlType}
         />
         <Form.Control.Feedback type="invalid">{formik.errors[fieldNameNoSpace]}</Form.Control.Feedback>
     </Form.Group>)

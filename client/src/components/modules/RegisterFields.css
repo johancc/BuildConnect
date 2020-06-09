@@ -62,6 +62,12 @@ input.form-control {
     border-radius: 0;
 }
 
+textarea.form-control {
+    border: 0;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
 .form-group {
     margin: 15px 0 10px 0 !important;
 }

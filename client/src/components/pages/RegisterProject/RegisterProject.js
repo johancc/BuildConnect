@@ -12,8 +12,8 @@ import { useFormik } from "formik";
 // Fields are defined externally.
 import {
     getProjectNameField,
-    getDescriptionField,
-    getTweetDescriptionField,
+    getShortDescriptionField,
+    getLongDescriptionField,
     getLinkField,
     getTeamDescriptionField,
     getDateField,
@@ -25,9 +25,6 @@ import {
 } from "../../modules/ProjectFields.js";
 
 // Styling Components
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import "./RegisterProject.css";
 import { RegisterForm, RegisterHeader } from "../../modules/RegisterFields";
 import HeaderBackground from "../../../assets/images/apply_txtbox.svg";
@@ -35,16 +32,16 @@ import HeaderImage from "../../../assets/images/rocket.svg";
 
 const ProjectSchema = Yup.object().shape({
     projectName: Yup.string().required("Please enter a project name"),
-    tweetDescription: Yup.string().required("Please enter a one/two sentence description."),
-    description: Yup.string().required("Please enter a description of your project."),
+    shortDescription: Yup.string().required("Please enter a one/two sentence description."),
+    longDescription: Yup.string().required("Please enter a description of your project."),
     teamSize: Yup.number().required("Please enter the team size"),
     dateStarted: Yup.date().required("Please enter the date the project started"),
     helpNeeded: Yup.string().required("Please describe the help needed in this project"),
     teamDescription: Yup.string().required("Please describe your team"),
     link: Yup.string(),
     image: Yup.mixed(),
-    contactInfo: Yup.string(),
-    skillsNeeded: Yup.string().required("Please input the skills needed to join."), 
+    contactInfo: Yup.string().required("Please list an email"),
+    skillsNeeded: Yup.string().required("Please input the skills needed to join"),
 });
 
 const RegisterProject = () => {
@@ -80,8 +77,8 @@ const RegisterProject = () => {
     const formik = useFormik({
         initialValues: {
             projectName: "",
-            tweetDescription: "",
-            description: "",
+            shortDescription: "",
+            longDescription: "",
             teamSize: "",
             dateStarted: "",
             image: undefined,
@@ -89,7 +86,7 @@ const RegisterProject = () => {
             teamDescription: "",
             link: "",
             contactInfo: "",
-            skillsNeeded: [],
+            skillsNeeded: "",
         },
         onSubmit: handleSubmit,
         validationSchema: ProjectSchema,
@@ -109,8 +106,8 @@ const RegisterProject = () => {
 
     // TODO: discuss during meeting what to do with getSkillsNeededField and getDescriptionField
     let fieldOrder = [
-        [getProjectNameField, getTweetDescriptionField, getDateField, (formik) => getImageField(formik, handleImageLoad)],
-        [getTeamDescriptionField, getSkillsNeededField, getTeamSizeField],
+        [getProjectNameField, getShortDescriptionField, getLongDescriptionField, getDateField, (formik) => getImageField(formik, handleImageLoad)],
+        [getTeamDescriptionField, getSkillsNeededField, getHelpNeededField, getTeamSizeField],
         [getContactInfoField, getLinkField]
     ]
 

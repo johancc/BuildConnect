@@ -7,7 +7,7 @@ const projectSchema = new mongoose.Schema({
     longDescription: String,
     photoURL: String,
     teamSize: Number,
-    durationDays: Number,
+    dateStarted: Date,
     helpNeeded: String,
     teamDescription: String,
     link: String,
