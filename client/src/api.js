@@ -14,8 +14,25 @@ export const createNewUser = async (values) => {
     }
 };
 
+export const createNewMentor = async (values) => {
+    let tokenId = undefined;
+    try {
+        await auth.createUserWithEmailAndPassword(values.email, values.password);
+        tokenId = await auth.currentUser.getIdToken();
+        await postMentor(tokenId, values);
+        await auth.currentUser.sendEmailVerification();
+    } catch (err) {
+        if (tokenId) await post("/api/removeMentor", {token: tokenId}); // Remove from firebase if creation failed somehow.
+        throw new Error("Error creating new mentor.");
+    }
+};
+
 export const updateUser = async (tokenId, user) => {
     return await post("/api/updateUser", { user: user, token: tokenId});
+}
+
+export const updateMentor = async (tokenId, user) => {
+    return await post("/api/updateMentor", { user: user, token: tokenId});
 }
 
 export const createNewProject = async (values, tokenId) => {
@@ -30,6 +47,10 @@ export const requestToJoin = async (message, projectID, tokenId) => {
 
 export const postUser = async (tokenId, values) => {
     return await post("/api/addUser", {user: values, token: tokenId});
+}
+
+export const postMentor = async (tokenId, values) => {
+    return await post("/api/addMentor", {user: values, token: tokenId});
 }
 
 // Returns whether the given emailAddress can register (is in whitelist)

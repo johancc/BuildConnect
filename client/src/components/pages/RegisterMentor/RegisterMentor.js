@@ -1,3 +1,3 @@
 /**
- * Registers a new mentor
+ * Page for registering a new mentor
  */
