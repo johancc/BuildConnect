@@ -9,7 +9,7 @@ import ReactGA from "react-ga";
 // import AuthenticatedPage from "./modules/AuthenticatedPage.js";
 // Providers
 import UserProvider from "../providers/UserProvider";
-
+import AuthenticatedPage from "./modules/AuthenticatedPage.js";
 // Pages
 const Home = lazy(() => import("./pages/Home/Home.js"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound.js"));
@@ -48,9 +48,9 @@ const App = () => {
               <NavBar />
               <Router>
                 <Home path="/" />
-                <Project path="/project" />
-                <Explore path="/explore" />
-                <Mentors path="/mentors" />
+                <AuthenticatedPage component={Project} path="/project" />
+                <AuthenticatedPage component={Explore} path="/explore" />
+                <AuthenticatedPage component={Mentors} path="/mentors" />
                 {/* 
                     NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
                   {<AuthenticatedPage path="/project/:_id" component={Project} />

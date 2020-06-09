@@ -57,8 +57,16 @@ const NavBar = () => {
     // We want to show the explore page and the mentors page.
     const userLinks = loggedIn ? (
         <>
-            <Nav.Link as={Link} to="/explore">Projects</Nav.Link>
-            <Nav.Link as={Link} to="/mentors">Mentors</Nav.Link>
+            <Nav.Link as={Link} to="/explore">
+                <div className="NavBar-link">
+                    Projects
+                </div>
+            </Nav.Link>
+            <Nav.Link className="NavBar-link" as={Link} to="/mentors">
+                <div className="NavBar-link">
+                    Mentors
+                </div>
+            </Nav.Link>
             <Button className="NavBar-link" style={buttonStyle} onClick={() => {
                 logout()
                 navigate("/");
@@ -81,12 +89,12 @@ const NavBar = () => {
             <Nav.Link onClick={() => scrollToRefOrPage(refs.about, "/about")}>
                 <div className="NavBar-link">
                     About Us
-                                </div>
+                </div>
             </Nav.Link>
             <Nav.Link onClick={() => scrollToRefOrPage(refs.contact, "/contact")}>
                 <div className="NavBar-link">
                     Contact
-                                </div>
+                </div>
             </Nav.Link>
         </>
         );
