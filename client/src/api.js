@@ -2,6 +2,11 @@ import { auth } from "./firebase_config.js";
 import { post, get } from "./utilities.js";
 
 export const createNewUser = async (values) => {
+    const isValidRequest = await canEmailRegister(values.email);
+    if (!isValidRequest) {
+        throw new Error("This email cannot register!")
+    }
+
     let tokenId = undefined; 
     try {
         await auth.createUserWithEmailAndPassword(values.email, values.password);
@@ -10,13 +15,17 @@ export const createNewUser = async (values) => {
         await auth.currentUser.sendEmailVerification();
     } catch (err) {
         if (tokenId) await post("/api/removeUser", {token: tokenId}); // Remove from firebase if creation failed somehow.
-        throw new Error("Error creating new user.");
+        throw new Error("Cannot create new user.");
     }
 };
 
 export const createNewMentor = async (values) => {
+    const isValidRequest = await canEmailRegister(values.email);
+    if (!isValidRequest) {
+        throw new Error("This email cannot register!")
+    }
+
     let tokenId = undefined;
-    console.log("Creating a new mentor");
     try {
         await auth.createUserWithEmailAndPassword(values.email, values.password);
         tokenId = await auth.currentUser.getIdToken();
@@ -24,7 +33,7 @@ export const createNewMentor = async (values) => {
         await auth.currentUser.sendEmailVerification();
     } catch (err) {
         if (tokenId) await post("/api/removeMentor", {token: tokenId}); // Remove from firebase if creation failed somehow.
-        throw new Error("Error creating new mentor.");
+        throw new Error("Cannot create new mentor.");
     }
 };
 

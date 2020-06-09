@@ -57,7 +57,7 @@ const RegisterMentor = () => {
                 navigate("/");
             })
             .catch((err) => {
-                alert("Unable to register for some reason.")
+                alert(`Error: ${err.message}`)
             });
     }
 
