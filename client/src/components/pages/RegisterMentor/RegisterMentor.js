@@ -12,7 +12,7 @@ import {
 } from "../../modules/MentorFields.js";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import HeaderBackground from "../../../assets/images/apply_txtbox.svg";
+import HeaderBackground from "../../../assets/images/home_feedback.svg";
 import HeaderImage from "../../../assets/images/apply_project.svg";
 import Button from "@material-ui/core/Button";
 

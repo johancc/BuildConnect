@@ -27,7 +27,7 @@ import {
 // Styling Components
 import "./RegisterProject.css";
 import { RegisterForm, RegisterHeader } from "../../modules/RegisterFields";
-import HeaderBackground from "../../../assets/images/apply_txtbox.svg";
+import HeaderBackground from "../../../assets/images/home_showcase.svg";
 import HeaderImage from "../../../assets/images/rocket.svg";
 
 const ProjectSchema = Yup.object().shape({
