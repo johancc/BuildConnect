@@ -43,6 +43,16 @@ router.get("/listProjects", firebaseMiddleware, (req, res) => {
     })
 });
 
+router.get("/mentor", firebaseMiddleware, (req,res) => {
+    Mentor.findOne({firebase_uid: req.user.user_id})
+        .then((mentor) => {
+            res.send(mentor);
+        })
+        .catch((err) => {
+            res.sendStatus(500).json(err);
+        });
+});
+
 router.get("/user", firebaseMiddleware, (req,res) => {
     User.findOne({firebase_uid: req.user.user_id})
         .then((user) => {

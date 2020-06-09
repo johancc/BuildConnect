@@ -24,7 +24,12 @@ class UserProvider extends Component {
     async refreshUser() {
         try {
             const token = this.state.user.token;
-            let user = await get("/api/user", {token: token});
+            let user;
+            try {
+                user = await get("/api/user", {token: token});
+            } catch {
+                user = await get("/api/mentor", {token: token});
+            }
             user.token = token;
             user.verified = auth.currentUser.emailVerified;
             this.setState({user: user});
@@ -40,7 +45,12 @@ class UserProvider extends Component {
                 try {
                     const token = await firebaseUser.getIdToken(true);
                     const verified = firebaseUser.emailVerified;
-                    let user = await get("/api/user", {token: token});
+                    let user;
+                    try {
+                        user = await get("/api/user", {token: token});
+                    } catch {
+                        user = await get("/api/mentor", {token: token});
+                    }
                     if (!!user) {
                         user.verified = verified;
                         user.token = token;
