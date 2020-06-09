@@ -1,3 +1,10 @@
+/**
+    TODO: 
+        Buttons should be the same color as the UI and align to the right.
+        Only display two / three sentences in the card.
+        Make the API call.
+        You need user context to get the user id.
+*/
 import React, { Component } from "react";
 import "./Mentors.css";
 
@@ -23,13 +30,17 @@ const MentorCard = ({mentor}) => {
     let name = mentor.name;
     let role = mentor.role;
     let availability = mentor.availability;
-    let profilePic = mentor.photoURL;
+    // skipping pic for now. let profilePic = mentor.photoURL;
+    let shortBio = mentor.description;
     return (
-        <div className="mentorCard" style={{ marginBottom: "2em", maxHeight: "400px" }} >
-            <img src={profilePic} style={{height: "60%", margin: "0", padding: "0", objectFit: "cover", width:"100%"}} />
-            <h3> {name}</h3>
+        <div className="mentorCard" style={{ marginBottom: "2em", padding: "2em"}} >
+            <h3> {name} </h3>
             <p> {ROLE_ICON} {role}</p>
             <p> {AVAILABILITY_ICON} {availability}</p>
+            <div style={{wordWrap: "break-word", width: "100%"}}>
+                <p> {shortBio} </p>
+            </div>
+
             <div style={{height: "50px"}}>
                 <RequestMentorButton mentor={mentor}/>
             </div>
@@ -73,14 +84,15 @@ class Mentors extends Component {
         return (
             <div className="container">
                 <div className="row justify-content-between">
-                    {mentorCards}
+                    
+                    {mentorCards.map((card) => (<div className="col-md-4">{card} </div>))}
                 </div>
             </div>
         )
     }
 
     getMentorCards() {
-        return (this.state.mentorData.map((mentor) => <MentorCard mentor={mentor} className="col-md-4"/>));
+        return (this.state.mentorData.map((mentor) => <MentorCard mentor={mentor}/>));
     }
     render() {
         let titleRow = this.getTitleRow();
@@ -88,6 +100,7 @@ class Mentors extends Component {
         return (
             <>
                 {titleRow}
+                <br/>
                 {mentorSection}
             </>
         );

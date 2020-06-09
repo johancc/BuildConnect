@@ -45,11 +45,10 @@ const MentorRequestButton = ({ mentor }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <>
-                        <p> {mentor.description} </p>
+                        <h5>{mentor.description}</h5>
                         <br/>
                         <p>You can include a personalized message to {mentor.name}: </p>
                         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-
                             <TextField
                                 id="message"
                                 label="Message"
@@ -64,8 +63,7 @@ const MentorRequestButton = ({ mentor }) => {
                                 rowsMax={6}
                             />
                             <Button
-                                type="submit"
-                            >
+                                type="submit">
                                 Request
                             </Button>
                         </form>

@@ -64,7 +64,7 @@ const JoinRequest = ({projectID}) => {
                             />
                             <Button
                              type="submit"
-                            />
+                            > Send Request </Button>
                         </form>
                     </>
                     

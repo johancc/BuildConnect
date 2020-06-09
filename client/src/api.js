@@ -40,3 +40,9 @@ export const canEmailRegister = async (emailAddress) => {
     const emails = await get("/api/whitelist/" + emailAddress);
     return emails.length > 0;
 }
+
+
+export const getProjectOwner = async (project) => {
+    const ownerName = await get('/api/owner', {project: project, token: tokenId});
+    return ownerName;
+}

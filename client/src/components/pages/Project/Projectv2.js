@@ -1,16 +1,14 @@
 /**
  * TODO (6/6/2020):
  *  - Make a resource component for the info box
- *  - Add the modal to the join button
  *  - For the sake of all that is good in coding, refactor this code.
+ *  - Change the project schema to include the mentor.
  */
 
 import React, { Component } from "react";
 import JoinRequest from "./JoinRequest.js";
+import { UserContext } from "../../../providers/UserProvider";
 import "./Project.css";
-
-// Styling
-import RoundedButton from "../../modules/RoundedButton.js";
 
 // Assets 
 import AwardSVG from "../../../assets/icons/mentor.svg";
@@ -24,14 +22,7 @@ const MENTOR_ICON = (<img src={AwardSVG}/>);
 const HAND_ICON = (<img src={HandSVG}/>);
 const TIME_ICON = (<img src={TimeSVG}/>);
 const TROPHY_ICON = (<img src={TrophySVG}/>)
-const MOCK_DATA = {
-    title: "The Next Big Thing",
-    shortDescription: "Join the community of innovative college students, Explore existing projects or post your own for others to join.",
-    date: "3",
-    imageURL: "https://croud123.wpengine.com/wp-content/uploads/2015/09/landing-page-banner.jpg",
-    memberCount: 10,
-    skillsNeeded: ["Breathing", "Existing", "Walking", "Racing"],
-}
+
 
 const ProjectDetail = (title, text) => {
     return (
@@ -52,16 +43,25 @@ const ProjectDetail = (title, text) => {
  * Uses the relative path to find the project id
  */
 class Project extends Component {
+    static contextType = UserContext;
 
     constructor(props) {
         super(props);
-        this.state = {
-            projectData: MOCK_DATA,
-        }
+        this.state = {};
     }
-
-    componentDidMount() {
-        let projectID;
+    async componentDidMount() {
+        // The project data is passed from the explore page.
+        let projectData = this.props.location.state.projectData;
+        this.setState({
+            projectData: projectData,
+        });
+        let ownerName = "Blade Smith" || await  getProjectowner(projectData);
+        this.setState({
+            ownerName: ownerName,
+        })
+        // this.state = {
+        //     projectData: MOCK_DATA,
+        // }
     }
 
     getTitleRow = () => {
@@ -70,10 +70,10 @@ class Project extends Component {
                 <div className="row">
                     <div className="col-md-8">
                         <div className="title" style={{ marginTop: "1em" }}>
-                            {this.state.projectData.title}
+                            {this.state.projectData.projectName}
                         </div>
                         <div className="description">
-                            {this.state.projectData.shortDescription}
+                            {this.state.projectData.description}
                         </div>
                     </div>
                 </div>
@@ -98,17 +98,21 @@ class Project extends Component {
                         </div>
                     </div>
 
-                    <div className="col-md-2 infobarLabel">
-                        <div className="container">
-                            <div className="row">
-                                {TROPHY_ICON}
-                                <div>
-                                    Project Owner <br />
-                                    <div className="infobarInfo">Michael Li</div>
+                    {this.state.ownerName ? 
+                        <div className="col-md-2 infobarLabel">
+                            <div className="container">
+                                <div className="row">
+                                    {TROPHY_ICON}
+                                    <div>
+                                        Project Owner <br />
+                                        <div className="infobarInfo">{this.state.ownerName}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div> : <></>
+                    }
+                   
+                    {/* Unused for now: We need to add mentor _ids in the project schema.
                     <div className="col-md-2 infobarLabel">
                         <div className="container">
                             <div className="row">
@@ -119,7 +123,7 @@ class Project extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="col-md-2 infobarLabel">
                         <div className="container">
                             <div className="row">
@@ -155,24 +159,28 @@ class Project extends Component {
     getExtraDetailBox = () => {
         let skillsNeeded = this.state.projectData.skillsNeeded;
         
-        let skillCards = skillsNeeded.map((skill) => {
-            return (<div className="col-md-auto roundedBox">{skill}</div>)
-        });
+        // Skills are freeform text for now.
+        // let skillCards = skillsNeeded.map((skill) => {
+        //     return (<div className="col-md-auto roundedBox">{skill}</div>)
+        // });
 
         return (
             <div className="container extraDetails">
                 <br/>
                 <h3 className="row">Current Team Size</h3>
-                <div className="row">{MEMBERS_ICON} 6 Members</div>
+                <div className="row">{MEMBERS_ICON} {this.state.projectData.teamSize} Members</div>
                 <br/>
                 <h3 className="row">Skills Required</h3>
                 <div className="row">
-                    {skillCards}
+                    {skillsNeeded}
                 </div>
                 <br/>
-                <h3 className="row">Resources</h3>
+                <h3 className="row">Learn More</h3>
                 <div className="row">
-                    Resource 2
+                    <div style={{ wordWrap: "break-word", width: "100%" }}>
+                        <a href={this.state.projectData.link} target="_blank">{this.state.projectData.link}</a>
+
+                    </div>
                 </div>
             </div>
         )

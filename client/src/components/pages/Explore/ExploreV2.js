@@ -15,7 +15,6 @@
  */
 
 import React, { Component } from "react";
-
 import "./Explore.css";
 const SKILLS = ["Comp Sci", "Mech. Eng.", "Design"];
 const PROJECT_AUTHORS = ["Students", "Mentors"];
@@ -24,46 +23,36 @@ import RoundedButton from "../../modules/RoundedButton.js";
 import RoundedCheckbox from "../../modules/RoundedCheckbox.js";
 import GoSVG from "../../../assets/icons/go.svg";
 import PeopleSVG from "../../../assets/icons/checkbox.svg";
-import PlaceholderSVG from "../../../assets/images/placeholder.svg";
+
 const DARK_BLUE = "#13133A";
 const LIGHT = "#F5F7FB";
 // Temporary. Just for testing.
 let MOCK_FACTOR = 10;
+
 let MOCK_DATA = {
-    title: "The Next Big Thing",
-    tweet_description: "What's the next big thing? Find out soon",
-    imageURL:  "https://blog-assets.hootsuite.com/wp-content/uploads/2019/05/Instagram-analytics-tools.png",
-    people_size: 10,
-    date_started: Date.now(),
-    long_description: "You should give an overview of your project here. Make it exciting.\
-                       Talk about why you started this. Show people that you care.",
-    help_needed: "How can people help? Are there any specific things that need to be built? Should they be \
+    projectName: "The Next Big Thing",
+    tweetDescription: "What's the next big thing? Find out soon",
+    description: "You should give an overview of your project here. Make it exciting.\
+                Talk about why you started this. Show people that you care.",
+    photoURL: "https://blog-assets.hootsuite.com/wp-content/uploads/2019/05/Instagram-analytics-tools.png",
+    teamSize: 10,
+    dateStarted: Date.now(),
+    helpNeeded: "How can people help? Are there any specific things that need to be built? Should they be \
                  comfortable with python? UX? Management skills?",
-    team_description: "Out team members are based on the each coast. Some of the include Alyssa P Hacker (allysa@mit.edu) and Ben Bitdiddle (benbit@mit.edu). ",
-    members: "Just me.",
+    teamDescription: "Out team members are based on the each coast. Some of the include Alyssa P Hacker (allysa@mit.edu) and Ben Bitdiddle (benbit@mit.edu). ",
     link: "www.github.com/user/somethinggreat",
-    contact_info: "Please email someemail@mit.edu if you have any questions.",
-    skills_needed: ["breathing", "existing", "able to send emails"],
-    _id: "123456"
+    contactInfo: "Please email someemail@mit.edu if you have any questions.",
+    skillsNeeded: "We would want people with some experience with webdev.",
+    projectOwner: "153513531244"
 }
+
 
 const GoIcon = (<img src={GoSVG} alt=""/>);
 const PeopleIcon = (<img src={PeopleSVG} alt=""/>);
 
-const generateProjectCard = (proj) => {
-    return (
-    <div className="ProjectBox">
-                <img src={proj.imageURL} style={{ width: "100%", objectFit: "cover" }} />
-                <div className="col-md-2" style={{minWidth: "100px", color:"#fff"}}>
-                    <RoundedButton icon={GoIcon} bgcolor={DARK_BLUE} callback={() => alert("Moving to project page")} />
-                </div>
-                <div className="col-md-12">
-                    <h3>{proj.title}</h3>
-                    <p>{proj.long_description}</p>
-                    {PeopleIcon} {proj.people_size} members
-                </div>
-    </div>);
-};
+
+
+
 
 class Explore extends Component {
 
@@ -79,6 +68,22 @@ class Explore extends Component {
     componentDidMount() {
         // TODO.
     }
+    
+    generateProjectCard = (proj) => {
+        return (
+            <div className="ProjectBox">
+                <img src={proj.photoURL} style={{ width: "100%", objectFit: "cover" }} />
+
+                <div className="col-md-12">
+                    <h3>{proj.title}</h3>
+                    <p>{proj.description}</p>
+                    <div>{PeopleIcon} {proj.teamSize} members </div>
+                    <br />
+                </div>
+                <RoundedButton label="Learn More" icon={GoIcon} bgcolor={DARK_BLUE}
+                    callback={() => this.props.navigate("/project", {state: {projectData: proj}})} />
+            </div>);
+    };
 
     getTitle() {
         return (
@@ -108,8 +113,8 @@ class Explore extends Component {
                 <div className="row">
                     {this.state.projects.map((proj) => {
                         return (
-                            <div className="x mt-3 mb-3 col-md-6">
-                                {generateProjectCard(proj)}
+                            <div className="x mt-3 mb-3 col-md-4">
+                                {this.generateProjectCard(proj)}
                             </div>
                     )})}
                 </div>
@@ -162,12 +167,10 @@ class Explore extends Component {
                                         let update = this.state.authorFilters;
                                         update.splice(update.indexOf(author));
                                         this.setState({authorFilters: update});
-                                        alert('deleted authors.')
                                     } else {
                                         let update = this.state.authorFilters;
                                         update.push(author);
                                         this.setState({authorFilters: update});
-                                        alert('added author');
                                     }
                                 })}
                             </div>
@@ -183,10 +186,7 @@ class Explore extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-3">
-                        {this.getProjectFilterColumn()}
-                    </div>
-                    <div className="col-md-9">
+                    <div className="col-md-12">
                         {this.getProjectListings()}
                     </div>
                 </div>
