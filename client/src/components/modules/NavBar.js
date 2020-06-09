@@ -20,6 +20,8 @@ import { useTheme } from "@material-ui/core/styles";
 
 // logo asset
 import logo from "../../assets/images/logo.svg";
+import Explore from "../pages/Explore/ExploreV2";
+import Mentors from "../pages/Mentors/Mentors";
 
 /**
  * Navigation bar that should be on top of all pages. 
@@ -52,8 +54,11 @@ const NavBar = () => {
     );
     const loggedIn = userProvider.user !== undefined;
 
+    // We want to show the explore page and the mentors page.
     const userLinks = loggedIn ? (
         <>
+            <Nav.Link as={Link} to="/explore">Projects</Nav.Link>
+            <Nav.Link as={Link} to="/mentors">Mentors</Nav.Link>
             <Button className="NavBar-link" style={buttonStyle} onClick={() => {
                 logout()
                 navigate("/");
@@ -68,8 +73,23 @@ const NavBar = () => {
                 </Button>
                 {loginDialog}
             </>
-        )
-
+        );
+    const homepageLinks = loggedIn ? 
+        ( <> </>) :
+        (
+        <>
+            <Nav.Link onClick={() => scrollToRefOrPage(refs.about, "/about")}>
+                <div className="NavBar-link">
+                    About Us
+                                </div>
+            </Nav.Link>
+            <Nav.Link onClick={() => scrollToRefOrPage(refs.contact, "/contact")}>
+                <div className="NavBar-link">
+                    Contact
+                                </div>
+            </Nav.Link>
+        </>
+        );
 
     return (
 
@@ -81,16 +101,7 @@ const NavBar = () => {
             <Navbar.Toggle className="NavBar-toggle" aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
                 <Nav className={`NavBar-linkContainer ${'ml-auto'}`}>
-                    <Nav.Link onClick={() => scrollToRefOrPage(refs.about, "/about")}>
-                        <div className="NavBar-link">
-                            About Us
-                            </div>
-                    </Nav.Link>
-                    <Nav.Link onClick={() => scrollToRefOrPage(refs.contact, "/contact")}>
-                        <div className="NavBar-link">
-                            Contact
-                            </div>
-                    </Nav.Link>
+                    {homepageLinks}
                     {userLinks}
                 </Nav>
             </Navbar.Collapse>
