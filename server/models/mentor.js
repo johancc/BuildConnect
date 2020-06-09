@@ -11,6 +11,8 @@ const mentorSchema = new mongoose.Schema({
     mentorTypes: [String],
     reasonToMentor: String,
     shortBio: String,
+    field: String,
+    role: String,
     projects: [mongoose.Types.ObjectId],
     public: Boolean,
 });

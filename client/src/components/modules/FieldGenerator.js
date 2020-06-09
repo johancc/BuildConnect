@@ -13,7 +13,7 @@ import Col from "react-bootstrap/Col";
  * @param {String} placeholder - field hint to appear before the user touches the field.
  * @param {String} htmlType - the type of the underlying HTML element to use when rendering
  */
-const fieldGenerator = (fieldName, fieldTitle, formik, md, placeholder, htmlType="input") => {
+export const fieldGenerator = (fieldName, fieldTitle, formik, md, placeholder, htmlType="input") => {
     // Preprocessing
     md = md.toString();
     let fieldNameNoSpace = removeWhitespace(fieldName); 
@@ -48,5 +48,25 @@ const removeWhitespace = (str) => {
     return str.replace(/\s/g, '');
 }
 
+export const optionsFieldGenerator = (fieldName, fieldTitle, formik, type, options) => {
+    const optionsRender = options.map(option => (
+        <Form.Check
+            name={fieldName}
+            {...formik.getFieldProps(fieldName)}
+            id={`${fieldName}-${option}`}
+            type={type}
+            value={option}
+            label={option}
+        />
+    ));
+
+    return (
+        <Form.Group as={Col} md="12" controlId={fieldName}>
+            <Form.Label>{fieldTitle}</Form.Label>
+            {optionsRender}
+            <small className="text-danger"> {formik.errors[fieldName]} </small>
+        </Form.Group>
+    )
+}
 
 export default fieldGenerator;

@@ -11,7 +11,6 @@ import {
 } from "../../modules/UserFields.js";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import Form from "react-bootstrap/Form";
 import HeaderBackground from "../../../assets/images/apply_txtbox.svg";
 import HeaderImage from "../../../assets/images/apply_project.svg";
 
@@ -20,7 +19,7 @@ const RegisterSchema = Yup.object().shape({
     email: Yup.string()
         .email()
         .required("Please input a valid email")
-        .matches(/.+@*.edu/i, "Mentors are required to use an .edu email.")
+        .matches(/.+@*.edu/i, "Please use a .edu email.")
         .required("Please input a valid .edu email."),
     major: Yup.string()
         .required("Please input your major"),

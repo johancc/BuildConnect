@@ -84,6 +84,7 @@ router.get("/whitelist/:email", (req, res) => {
  */
 router.post("/addMentor", firebaseMiddleware, (req,res) => {
     let mentorData = req.body.mentor;
+    mentorData.accountType = "mentor";
     mentorData.firebase_uid = req.user.user_id;
     if (mentorData.photoData) {
         // Upload profile pic to GCP
@@ -114,6 +115,7 @@ router.post("/addMentor", firebaseMiddleware, (req,res) => {
 router.post("/addUser", firebaseMiddleware, (req,res) => {
     let userData = req.body.user;
     userData.firebase_uid = req.user.user_id;
+    userData.accountType = "student";
     if (userData.photoData) {
         // Upload profile pic to GCP
         return uploadFileToGCS(userData.photoData, USER_PROFILE_BUCKET)
@@ -137,7 +139,13 @@ router.post("/removeUser", firebaseMiddleware, (req, res) => {
     User.findOneAndDelete({firebase_uid: req.user.user_id})
         .then(res.send({}))
         .catch((err) => res.sendStatus(500).json(err));
-})
+});
+
+router.post("/removeMentor", firebaseMiddleware, (req, res) => {
+    Mentor.findOneAndDelete({firebase_uid: req.user.user_id})
+        .then(res.send({}))
+        .catch((err) => res.sendStatus(500).json(err));
+});
 
 router.post("/addProject", firebaseMiddleware, (req, res) => {
     // Update should be reflected by the user and project documents.
