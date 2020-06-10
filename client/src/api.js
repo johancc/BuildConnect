@@ -73,10 +73,11 @@ export const canEmailRegister = async (emailAddress) => {
     return emails.length > 0;
 }
 
-
-export const getProjectOwner = async (project) => {
-    const ownerName = await get('/api/owner', {project: project, token: tokenId});
-    return ownerName;
+export const getProjectOwner = async (project, tokenId) => {
+    console.log("Sending: ")
+    console.log(project);
+    const owner = await get('/api/owner', {ownerID: project.projectOwner, token: tokenId});
+    return owner;
 }
 export const getProjects = async (tokenId) => {
     const projects = await get("/api/listProjects", {token: tokenId});

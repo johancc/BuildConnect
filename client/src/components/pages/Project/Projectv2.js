@@ -8,7 +8,7 @@
 import React, { Component } from "react";
 import JoinRequest from "./JoinRequest.js";
 import { UserContext } from "../../../providers/UserProvider";
-import { GetProjectOwner } from "../../../api.js";
+import { getProjectOwner } from "../../../api.js";
 import "./Project.css";
 
 // Assets 
@@ -56,9 +56,10 @@ class Project extends Component {
         this.setState({
             projectData: projectData,
         });
-        let ownerName = await  getProjectOwner(projectData);
+        let owner = await getProjectOwner(projectData, this.context.user.token);
+  
         this.setState({
-            ownerName: ownerName,
+            ownerName: owner.name,
         })
         // this.state = {
         //     projectData: MOCK_DATA,
@@ -87,19 +88,19 @@ class Project extends Component {
 
                 <div className="row justify-content-between " >
                     
-                    <div className="col-md-2 infobarLabel">
-                        <div className="container">
-                            <div className="row">
-                                {HAND_ICON} 
-                                <div>
-                                    People Needed <br />
-                                    <div className="infobarInfo">2 People</div>
-                                </div>
+                <div className="col-md-2 infobarLabel">
+                    <div className="container">
+                        <div className="row">
+                            {HAND_ICON} 
+                            <div>
+                                People Needed <br />
+                                <div className="infobarInfo">{this.state.projectData.teamSize} People</div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    {this.state.ownerName ? 
+                    {this.state.ownerName || true ? 
                         <div className="col-md-2 infobarLabel">
                             <div className="container">
                                 <div className="row">
@@ -125,17 +126,18 @@ class Project extends Component {
                             </div>
                         </div>
                     </div> */}
-                    <div className="col-md-2 infobarLabel">
-                        <div className="container">
-                            <div className="row">
-                                {TIME_ICON}
-                                <div>
-                                    Project  Timeline<br />
-                                    <div className="infobarInfo">2 Months</div>
+                    {this.state.projectData.timeline !== undefined ?
+                        (<div className="col-md-2 infobarLabel">
+                            <div className="container">
+                                <div className="row">
+                                    {TIME_ICON}
+                                    <div>
+                                        Project  Timeline<br />
+                                        <div className="infobarInfo">2 Months</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>) : <></>}
                     <div className="col-md-4 justify-content-end infoBarLabel ">
                         
                         <div className="col-md-6 float-right">
@@ -168,9 +170,7 @@ class Project extends Component {
         return (
             <div className="container extraDetails">
                 <br/>
-                <h3 className="row">Current Team Size</h3>
-                <div className="row">{MEMBERS_ICON} {this.state.projectData.teamSize} Members</div>
-                <br/>
+        
                 <h3 className="row">Skills Required</h3>
                 <div className="row">
                     {skillsNeeded}
@@ -189,9 +189,9 @@ class Project extends Component {
 
     getProjectDetails = () => {
         let details = [
-            ["About", "You should give an overview of your project here. Make it exciting. Talk about why you started this. Show people that you care. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum"],
-            ["Help Needed", "How can people help? Are there any specific things that need to be built? Should they be comfortable with python? UX? Management?"],
-            ["Current Status", "Out team members are based on the each coast. Some of the include Alyssa P Hacker (allysa@mit.edu) and Ben Bitdiddle (benbit@mit.edu)."]
+            ["About", this.state.projectData.longDescription],
+            ["Help Needed",this.state.projectData.helpNeeded],
+            ["Team Description",this.state.projectData.teamDescription]
         
         ]
         return (
