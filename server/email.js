@@ -5,7 +5,6 @@ const path = require("path");
 
 let transporter = undefined;
 nodemailer.createTestAccount((err, account) => {
-    // TODO: Revisit.
     // create reusable transporter object using the default SMTP transport
     transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',

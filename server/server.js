@@ -127,3 +127,8 @@ server.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });
 
+console.log("ADDING PROJECTS");
+
+let projects = {
+  
+}

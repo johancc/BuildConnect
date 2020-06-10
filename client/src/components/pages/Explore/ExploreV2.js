@@ -65,9 +65,8 @@ class Explore extends Component {
 
     componentDidMount() {
         // TODO.
-        getProjects({tokeId:""}).then((projects) => {
+        getProjects({tokenId:""}).then((projects) => {
             console.log("got projects");
-
         })
     }
     
@@ -100,7 +99,7 @@ class Explore extends Component {
                         </h2>
                     </div>
                     <div className="col-md-3 align-self-end"  style={{color: "#FFF"}}>
-                        <RoundedButton label="Post Project" bgcolor={DARK_BLUE} callback={()=>alert("hi")} icon={GoIcon}/>
+                        <RoundedButton label="Post Project" bgcolor={DARK_BLUE} callback={()=>navigate("/registerProject")} icon={GoIcon}/>
                     </div>
                 </div>
             </div>
