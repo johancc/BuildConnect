@@ -14,17 +14,17 @@ const router = express.Router();
 const firebaseMiddleware = require("./auth.js");
 
 // For uploading photos to google cloud storage
-const { DEFAULT_BUCKET_NAME } = require("./cloud_auth");
+const { DEFAULT_BUCKET_NAME, USER_PROFILE_BUCKET } = require("./cloud_auth");
 const { uploadFileToGCS, getPublicURL, deleteFileFromGCS, getFileNameFromURL } = require("./google_cloud_storage.js");
 
 // import models so we can interact with the database
 const User = require("./models/user.js");
 const Project  = require("./models/project.js");
 const Email = require("./models/email.js");
+const Mentor = require("./models/mentor.js");
 
 // Email utilities.
 const email = require("./email.js");
-
 
 // api endpoints: all these paths will be prefixed with "/api/"
 
@@ -41,6 +41,16 @@ router.get("/listProjects", firebaseMiddleware, (req, res) => {
     .catch((err) => {
         res.sendStatus(500).json(err);
     })
+});
+
+router.get("/mentor", firebaseMiddleware, (req,res) => {
+    Mentor.findOne({firebase_uid: req.user.user_id})
+        .then((mentor) => {
+            res.send(mentor);
+        })
+        .catch((err) => {
+            res.sendStatus(500).json(err);
+        });
 });
 
 router.get("/user", firebaseMiddleware, (req,res) => {
@@ -76,6 +86,36 @@ router.get("/whitelist/:email", (req, res) => {
 })
 
 /**
+ * Adds a mentor to the database.
+ * Params:
+ *  mentor - an object with all the fields defined by the mentor schema.
+ * Returns:
+ *  returns the document stored in documents
+ */
+router.post("/addMentor", firebaseMiddleware, (req,res) => {
+    let mentorData = req.body.mentor;
+    mentorData.accountType = "mentor";
+    mentorData.firebase_uid = req.user.user_id;
+    if (mentorData.photoData) {
+        // Upload profile pic to GCP
+        return uploadFileToGCS(mentorData.photoData, USER_PROFILE_BUCKET)
+            .then((photoURL) => {
+                delete mentorData.photoData;
+                if (!photoURL) return mentorData;
+                mentorData.photoURL = photoURL;
+                return mentorData;
+            })
+            .then((mentorData) => Mentor(mentorData).save())
+            .then((mentor) => res.send(mentor))
+            .catch((err) => res.sendStatus(500).json(err));
+    } else {
+        Mentor(mentorData).save()
+            .then((mentor) => res.send(mentor))
+            .catch((err) => res.sendStatus(500).json(err));
+    }
+});
+
+/**
  * Adds a user to the database. 
  * Params:
  *  user - an object with all the fields defined by the user schema.
@@ -85,10 +125,10 @@ router.get("/whitelist/:email", (req, res) => {
 router.post("/addUser", firebaseMiddleware, (req,res) => {
     let userData = req.body.user;
     userData.firebase_uid = req.user.user_id;
-
+    userData.accountType = "student";
     if (userData.photoData) {
         // Upload profile pic to GCP
-        return uploadFileToGCS(userData.photoData, DEFAULT_BUCKET_NAME)
+        return uploadFileToGCS(userData.photoData, USER_PROFILE_BUCKET)
             .then((photoURL) => {
                 delete userData.photoData;
                 if (!photoURL) return userData;
@@ -109,7 +149,13 @@ router.post("/removeUser", firebaseMiddleware, (req, res) => {
     User.findOneAndDelete({firebase_uid: req.user.user_id})
         .then(res.send({}))
         .catch((err) => res.sendStatus(500).json(err));
-})
+});
+
+router.post("/removeMentor", firebaseMiddleware, (req, res) => {
+    Mentor.findOneAndDelete({firebase_uid: req.user.user_id})
+        .then(res.send({}))
+        .catch((err) => res.sendStatus(500).json(err));
+});
 
 router.post("/addProject", firebaseMiddleware, (req, res) => {
     // Update should be reflected by the user and project documents.
@@ -148,6 +194,8 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
     });
 });
 
+
+
 /**
  * Updates a user's information.
  * Params:
@@ -166,6 +214,7 @@ router.post("/updateUser", firebaseMiddleware, (req, res) => {
                 updateData.photoURL = photoURL;
                 return updateData;
             })
+            .then(User.findOne({firebase_uid: req.user.user_id}).then((user) => deleteFileFromGCS(user.photoURL)))
             .then((updateData) => User.updateOne({firebase_uid: req.user.user_id}, updateData))
             .then(User.findOne({firebase_uid: req.user.user_id}).then((user) => res.send(user)))
             .catch((err) => {
@@ -182,6 +231,40 @@ router.post("/updateUser", firebaseMiddleware, (req, res) => {
     }
 });
 
+/**
+ * Updates a mentor's information.
+ * Params:
+ *  update - an object with all the fields to be updated (see mentor schema for possible fields)
+ * Returns:
+ *  returns the mentor's information
+ */
+router.post("/updateMentor", firebaseMiddleware, (req, res) => {
+    let updateData = req.body.mentor;
+    if (updateData.photoData) {
+        return uploadFileToGCS(updateData.photoData, DEFAULT_BUCKET_NAME)
+            .then((photoURL) => {
+                // We don't want to add the binary data to MongoDB.
+                delete updateData.photoData;
+                if (!photoURL) return updateData;
+                updateData.photoURL = photoURL;
+                return updateData;
+            })
+            .then(Mentor.findOne({firebase_uid: req.user.user_id}).then((mentor) => deleteFileFromGCS(mentor.photoURL)))
+            .then((updateData) => Mentor.updateOne({firebase_uid: req.user.user_id}, updateData))
+            .then(Mentor.findOne({firebase_uid: req.user.user_id}).then((mentor) => res.send(mentor)))
+            .catch((err) => {
+                res.sendStatus(500).json(err);
+            })
+    } else {
+        Mentor.updateOne({firebase_uid: req.user.user_id}, updateData)
+            .then(() => {
+                Mentor.findOne({firebase_uid: req.user.user_id}).then((mentor) => res.send(mentor));
+            })
+            .catch((err) => {
+                res.sendStatus(500).json(err);
+            })
+    }
+});
 
 /**
  * Updates a user's information.

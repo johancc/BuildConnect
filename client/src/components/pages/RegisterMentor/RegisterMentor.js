@@ -1,28 +1,40 @@
 /**
- * Registers a user
+ * Registers a new mentor
  */
+
 import React from "react";
 import { RegisterHeader, RegisterForm } from "../../modules/RegisterFields.js";
-import { createNewUser } from "../../../api.js";
+import { createNewMentor } from "../../../api.js";
 import { useNavigate } from "@reach/router";
 import {
-    getNameField, getEmailField, getPasswordField, getConfirmPasswordField,
-    getMajorField,
-} from "../../modules/UserFields.js";
+    getCompanyField, getConfirmPasswordField, getEmailField, getIndustryFieldField, getMentorTypesField,
+    getNameField, getPasswordField, getReasonToMentorField, getRoleField, getShortBioField
+} from "../../modules/MentorFields.js";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import HeaderBackground from "../../../assets/images/home_projects.svg";
+import HeaderBackground from "../../../assets/images/home_feedback.svg";
 import HeaderImage from "../../../assets/images/apply_project.svg";
+import Button from "@material-ui/core/Button";
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your name."),
     email: Yup.string()
         .email()
         .required("Please input a valid email")
-        .matches(/.+@*.edu/i, "Please use a .edu email.")
-        .required("Please input a valid .edu email."),
-    major: Yup.string()
-        .required("Please input your major"),
+        .matches(/.+@*.*/i, "Please input a valid email")
+        .required("Please input a valid email"),
+    company: Yup.string()
+        .required("Please input your company"),
+    reasonToMentor: Yup.string()
+        .required("Please enter your reason"),
+    shortBio: Yup.string()
+        .required("Please enter a short biography"),
+    role: Yup.string()
+        .required("Please enter your role"),
+    field: Yup.string()
+        .required("Please select a field"),
+    mentorTypes: Yup.array()
+        .required("Please select at least 1 type"),
     password: Yup.string()
         .required("Password Required")
         .matches(
@@ -34,13 +46,13 @@ const RegisterSchema = Yup.object().shape({
         .required("Password Confirmation Required."),
 });
 
-const RegisterUser = () => {
+const RegisterMentor = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (values) => {
 
-        const user = { ...values};
-        createNewUser(user)
+        const mentor = { ...values};
+        createNewMentor(mentor)
             .then(() => {
                 navigate("/");
             })
@@ -53,37 +65,49 @@ const RegisterUser = () => {
         initialValues: {
             name: "",
             email: "",
+            company: "",
+            mentorTypes: [],
+            reasonToMentor: "",
+            shortBio: "",
+            field: "",
+            role: "",
             password: "",
             confirmpassword: "",
-            major: ""
         },
         onSubmit: handleSubmit,
         validationSchema: RegisterSchema,
     });
     // Every subarray is a row.
-    const fieldOrder = [
-        [getNameField, getEmailField, getMajorField],
-        [getPasswordField, getConfirmPasswordField]
-    ];
+    const fieldOrder = [[
+        getNameField,
+        getEmailField,
+        getPasswordField,
+        getConfirmPasswordField,
+        getCompanyField,
+        getIndustryFieldField,
+        getRoleField,
+        getMentorTypesField,
+        getReasonToMentorField,
+        getShortBioField,
+    ]];
     const fieldOrderLabels = [
-        "Email",
-        "Password"
+        "About You"
     ]
 
-    const headerTitle = "Join the community";
+    const headerTitle = "Become a Mentor";
     const headerBody = [
-        "Join the community of innovative college students,",
-        "Explore existing projects or post your own for others to join."
+        "Help mentor student projects!"
     ];
-    const submitLabel = "Create Your Account";
+    const submitLabel = "Become a Mentor";
 
     return (
         <div className="col" style={{ backgroundColor: "#ffffff" }}>
             <RegisterHeader title={headerTitle} body={headerBody} background={HeaderBackground} headerImage={HeaderImage} />
             <RegisterForm formik={formik} fieldOrder={fieldOrder} fieldOrderLabels={fieldOrderLabels} submitLabel={submitLabel} />
+            <Button onClick={() => console.log(formik.values.field)}> Press me</Button>
         </div>
     );
 
 };
 
-export default RegisterUser;
+export default RegisterMentor;

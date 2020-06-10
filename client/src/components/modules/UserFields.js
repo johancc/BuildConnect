@@ -13,11 +13,11 @@ export const getNameField = (formik) => {
  };
 
 export const getMajorField = (formik) => {
-    return fieldGenerator("major", "Tell us your major", formik, 12, "john.doe123@gmail.com");
+    return fieldGenerator("major", "Tell us your major", formik, 12, "Computer Science");
 };
 
 export const getEmailField = (formik) => {
-    return fieldGenerator("email", "Your Email", formik, 12, "Computer Science");
+    return fieldGenerator("email", "Your Email", formik, 12, "john.doe123@gmail.com");
 };
 
 // We aren't using the generic generator because we need

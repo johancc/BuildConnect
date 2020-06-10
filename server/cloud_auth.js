@@ -11,9 +11,11 @@ const storage = new Storage({
     projectId: "green-shore-278522"
 })
 
-const DEFAULT_BUCKET_NAME = "ignite_photos_bucket"
+const DEFAULT_BUCKET_NAME = "ignite_photos_bucket";
+const USER_PROFILE_BUCKET = "ignite_user_profiles";
 
 module.exports = {
     storage,
-    DEFAULT_BUCKET_NAME
+    DEFAULT_BUCKET_NAME,
+    USER_PROFILE_BUCKET
 };
