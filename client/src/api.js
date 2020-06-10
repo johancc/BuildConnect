@@ -82,3 +82,10 @@ export const getProjects = async (tokenId) => {
     const projects = await get("/api/listProjects", {token: tokenId});
     return projects;
 }
+
+export const getMentors = async(tokenId) => {
+    const mentors = await get("/api/listMentors", {token: tokenId});
+    console.log("got");
+    console.log(mentors);
+    return mentors;
+}

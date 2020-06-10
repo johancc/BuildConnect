@@ -8,6 +8,7 @@
 import React, { Component } from "react";
 import JoinRequest from "./JoinRequest.js";
 import { UserContext } from "../../../providers/UserProvider";
+import { GetProjectOwner } from "../../../api.js";
 import "./Project.css";
 
 // Assets 
@@ -55,7 +56,7 @@ class Project extends Component {
         this.setState({
             projectData: projectData,
         });
-        let ownerName = await  getProjectowner(projectData);
+        let ownerName = await  getProjectOwner(projectData);
         this.setState({
             ownerName: ownerName,
         })

@@ -48,7 +48,8 @@ const RegisterProject = () => {
     const navigate = useNavigate();
     // TODO: replace with useContext(UserContext) when authentication is fixed instead of this dummy token
     // const userProvider = useContext(UserContext);
-    const userProvider = {user: {token: "token"}};
+    // You really out here.
+    const userProvider = useContext(UserContext);
 
     const loadImage = (imageFile, cb) => {
         const reader = new FileReader();
@@ -66,7 +67,7 @@ const RegisterProject = () => {
             project.photoData = imageData;
             createNewProject(project, userProvider.user.token)
                 .then((proj) => {
-                    navigate(`project/${proj._id}`)
+                    navigate("/project", {state: {projectData: proj}})
                 })
                 .catch(() => {
                     alert("Unable to create new project.")

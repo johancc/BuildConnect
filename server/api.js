@@ -33,12 +33,25 @@ router.get("/listProjects", firebaseMiddleware, (req, res) => {
     const limit = req.query.limit || 10;
     const categories = req.query.categories || [];
 
-    Project.find({categories: {
-        "$all": categories,
-    }}).limit(limit).then((projs) => {
+    // Use filtering later on.
+    // Project.find({categories: {
+    //     "$all": categories,
+    // }})
+    Project.find({}).limit(limit).then((projs) => {
+        console.log("here");
+        console.log(projs);
         res.send(projs)
     })
     .catch((err) => {
+        res.sendStatus(500).json(err);
+    })
+});
+
+router.get("/listMentors", firebaseMiddleware, (req, res) => {
+    const limit = req.query.limit || 20;
+    Mentor.find({}).limit(limit).then((mentors) => {
+        res.send(mentors);
+    }).catch((err) => {
         res.sendStatus(500).json(err);
     })
 });
@@ -171,8 +184,10 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
                 .then((photoURL) => {
                     delete projectData.photoData;
                     if (!photoURL) return projectData;
+                    console.log("Uploaded photo.")
                     console.log(photoURL)
                     projectData.photoURL = photoURL;
+                    return projectData;
                 })
                 .then((projectData) => Project(projectData).save())
                 .then((proj) => {
@@ -180,18 +195,19 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
                     projOwner.projects.push(proj._id);
                     projOwner.save().then(() => res.send(proj));  
                 })
-                .catch((err) => res.sendStatus(500).json(err));
+                .catch((err) => {
+                    res.sendStatus(500).json(err)
+                });
         } else {
             Project(projectData).save()
                 .then((proj) => {
                     projOwner.projects = projOwner.projects || [];
                     projOwner.projects.push(proj._id);
-                    projOwner.save().then(() => res.send(proj));
+                    return projOwner.save().then(() => res.send(proj));
                 })
+                .catch((err) => res.sendStatus(500).json(err));
         }
             
-    }).catch((err) => {
-        res.sendStatus(500).json(err);
     });
 });
 

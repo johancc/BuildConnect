@@ -45,7 +45,7 @@ const MentorRequestButton = ({ mentor }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <>
-                        <h5>{mentor.description}</h5>
+                        <h5>{mentor.longBio}</h5>
                         <br/>
                         <p>You can include a personalized message to {mentor.name}: </p>
                         <form noValidate autoComplete="off" onSubmit={handleSubmit}>

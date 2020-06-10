@@ -34,7 +34,8 @@ const uploadFileToGCS =  (fileContent, bucketName, options ) => {
     options = options || DEFAULT_OPTIONS;
     const bucket = storage.bucket(bucketName);
     const fileName = uuidv4();
-    const file = bucket.file(fileName)
+    const file = bucket.file(fileName);
+    console.log("uploading...")
     return file
             .save(fileContent, options)
             .then((err) => {

@@ -8,13 +8,14 @@ import { createNewMentor } from "../../../api.js";
 import { useNavigate } from "@reach/router";
 import {
     getCompanyField, getConfirmPasswordField, getEmailField, getIndustryFieldField, getMentorTypesField,
-    getNameField, getPasswordField, getReasonToMentorField, getRoleField, getShortBioField
+    getNameField, getPasswordField, getReasonToMentorField, getRoleField, getShortBioField, getLongBioField
 } from "../../modules/MentorFields.js";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import HeaderBackground from "../../../assets/images/home_feedback.svg";
 import HeaderImage from "../../../assets/images/apply_project.svg";
 import Button from "@material-ui/core/Button";
+import { getLongDescriptionField } from "../../modules/ProjectFields.js";
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your name."),
@@ -29,6 +30,8 @@ const RegisterSchema = Yup.object().shape({
         .required("Please enter your reason"),
     shortBio: Yup.string()
         .required("Please enter a short biography"),
+    longBio: Yup.string()
+        .required("Please include a long-form bio."),
     role: Yup.string()
         .required("Please enter your role"),
     field: Yup.string()
@@ -69,6 +72,7 @@ const RegisterMentor = () => {
             mentorTypes: [],
             reasonToMentor: "",
             shortBio: "",
+            longBio: "",
             field: "",
             role: "",
             password: "",
@@ -89,6 +93,7 @@ const RegisterMentor = () => {
         getMentorTypesField,
         getReasonToMentorField,
         getShortBioField,
+        getLongBioField,
     ]];
     const fieldOrderLabels = [
         "About You"
@@ -104,7 +109,6 @@ const RegisterMentor = () => {
         <div className="col" style={{ backgroundColor: "#ffffff" }}>
             <RegisterHeader title={headerTitle} body={headerBody} background={HeaderBackground} headerImage={HeaderImage} />
             <RegisterForm formik={formik} fieldOrder={fieldOrder} fieldOrderLabels={fieldOrderLabels} submitLabel={submitLabel} />
-            <Button onClick={() => console.log(formik.values.field)}> Press me</Button>
         </div>
     );
 

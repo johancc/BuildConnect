@@ -17,6 +17,7 @@
 import React, { Component } from "react";
 import { getProjects } from "../../../api.js";
 import { navigate } from "@reach/router";
+import { UserContext } from "../../../providers/UserProvider.js";
 import "./Explore.css";
 const SKILLS = ["Comp Sci", "Mech. Eng.", "Design"];
 const PROJECT_AUTHORS = ["Students", "Mentors"];
@@ -28,36 +29,17 @@ import PeopleSVG from "../../../assets/icons/checkbox.svg";
 
 const DARK_BLUE = "#13133A";
 const LIGHT = "#F5F7FB";
-// Temporary. Just for testing.
-let MOCK_FACTOR = 1;
-
-let MOCK_DATA = {
-    projectName: "The Next Big Thing",
-    tweetDescription: "What's the next big thing? Find out soon",
-    description: "You should give an overview of your project here. Make it exciting.\
-                Talk about why you started this. Show people that you care.",
-    photoURL: "https://blog-assets.hootsuite.com/wp-content/uploads/2019/05/Instagram-analytics-tools.png",
-    teamSize: 10,
-    dateStarted: Date.now(),
-    helpNeeded: "How can people help? Are there any specific things that need to be built? Should they be \
-                 comfortable with python? UX? Management skills?",
-    teamDescription: "Out team members are based on the each coast. Some of the include Alyssa P Hacker (allysa@mit.edu) and Ben Bitdiddle (benbit@mit.edu). ",
-    link: "www.github.com/user/somethinggreat",
-    contactInfo: "Please email someemail@mit.edu if you have any questions.",
-    skillsNeeded: "We would want people with some experience with webdev.",
-    projectOwner: "153513531244"
-}
 
 
 const GoIcon = (<img src={GoSVG} alt=""/>);
 const PeopleIcon = (<img src={PeopleSVG} alt=""/>);
 
 class Explore extends Component {
-
+    static contextType = UserContext;
     constructor(props) {
         super(props);
         this.state = {
-            projects: Array(MOCK_FACTOR).fill(MOCK_DATA),
+            projects: [],
             authorFilters: [],
             skillFilters: [],
         }
@@ -65,8 +47,13 @@ class Explore extends Component {
 
     componentDidMount() {
         // TODO.
-        getProjects({tokenId:""}).then((projects) => {
-            console.log("got projects");
+        console.log("projects loading...")
+        getProjects(this.context.user.token).then((projects) => {
+            console.log("got")
+            console.log(projects);
+            this.setState({
+                projects: projects,
+            })
         })
     }
     
@@ -76,8 +63,8 @@ class Explore extends Component {
                 <img src={proj.photoURL} style={{ width: "100%", objectFit: "cover" }} />
 
                 <div className="col-md-12">
-                    <h3>{proj.title}</h3>
-                    <p>{proj.description}</p>
+                    <h3> {proj.projectName} </h3>
+                    <p> {proj.shortDescription} </p>
                     <div>{PeopleIcon} {proj.teamSize} members </div>
                     <br />
                 </div>
@@ -198,7 +185,7 @@ class Explore extends Component {
 
     render() {
         let titleRow = this.getTitle();
-        let projects = this.getProjectColumn();
+        let projects = this.state.projects.length !== 0 ? this.getProjectColumn() : (<></>);
 
         return (
             <>

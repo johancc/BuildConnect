@@ -6,6 +6,8 @@
         You need user context to get the user id.
 */
 import React, { Component } from "react";
+import { getMentors } from "../../../api.js";
+import { UserContext } from "../../../providers/UserProvider.js";
 import "./Mentors.css";
 
 import RoleSvg from '../../../assets/icons/mentor.svg';
@@ -15,28 +17,18 @@ import RequestMentorButton from "./RequestMentorButton.js";
 const ROLE_ICON = (<img src={RoleSvg}/>);
 const AVAILABILITY_ICON = (<img src={AvailabilitySvg}/>);
 
-const MOCK_MENTOR = {
-    _id: "1223",
-    name: "John Wick",
-    role: "Lead Developer",
-    availability: "M/W/F 5-9 PM EST",
-    description: " I’m John and I previously worked for Tesla and SpaceX. \
-    I am very passionate about mechanical engineering projects! \
-    I have built various formula style race cars and right now I’m working on a battery startup! \
-    Feel free to reach out for mentorship!",
-    photoURL: "https://p7.hiclipart.com/preview/312/29/293/continental-light-gray-background-shading-thumbnail.jpg",
-}
 const MentorCard = ({mentor}) => {
     let name = mentor.name;
     let role = mentor.role;
     let availability = mentor.availability;
     // skipping pic for now. let profilePic = mentor.photoURL;
-    let shortBio = mentor.description;
+    let shortBio = mentor.shortBio;
     return (
         <div className="mentorCard" style={{ marginBottom: "2em", padding: "2em"}} >
             <h3> {name} </h3>
             <p> {ROLE_ICON} {role}</p>
-            <p> {AVAILABILITY_ICON} {availability}</p>
+            {/* TODO: Renable once it is a field in the registration page.
+             {<p> {AVAILABILITY_ICON} {availability}</p>} */}
             <div style={{wordWrap: "break-word", width: "100%"}}>
                 <p> {shortBio} </p>
             </div>
@@ -50,18 +42,18 @@ const MentorCard = ({mentor}) => {
 
 
 class Mentors extends Component {
-
+    static contextType = UserContext;
     constructor(props) {
         super(props);
         this.state = {
             mentorData: [],
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
         // TODO: Get the list of mentors from the server.
-        let MOCK_MENTORS = Array(15).fill(MOCK_MENTOR);
+        const mentors = await getMentors(this.context.user.token);
         this.setState({
-            mentorData: MOCK_MENTORS,
+            mentorData: mentors,
         })
     }
 
@@ -84,7 +76,6 @@ class Mentors extends Component {
         return (
             <div className="container">
                 <div className="row justify-content-between">
-                    
                     {mentorCards.map((card) => (<div className="col-md-4">{card} </div>))}
                 </div>
             </div>
@@ -92,6 +83,8 @@ class Mentors extends Component {
     }
 
     getMentorCards() {
+        if (this.state.mentorData.length == 0) { return []};
+        console.log(this.state.mentorData)
         return (this.state.mentorData.map((mentor) => <MentorCard mentor={mentor}/>));
     }
     render() {
