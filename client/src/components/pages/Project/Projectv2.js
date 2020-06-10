@@ -55,7 +55,7 @@ class Project extends Component {
         this.setState({
             projectData: projectData,
         });
-        let ownerName = "Blade Smith" || await  getProjectowner(projectData);
+        let ownerName = await  getProjectowner(projectData);
         this.setState({
             ownerName: ownerName,
         })

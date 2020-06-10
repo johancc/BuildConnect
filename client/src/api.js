@@ -14,6 +14,7 @@ export const createNewUser = async (values) => {
         await postUser(tokenId, values);
         await auth.currentUser.sendEmailVerification();
     } catch (err) {
+        console.log(err);
         if (tokenId) await post("/api/removeUser", {token: tokenId}); // Remove from firebase if creation failed somehow.
         throw new Error("Cannot create new user.");
     }
@@ -76,4 +77,8 @@ export const canEmailRegister = async (emailAddress) => {
 export const getProjectOwner = async (project) => {
     const ownerName = await get('/api/owner', {project: project, token: tokenId});
     return ownerName;
+}
+export const getProjects = async (tokenId) => {
+    const projects = await get("/api/listProjects", {token: tokenId});
+    return projects;
 }

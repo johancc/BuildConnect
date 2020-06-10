@@ -5,6 +5,7 @@ const path = require("path");
 
 let transporter = undefined;
 nodemailer.createTestAccount((err, account) => {
+    // TODO: Revisit.
     // create reusable transporter object using the default SMTP transport
     transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
@@ -28,6 +29,10 @@ const verificationFilepath = path.join(__dirname, "templates/verification.html")
 const verificationSource = fs.readFileSync(verificationFilepath, "utf-8").toString();
 const verificationTemplate = handlebars.compile(verificationSource);
 
+const mentorshipRequestFilepath = path.join(__dirname, 'templates/request.html');
+const mentorshipRequestSource = fs.readFileSync(mentorshipRequestFilepath, 'utf-8').toString();
+const mentorshipRequestTemplate = handlebars.compile(mentorshipRequestSource);
+
 
 /**
  * Sends an email to both the user making the join request and 
@@ -42,7 +47,7 @@ const sendJoinRequestEmails = async (user, message, ownerEmail, cb) => {
     const replacements = {
         userEmail: user.email,
         userName: user.name,
-        userEmail: message,
+        message: message,
     };
     const joinHtmlToSend = requestTemplate(replacements);
     const joinMailOptions = {
@@ -68,7 +73,38 @@ const sendJoinRequestEmails = async (user, message, ownerEmail, cb) => {
     });
 };
 
+const sendMentorshipRequest = async (user, message, mentorEmail, cb) => {
+    const replacements = {
+        userEmail: user.email,
+        userName: user.name,
+        message: message,
+    };
+
+    const requestHtmlToSend = mentorshipRequestTemplate(replacements);
+    const mentorshipMailOptions = {
+        from: "Build Connect <buildconnect@gmail.com>",
+        to: mentorEmail,
+        subject: "Mentorship Request",
+        html: requestHtmlToSend,
+    };
+    await transporter.sendMail(mentorshipMailOptions);
+    // User automated message
+    const verificationHtmlToSend = verificationTemplate({});
+    const verificationEmailOptions = {
+        from: "Build Connect <buildconnect@gmail.com",
+        to: user.email,
+        subject: "Mentorship Request Verification",
+        html: verificationHtmlToSend,
+    }
+
+    transporter.sendMail(verificationEmailOptions, (err, info) => {
+        console.log(nodemailer.getTestMessageUrl(info));
+        cb({})
+    });
+}
+
 
 module.exports = {
-    sendJoinRequestEmails: sendJoinRequestEmails
+    sendJoinRequestEmails: sendJoinRequestEmails,
+    sendMentorshipRequest: sendMentorshipRequest,
 }

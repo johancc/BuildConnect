@@ -15,6 +15,8 @@
  */
 
 import React, { Component } from "react";
+import { getProjects } from "../../../api.js";
+import { navigate } from "@reach/router";
 import "./Explore.css";
 const SKILLS = ["Comp Sci", "Mech. Eng.", "Design"];
 const PROJECT_AUTHORS = ["Students", "Mentors"];
@@ -27,7 +29,7 @@ import PeopleSVG from "../../../assets/icons/checkbox.svg";
 const DARK_BLUE = "#13133A";
 const LIGHT = "#F5F7FB";
 // Temporary. Just for testing.
-let MOCK_FACTOR = 10;
+let MOCK_FACTOR = 1;
 
 let MOCK_DATA = {
     projectName: "The Next Big Thing",
@@ -50,10 +52,6 @@ let MOCK_DATA = {
 const GoIcon = (<img src={GoSVG} alt=""/>);
 const PeopleIcon = (<img src={PeopleSVG} alt=""/>);
 
-
-
-
-
 class Explore extends Component {
 
     constructor(props) {
@@ -67,6 +65,10 @@ class Explore extends Component {
 
     componentDidMount() {
         // TODO.
+        getProjects({tokeId:""}).then((projects) => {
+            console.log("got projects");
+
+        })
     }
     
     generateProjectCard = (proj) => {
@@ -81,7 +83,7 @@ class Explore extends Component {
                     <br />
                 </div>
                 <RoundedButton label="Learn More" icon={GoIcon} bgcolor={DARK_BLUE}
-                    callback={() => this.props.navigate("/project", {state: {projectData: proj}})} />
+                    callback={() => { navigate("/project", {state: {projectData: proj}}) }} />
             </div>);
     };
 

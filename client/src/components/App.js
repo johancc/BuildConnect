@@ -42,25 +42,18 @@ const App = () => {
     <div className="contentWrap">
       <Suspense fallback={<div />}>
         <UserProvider>
-          <LocationProvider history={history}>
+          <LocationProvider>
             <div className="App-container">
               <NavBar />
               <Router>
                 <Home path="/" />
-                <AuthenticatedPage component={Project} path="/project" />
+                <Project path="/project"/>
                 <AuthenticatedPage component={Explore} path="/explore" />
                 <AuthenticatedPage component={Mentors} path="/mentors" />
-                {/* 
-                    NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
-                  {<AuthenticatedPage path="/project/:_id" component={Project} />
-                  <AuthenticatedPage path="/explore" component={Explore} />
-                  <AuthenticatedPage path="/profile" component={Profile} />
-                  <AuthenticatedPage path="/registerProject" component={RegisterProject} />
-                  */}
-                  <RegisterProject path="/registerProject" />
-                  <RegisterMentor path="/registerMentor" />
-                  <RegisterUser path="/register" />
-                  <NotFound default />
+                <RegisterProject path="/registerProject" />
+                <RegisterMentor path="/registerMentor" />
+                <RegisterUser path="/register" />
+                <NotFound default />
                 </Router>
               </div>
             </LocationProvider>  

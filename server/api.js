@@ -73,6 +73,7 @@ router.get("/project", firebaseMiddleware, (req, res) => {
         });
 });
 
+
 // Returns a list of emails from whitelist that match the given email address
 router.get("/whitelist/:email", (req, res) => {
     const emailAddress = req.params.email;
@@ -333,6 +334,17 @@ router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
         })
 })
 
+// TODO: Add request mentor
+router.post("/requestMentor", firebaseMiddleware, (req, res) => {
+    const { message, mentorID} = req.body;
+    Mentor.findOne({_id: mentorID})
+        .then((mentor) => {
+            return User.findOne({firebase_uid: req.user.user_id})
+                    .then( async (user) => {
+                        email.sendMentorshipRequest(user, message, mentor.email, () => res.send({}));
+                    });
+        });
+})
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
     console.log(`API route not found: ${req.method} ${req.url}`);
