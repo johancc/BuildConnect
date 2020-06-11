@@ -31,7 +31,7 @@ const DARK_BLUE = "#13133A";
 const LIGHT = "#F5F7FB";
 
 
-const GoIcon = (<img src={GoSVG} alt=""/>);
+const GoIcon = GoSVG;// (<img src={GoSVG} alt=""/>);
 const PeopleIcon = (<img src={PeopleSVG} alt=""/>);
 
 class Explore extends Component {
@@ -46,11 +46,7 @@ class Explore extends Component {
     };
 
     componentDidMount() {
-        // TODO.
-        console.log("projects loading...")
         getProjects(this.context.user.token).then((projects) => {
-            console.log("got")
-            console.log(projects);
             this.setState({
                 projects: projects,
             })

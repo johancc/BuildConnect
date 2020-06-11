@@ -37,7 +37,7 @@ router.get("/listProjects", firebaseMiddleware, (req, res) => {
     // Project.find({categories: {
     //     "$all": categories,
     // }})
-    Project.find({}).limit(limit).then((projs) => {
+    Project.find({public: true}).limit(limit).then((projs) => {
         res.send(projs)
     })
     .catch((err) => {
@@ -183,6 +183,7 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
     // Update should be reflected by the user and project documents.
     // This should be uploaded to GCP and the resulting url stored in req.body.project.imageURL;
     let projectData = req.body.project;
+    projectData.public = false;
     User.findOne({firebase_uid: req.user.user_id}).then((projOwner) => {
         projectData.projectOwner = projOwner._id;
 

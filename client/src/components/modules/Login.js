@@ -36,6 +36,7 @@ class Login extends Component {
     async signin(event) {
         event.preventDefault();
         try {
+            // TODO: Fix.
             await auth.signInWithEmailAndPassword(this.state.form.email, this.state.form.password);
             this.props.navigate("/explore");
             this.props.onLogin();

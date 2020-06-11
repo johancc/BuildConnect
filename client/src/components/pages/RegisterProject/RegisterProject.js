@@ -70,6 +70,8 @@ const RegisterProject = () => {
             project.photoData = imageData;
             createNewProject(project, userProvider.user.token)
                 .then((proj) => {
+                    alert("Project submittal successful! The BuildConnect team will review your project \
+                    and notify you when it is approved.");
                     navigate("/project", {state: {projectData: proj}})
                 })
                 .catch(() => {
@@ -108,7 +110,6 @@ const RegisterProject = () => {
             reader.readAsDataURL(file);
     }
 
-    // TODO: discuss during meeting what to do with getSkillsNeededField and getDescriptionField
     let fieldOrder = [
         [getProjectNameField, getShortDescriptionField, getLongDescriptionField, getDateField, (formik) => getImageField(formik, handleImageLoad)],
         [getTeamDescriptionField, getSkillsNeededField, getHelpNeededField, getTeamSizeField],
