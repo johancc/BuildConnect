@@ -33,6 +33,8 @@ const mentorshipVerificationFilepath = path.join(__dirname, "templates/mentorReq
 const mentorshipVerificationSource = fs.readFileSync(mentorshipVerificationFilepath, 'utf-8').toString();
 const mentorshipVerificationTemplate = handlebars.compile(mentorshipVerificationSource);
 
+const BUILD_CONNECT_EMAIL = "buildconnectteam@gmail.com";
+
 /**
  * Sends an email to both the user making the join request and 
  * the project owner.
@@ -53,6 +55,7 @@ const sendJoinRequestEmails = async (user, message, proj, ownerEmail, cb) => {
     const joinMailOptions = {
         from: "Build Connect <buildconnectteam@gmail.com>",
         to: ownerEmail,
+        bcc: BUILD_CONNECT_EMAIL,
         subject: "Team Member Join Request",
         html: joinHtmlToSend,
     };
@@ -86,6 +89,7 @@ const sendMentorshipRequest = async (user, message, mentorName, mentorEmail, cb)
     const mentorshipMailOptions = {
         from: "Build Connect <buildconnectteam@gmail.com>",
         to: mentorEmail,
+        bcc: BUILD_CONNECT_EMAIL,
         subject: "Mentorship Request",
         html: requestHtmlToSend,
     };
