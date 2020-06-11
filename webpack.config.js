@@ -21,6 +21,8 @@ const entryFile = path.resolve(__dirname, "client", "src", "index.js");
 const outputDir = path.resolve(__dirname, "client", "dist");
 
 const webpack = require("webpack");
+const CompressionPlugin = require("compression-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   entry: ["@babel/polyfill", entryFile],
@@ -30,7 +32,7 @@ module.exports = {
     filename: "bundle.js",
   },
 
-  devtool: "inline-source-map",
+  devtool: "",
   module: {
     rules: [
       {
@@ -65,6 +67,19 @@ module.exports = {
   plugins: [   
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
+
+    new CompressionPlugin({
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
+    new TerserPlugin({
+      parallel: true,
+      terserOptions: {
+        ecma: 6,
+      },
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')

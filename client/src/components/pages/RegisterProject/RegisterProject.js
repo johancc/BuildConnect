@@ -40,7 +40,10 @@ const ProjectSchema = Yup.object().shape({
     teamDescription: Yup.string().required("Please describe your team"),
     link: Yup.string(),
     image: Yup.mixed(),
-    contactInfo: Yup.string().required("Please list an email"),
+    contactInfo: Yup.string()
+        .required("Please input a valid email")
+        .matches(/.+@*.*/i, "Please input a valid email")
+        .required("Please input a valid email"),
     skillsNeeded: Yup.string().required("Please input the skills needed to join"),
 });
 

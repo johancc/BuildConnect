@@ -9,6 +9,9 @@ const path = require("path");
 // uuid for generating unique file names (so that files are not overwritten)
 const {v4: uuidv4 } = require('uuid');
 
+// Extract extension from base64
+const mimeTypes = require('mimetypes');
+
 // Returns the public url of an uploaded file
 const getPublicURL = (bucketName, fileName) => `https://storage.googleapis.com/${bucketName}/${fileName}`;
 
@@ -21,27 +24,32 @@ const getFileNameFromURL = (URL) => {
     }
 }
 
-// Default options for uploading files
-const DEFAULT_OPTIONS = {
-    metadata: {
-        custom: 'metadata'
-    },
-    public: true,
-    validation: "md5"
-};
+const getDefaultOptions = (mimeType) => {
+    return {
+        metadata: { contentType: mimeType },
+        public: true,
+        validation: 'md5'
+    }
+}
 
-const uploadFileToGCS =  (fileContent, bucketName, options ) => {
-    options = options || DEFAULT_OPTIONS;
+const uploadFileToGCS =  (photoData, bucketName, options ) => {
+    const image = photoData,
+        mimeType = image.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/)[1],
+        fileExtension = mimeTypes.detectExtension(mimeType),
+        base64EncodedImageString = image.replace(/^data:image\/\w+;base64,/, ''),
+        imageBuffer = Buffer.from(base64EncodedImageString, "base64");
+
+    options = options || getDefaultOptions(mimeType);
+    const fileName = `${uuidv4()}.${fileExtension}`;
     const bucket = storage.bucket(bucketName);
-    const fileName = uuidv4();
     const file = bucket.file(fileName);
-    console.log("uploading...")
+
     return file
-            .save(fileContent, options)
-            .then((err) => {
-                if (err.length !== 0) return;
-                return getPublicURL(bucketName, fileName);
-            });
+        .save(imageBuffer, options)
+        .then((err) => {
+            if (err.length !== 0) return;
+            return getPublicURL(bucketName, fileName);
+        });
 }
 
 // Params:
