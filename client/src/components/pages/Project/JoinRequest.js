@@ -28,7 +28,7 @@ const JoinRequest = ({projectID}) => {
     return (
         <>
             <RoundedButton label="Join" bgcolor="#13133A" callback={() => setShow(true)} >
-                Volunteer
+                Join
             </RoundedButton>
             <Modal
                 show={show}
@@ -38,14 +38,13 @@ const JoinRequest = ({projectID}) => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
-                        You're about to request to join
+                        Great!
                      </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <>
-                        <b> Are you sure? The project owner will be alerted.</b>
-                        <p> You can include a note about why you're interested and anything else
-                            the project owner should know.
+                        <p> One more step. You can include a note about why you're interested
+                            and anything else the project owner should know.
                         </p>
                         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                             
