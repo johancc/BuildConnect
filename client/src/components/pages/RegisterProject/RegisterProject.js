@@ -70,8 +70,7 @@ const RegisterProject = () => {
             project.photoData = imageData;
             createNewProject(project, userProvider.user.token)
                 .then((proj) => {
-                    alert("Project submission successful! The BuildConnect team will review your project \
-                    and notify you when it is approved.");
+                    alert("Project submission successful! The BuildConnect team will review your project and notify you when it is approved.");
                     navigate("/project", {state: {projectData: proj}})
                 })
                 .catch(() => {
