@@ -61,9 +61,6 @@ class Project extends Component {
         this.setState({
             ownerName: owner.name,
         })
-        // this.state = {
-        //     projectData: MOCK_DATA,
-        // }
     }
 
     getTitleRow = () => {

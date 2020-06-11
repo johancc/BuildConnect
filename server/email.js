@@ -40,13 +40,14 @@ const mentorshipVerificationTemplate = handlebars.compile(mentorshipVerification
  * @param {String} message personalized message the user wrote.
  * @param {String} ownerEmail the email of the project owner
  */
-const sendJoinRequestEmails = async (user, message, ownerEmail, cb) => {
+const sendJoinRequestEmails = async (user, message, proj, ownerEmail, cb) => {
     
     // User -> Owner message
     const replacements = {
         studentEmail: user.email,
         studentName: user.name,
         message: message,
+        projectName: proj.projectName,
     };
     const joinHtmlToSend = requestTemplate(replacements);
     const joinMailOptions = {

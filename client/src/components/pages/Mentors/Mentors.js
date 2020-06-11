@@ -84,7 +84,6 @@ class Mentors extends Component {
 
     getMentorCards() {
         if (this.state.mentorData.length == 0) { return []};
-        console.log(this.state.mentorData)
         return (this.state.mentorData.map((mentor) => <MentorCard mentor={mentor}/>));
     }
     render() {

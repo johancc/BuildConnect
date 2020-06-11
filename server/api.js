@@ -340,22 +340,17 @@ router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
      *  Email the owner and the user a join and confirmation email respectively.
      */
     const { message, projectID } = req.body;
-    console.log(message);
-    console.log(projectID);
     // Find the project owner.
     Project.findOne({_id:projectID})
         .then((proj) =>  User.findOne({_id: proj.projectOwner}))
         .then((owner) => {
             const ownerEmail = owner.email;
-            console.log(owner)
-            console.log("--")
-            console.log(req.user.user_id)
             // Find the user's email.
             return User.findOne({firebase_uid: req.user.user_id})
                 .then( async (user) => {
                     console.log("user");
                     console.log(user);
-                    email.sendJoinRequestEmails(user, message, ownerEmail, () => res.send({}))
+                    email.sendJoinRequestEmails(user, message, proj, ownerEmail, () => res.send({}))
                 })
                 
         })

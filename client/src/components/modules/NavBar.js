@@ -48,7 +48,11 @@ const NavBar = () => {
         <div className="Navbar-loginDialog">
             <Dialog fullScreen={fullScreen} aria-labelledby="loginDialog" open={open} onClose={() => setOpen(false)}>
                 <DialogTitle>Login</DialogTitle>
-                <Login onLogin={() => setOpen(false)} />
+                <Login onLogin={() => {
+                    setOpen(false)
+                    console.log("here");
+                    navigate("/explore");
+                }} />
             </Dialog>
         </div>
     );
