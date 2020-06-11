@@ -51,7 +51,7 @@ const App = () => {
                 <Project path="/project"/>
                 <AuthenticatedPage component={Explore} path="/explore" />
                 <AuthenticatedPage component={Mentors} path="/mentors" />
-                <RegisterProject path="/registerProject" />
+                <AuthenticatedPage component={RegisterProject} path="/registerProject"/>
                 <RegisterMentor path="/registerMentor" />
                 <RegisterUser path="/register" />
                 <ResetPassword path="/resetPassword"/>
