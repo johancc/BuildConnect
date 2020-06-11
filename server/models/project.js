@@ -13,6 +13,7 @@ const projectSchema = new mongoose.Schema({
     link: String,
     contactInfo: String,
     skillsNeeded: String,
+    public: Boolean,
     projectOwner: mongoose.Types.ObjectId,
 });
 

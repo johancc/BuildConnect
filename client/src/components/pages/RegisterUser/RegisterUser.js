@@ -42,7 +42,7 @@ const RegisterUser = () => {
         const user = { ...values};
         createNewUser(user)
             .then(() => {
-                navigate("/");
+                navigate("/explore");
             })
             .catch((err) => {
                 alert(`Error: ${err.message}`)

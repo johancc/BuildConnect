@@ -40,7 +40,10 @@ const ProjectSchema = Yup.object().shape({
     teamDescription: Yup.string().required("Please describe your team"),
     link: Yup.string(),
     image: Yup.mixed(),
-    contactInfo: Yup.string().required("Please list an email"),
+    contactInfo: Yup.string()
+        .required("Please input a valid email")
+        .matches(/.+@*.*/i, "Please input a valid email")
+        .required("Please input a valid email"),
     skillsNeeded: Yup.string().required("Please input the skills needed to join"),
 });
 
@@ -48,7 +51,8 @@ const RegisterProject = () => {
     const navigate = useNavigate();
     // TODO: replace with useContext(UserContext) when authentication is fixed instead of this dummy token
     // const userProvider = useContext(UserContext);
-    const userProvider = {user: {token: "token"}};
+    // You really out here.
+    const userProvider = useContext(UserContext);
 
     const loadImage = (imageFile, cb) => {
         const reader = new FileReader();
@@ -66,7 +70,9 @@ const RegisterProject = () => {
             project.photoData = imageData;
             createNewProject(project, userProvider.user.token)
                 .then((proj) => {
-                    navigate(`project/${proj._id}`)
+                    alert("Project submittal successful! The BuildConnect team will review your project \
+                    and notify you when it is approved.");
+                    navigate("/project", {state: {projectData: proj}})
                 })
                 .catch(() => {
                     alert("Unable to create new project.")
@@ -104,7 +110,6 @@ const RegisterProject = () => {
             reader.readAsDataURL(file);
     }
 
-    // TODO: discuss during meeting what to do with getSkillsNeededField and getDescriptionField
     let fieldOrder = [
         [getProjectNameField, getShortDescriptionField, getLongDescriptionField, getDateField, (formik) => getImageField(formik, handleImageLoad)],
         [getTeamDescriptionField, getSkillsNeededField, getHelpNeededField, getTeamSizeField],

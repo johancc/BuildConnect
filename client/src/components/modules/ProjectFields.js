@@ -70,7 +70,7 @@ export const getImageField = (formik, setFieldValue) => {
                 isInvalid={formik.touched[fieldName] && formik.errors[fieldName]}
                 required
                 type="file"
-                accept="image/*"
+                accept="image/x-png, image/jpeg"
             />
             <Form.Control.Feedback type="invalid">{formik.errors[fieldName]}</Form.Control.Feedback>
         </Form.Group>

@@ -36,6 +36,7 @@ class Login extends Component {
     async signin(event) {
         event.preventDefault();
         try {
+            // TODO: Fix.
             await auth.signInWithEmailAndPassword(this.state.form.email, this.state.form.password);
             this.props.navigate("/explore");
             this.props.onLogin();
@@ -76,7 +77,7 @@ class Login extends Component {
                                 Sign In
                             </Button>
                             {this.state.error}
-                            <a href="/reset-password-request">Forgot Password?</a>
+                            <a href="/resetPassword">Forgot Password?</a>
                         </Form>
                     </Col>
                 </Row>

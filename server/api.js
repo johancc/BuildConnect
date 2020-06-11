@@ -33,9 +33,11 @@ router.get("/listProjects", firebaseMiddleware, (req, res) => {
     const limit = req.query.limit || 10;
     const categories = req.query.categories || [];
 
-    Project.find({categories: {
-        "$all": categories,
-    }}).limit(limit).then((projs) => {
+    // Use filtering later on.
+    // Project.find({categories: {
+    //     "$all": categories,
+    // }})
+    Project.find({public: true}).limit(limit).then((projs) => {
         res.send(projs)
     })
     .catch((err) => {
@@ -43,6 +45,25 @@ router.get("/listProjects", firebaseMiddleware, (req, res) => {
     })
 });
 
+router.get("/listMentors", firebaseMiddleware, (req, res) => {
+    const limit = req.query.limit || 20;
+    Mentor.find({}).limit(limit).then((mentors) => {
+        res.send(mentors);
+    }).catch((err) => {
+        res.sendStatus(500).json(err);
+    })
+});
+
+router.get("/owner", firebaseMiddleware, (req, res) => {
+    console.log("hit hit")
+    console.log(req.query.ownerID);
+    User.findOne({_id: req.query.ownerID}).then((owner) => {
+        res.send(owner);
+    }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500).json(err);
+    });
+})
 router.get("/mentor", firebaseMiddleware, (req,res) => {
     Mentor.findOne({firebase_uid: req.user.user_id})
         .then((mentor) => {
@@ -72,6 +93,7 @@ router.get("/project", firebaseMiddleware, (req, res) => {
             res.sendStatus(500).json(err);
         });
 });
+
 
 // Returns a list of emails from whitelist that match the given email address
 router.get("/whitelist/:email", (req, res) => {
@@ -161,6 +183,7 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
     // Update should be reflected by the user and project documents.
     // This should be uploaded to GCP and the resulting url stored in req.body.project.imageURL;
     let projectData = req.body.project;
+    projectData.public = false;
     User.findOne({firebase_uid: req.user.user_id}).then((projOwner) => {
         projectData.projectOwner = projOwner._id;
 
@@ -170,8 +193,8 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
                 .then((photoURL) => {
                     delete projectData.photoData;
                     if (!photoURL) return projectData;
-                    console.log(photoURL)
                     projectData.photoURL = photoURL;
+                    return projectData;
                 })
                 .then((projectData) => Project(projectData).save())
                 .then((proj) => {
@@ -179,18 +202,19 @@ router.post("/addProject", firebaseMiddleware, (req, res) => {
                     projOwner.projects.push(proj._id);
                     projOwner.save().then(() => res.send(proj));  
                 })
-                .catch((err) => res.sendStatus(500).json(err));
+                .catch((err) => {
+                    res.sendStatus(500).json(err)
+                });
         } else {
             Project(projectData).save()
                 .then((proj) => {
                     projOwner.projects = projOwner.projects || [];
                     projOwner.projects.push(proj._id);
-                    projOwner.save().then(() => res.send(proj));
+                    return projOwner.save().then(() => res.send(proj));
                 })
+                .catch((err) => res.sendStatus(500).json(err));
         }
             
-    }).catch((err) => {
-        res.sendStatus(500).json(err);
     });
 });
 
@@ -316,14 +340,21 @@ router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
      *  Email the owner and the user a join and confirmation email respectively.
      */
     const { message, projectID } = req.body;
+    console.log(message);
+    console.log(projectID);
     // Find the project owner.
     Project.findOne({_id:projectID})
         .then((proj) =>  User.findOne({_id: proj.projectOwner}))
         .then((owner) => {
             const ownerEmail = owner.email;
+            console.log(owner)
+            console.log("--")
+            console.log(req.user.user_id)
             // Find the user's email.
             return User.findOne({firebase_uid: req.user.user_id})
                 .then( async (user) => {
+                    console.log("user");
+                    console.log(user);
                     email.sendJoinRequestEmails(user, message, ownerEmail, () => res.send({}))
                 })
                 
@@ -333,6 +364,17 @@ router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
         })
 })
 
+// TODO: Add request mentor
+router.post("/requestMentor", firebaseMiddleware, (req, res) => {
+    const { message, mentorID} = req.body;
+    Mentor.findOne({_id: mentorID})
+        .then((mentor) => {
+            return User.findOne({firebase_uid: req.user.user_id})
+                    .then( async (user) => {
+                        email.sendMentorshipRequest(user, message, mentor.name, mentor.email, () => res.send({}));
+                    });
+        });
+})
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
     console.log(`API route not found: ${req.method} ${req.url}`);

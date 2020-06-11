@@ -23,7 +23,11 @@ export const getReasonToMentorField = (formik) => {
 }
 
 export const getShortBioField = (formik) => {
-    return fieldGenerator("shortBio", "A short biography is needed for your profile", formik, 12, "I graduated in 2013 and have worked in the industry for 7 years on many projects.", "textarea");
+    return fieldGenerator("shortBio", "A 2-3 sentence short biography for your profile", formik, 12, "I graduated in 2013 and have worked in the industry for 7 years on many projects.", "textarea");
+}
+
+export const getLongBioField = (formik) => {
+    return fieldGenerator("longBio", "A more detailed biography to showcase your profile.", formik, 12,  "I went to...");
 }
 
 export const getRoleField = (formik) => {
