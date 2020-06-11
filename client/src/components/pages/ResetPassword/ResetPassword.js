@@ -40,7 +40,7 @@ const ResetPassword = () => {
                 <Row>
                     <Col md={{ span: 6, offset: 3 }}>
                         <h1>Reset Password</h1>
-                        <p>Please enter the email you used to register with CovEd. We'll email you the instructions to reset your password.</p>
+                        <p>Please enter the email you used to register with BuildConnect. We'll email you the instructions to reset your password.</p>
                         {err}
                         <Form>
                             {getEmailField(formik)}
