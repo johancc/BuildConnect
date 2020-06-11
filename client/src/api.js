@@ -19,7 +19,9 @@ export const createNewUser = async (values) => {
         throw new Error("Cannot create new user.");
     }
 };
-
+export const sendPasswordReset = async (email) => {
+    return await auth.sendPasswordResetEmail(email);
+}
 export const createNewMentor = async (values) => {
     const isValidRequest = await canEmailRegister(values.email);
     if (!isValidRequest) {

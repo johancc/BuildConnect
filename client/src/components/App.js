@@ -18,7 +18,8 @@ import Explore from "./pages/Explore/ExploreV2.js";
 import Mentors from "./pages/Mentors/Mentors.js";
 import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
 import RegisterProject from "./pages/RegisterProject/RegisterProject.js";
-import RegisterMentor from "./pages/RegisterMentor/RegisterMentor.js"
+import RegisterMentor from "./pages/RegisterMentor/RegisterMentor.js";
+import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
 // import Profile from "./pages/Profile/Profile.js";
 
 // to use styles, import the necessary CSS files
@@ -53,6 +54,7 @@ const App = () => {
                 <RegisterProject path="/registerProject" />
                 <RegisterMentor path="/registerMentor" />
                 <RegisterUser path="/register" />
+                <ResetPassword path="/resetPassword"/>
                 <NotFound default />
                 </Router>
               </div>

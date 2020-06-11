@@ -77,7 +77,7 @@ class Login extends Component {
                                 Sign In
                             </Button>
                             {this.state.error}
-                            <a href="/reset-password-request">Forgot Password?</a>
+                            <a href="/resetPassword">Forgot Password?</a>
                         </Form>
                     </Col>
                 </Row>
