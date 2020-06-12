@@ -31,12 +31,6 @@ const email = require("./email.js");
 // GET
 router.get("/listProjects", firebaseMiddleware, (req, res) => {
     const limit = req.query.limit || 10;
-    const categories = req.query.categories || [];
-
-    // Use filtering later on.
-    // Project.find({categories: {
-    //     "$all": categories,
-    // }})
     Project.find({public: true}).limit(limit).then((projs) => {
         res.send(projs)
     })
@@ -341,22 +335,23 @@ router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
      */
     const { message, projectID } = req.body;
     // Find the project owner.
+    let reqProj = undefined;
     Project.findOne({_id:projectID})
-        .then((proj) =>  User.findOne({_id: proj.projectOwner}))
+        .then((proj) =>  {
+            reqProj = proj;
+            return User.findOne({_id: proj.projectOwner})
+        })
         .then((owner) => {
             const ownerEmail = owner.email;
             // Find the user's email.
-            return User.findOne({firebase_uid: req.user.user_id})
+            User.findOne({firebase_uid: req.user.user_id})
                 .then( async (user) => {
-                    console.log("user");
-                    console.log(user);
-                    email.sendJoinRequestEmails(user, message, proj, ownerEmail, () => res.send({}))
+                    email.sendJoinRequestEmails(user, message, reqProj, ownerEmail, () => res.send({}))
                 })
-                
-        })
-        .catch((err) => {
-            res.sendStatus(500).json(err);
-        })
+                .catch((err) => {
+                    res.sendStatus(500).json(err);
+                });
+        });
 })
 
 // TODO: Add request mentor
@@ -366,7 +361,7 @@ router.post("/requestMentor", firebaseMiddleware, (req, res) => {
         .then((mentor) => {
             return User.findOne({firebase_uid: req.user.user_id})
                     .then( async (user) => {
-                        email.sendMentorshipRequest(user, message, mentor.name, mentor.email, () => res.send({}));
+                        return email.sendMentorshipRequest(user, message, mentor.name, mentor.email, () => res.send({}));
                     });
         });
 })
