@@ -65,7 +65,6 @@ const sendJoinRequestEmails = async (user, message, ownerEmail, cb) => {
     const verificationEmailOptions = {
         from: "Build Connect <buildconnectteam@gmail.com",
         to: user.email,
-        bcc: BUILD_CONNECT_EMAIL,
         subject: "Team Join Request Verification",
         html: verificationHtmlToSend,
     }
@@ -102,7 +101,6 @@ const sendMentorshipRequest = async (user, message, mentorName, mentorEmail, cb)
     const verificationEmailOptions = {
         from: "Build Connect <buildconnectteam@gmail.com",
         to: user.email,
-        bcc: BUILD_CONNECT_EMAIL,
         subject: "Mentorship Request Verification",
         html: verificationHtmlToSend,
     }
