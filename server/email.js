@@ -32,6 +32,11 @@ const mentorshipRequestTemplate = handlebars.compile(mentorshipRequestSource);
 const mentorshipVerificationFilepath = path.join(__dirname, "templates/mentorRequestConfirm.html");
 const mentorshipVerificationSource = fs.readFileSync(mentorshipVerificationFilepath, 'utf-8').toString();
 const mentorshipVerificationTemplate = handlebars.compile(mentorshipVerificationSource);
+// 5. Verification that a project was submitted.
+const projectSubmissionFilepath = path.join(__dirname, "templates/projectSubmitConfirm.html");
+const projectSubmissionSource = fs.readFileSync(projectSubmissionFilepath, 'utf-8').toString();
+const projectSubmissionTemplate = handlebars.compile(projectSubmissionSource);
+
 
 const BUILD_CONNECT_EMAIL = "buildconnectteam@gmail.com";
 
@@ -112,8 +117,27 @@ const sendMentorshipRequest = async (user, message, mentorName, mentorEmail, cb)
     });
 }
 
+const sendProjectSubmittedEmail = async (user, project, cb) => {
+    const replacements = {
+        studentName: user.name,
+        projectName: project.projectName,
+    };
+    const projectHtmlToSend = projectSubmissionTemplate(replacements);
+    const projectMailOptions = {
+        from: "Build Connect <buildconnectteam@gmail.com>",
+        to: user.email,
+        bcc: BUILD_CONNECT_EMAIL,
+        subject: "BuildConnect Project Submission Confirmation",
+        html: projectHtmlToSend,
+    };
+    await transporter.sendMail(projectMailOptions, (err, info) => {
+        console.log("Email sent!");
+        cb({})
+    });
+}
 
 module.exports = {
     sendJoinRequestEmails: sendJoinRequestEmails,
     sendMentorshipRequest: sendMentorshipRequest,
+    sendProjectSubmittedEmail
 }
