@@ -16,7 +16,7 @@ import {
     getLongDescriptionField,
     getLinkField,
     getTeamDescriptionField,
-    getDateField,
+    getProjectLengthField,
     getContactInfoField,
     getTeamSizeField,
     getHelpNeededField,
@@ -35,7 +35,7 @@ const ProjectSchema = Yup.object().shape({
     shortDescription: Yup.string().required("Please enter a one/two sentence description."),
     longDescription: Yup.string().required("Please enter a description of your project."),
     teamSize: Yup.number().required("Please enter the team size"),
-    dateStarted: Yup.date().required("Please enter the date the project started"),
+    projectLength: Yup.number().required("Please enter the expected duration"),
     helpNeeded: Yup.string().required("Please describe the help needed in this project"),
     teamDescription: Yup.string().required("Please describe your team"),
     link: Yup.string(),
@@ -85,7 +85,7 @@ const RegisterProject = () => {
             shortDescription: "",
             longDescription: "",
             teamSize: "",
-            dateStarted: "",
+            projectLength: "",
             image: undefined,
             helpNeeded: "", 
             teamDescription: "",
@@ -110,7 +110,7 @@ const RegisterProject = () => {
     }
 
     let fieldOrder = [
-        [getProjectNameField, getShortDescriptionField, getLongDescriptionField, getDateField, (formik) => getImageField(formik, handleImageLoad)],
+        [getProjectNameField, getShortDescriptionField, getLongDescriptionField, getProjectLengthField, (formik) => getImageField(formik, handleImageLoad)],
         [getTeamDescriptionField, getSkillsNeededField, getHelpNeededField, getTeamSizeField],
         [getContactInfoField, getLinkField]
     ]

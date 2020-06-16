@@ -5,7 +5,7 @@ import React from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import fieldGenerator from "./FieldGenerator.js";
-
+7
 export const getProjectNameField = (formik) => {
     return fieldGenerator("project Name", "What will you name this project?", formik, 12, "Project title");
 };
@@ -19,7 +19,7 @@ export const getLongDescriptionField= (formik) => {
 }
 
 export const getLinkField = (formik) => {
-    return fieldGenerator("link", "List a website", formik, 8, "abc123.com");
+    return fieldGenerator("link", "List any helpful links", formik, 8, "abc123.com");
 };
 
 export const getTeamDescriptionField = (formik) => {
@@ -42,21 +42,8 @@ export const getHelpNeededField = (formik) => {
     return fieldGenerator("help Needed", "What help are you looking for?", formik, 12, "We are looking for a designer to design our UI and a PM to lead the team!", "textarea");
 };
 
-export const getDateField = (formik) =>  {
-    const fieldName = "dateStarted";
-    return (
-        <Form.Group as={Col} md="4" controlId={"validation"+fieldName}>
-            <Form.Label>When did you start this project?</Form.Label>
-            <Form.Control
-                name={fieldName}
-                {...formik.getFieldProps(fieldName)}
-                isInvalid={formik.touched[fieldName] && formik.errors[fieldName]}
-                required
-                type="date"
-                placeholder={Date.now()}
-            />
-            <Form.Control.Feedback type="invalid">{formik.errors[fieldName]}</Form.Control.Feedback>
-        </Form.Group>)
+export const getProjectLengthField = (formik) => {
+    return fieldGenerator("project Length", "What is the expected duration of this project (in weeks)?", formik, 12, "E.g. 4");
 };
 
 export const getImageField = (formik, setFieldValue) => {
