@@ -18,9 +18,7 @@ const RegisterSchema = Yup.object().shape({
     name: Yup.string().required("Please enter your name."),
     email: Yup.string()
         .email()
-        .required("Please input a valid email")
-        .matches(/.+@*.edu/i, "Please use a .edu email.")
-        .required("Please input a valid .edu email."),
+        .required("Please input a valid email"),
     major: Yup.string()
         .required("Please input your major"),
     password: Yup.string()
