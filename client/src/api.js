@@ -86,6 +86,12 @@ export const getProjects = async (tokenId) => {
     return projects;
 }
 
+export const getInProgressProjects = async (tokenId) => {
+    // TODO: Change endpoint once the server has it.
+    const projects = await get("/api/listProjects", {token: tokenId});
+    return projects;
+}
+
 export const getMentors = async(tokenId) => {
     const mentors = await get("/api/listMentors", {token: tokenId});
     console.log("got");

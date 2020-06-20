@@ -50,7 +50,6 @@ const NavBar = () => {
                 <DialogTitle>Login</DialogTitle>
                 <Login onLogin={() => {
                     setOpen(false)
-                    console.log("here");
                     navigate("/explore");
                 }} />
             </Dialog>
@@ -64,6 +63,11 @@ const NavBar = () => {
             <Nav.Link as={Link} to="/explore">
                 <div className="NavBar-link">
                     Projects
+                </div>
+            </Nav.Link>
+            <Nav.Link as={Link} to="/inProgress">
+                <div className="NavBar-link">
+                    In The Works
                 </div>
             </Nav.Link>
             <Nav.Link className="NavBar-link" as={Link} to="/mentors">

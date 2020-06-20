@@ -11,16 +11,14 @@ import AuthenticatedPage from "./modules/AuthenticatedPage.js";
 // Pages
 const Home = lazy(() => import("./pages/Home/Home.js"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound.js"));
-
-// NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
-import Project from "./pages/Project/Projectv2.js";
-import Explore from "./pages/Explore/ExploreV2.js";
-import Mentors from "./pages/Mentors/Mentors.js";
-import RegisterUser from "./pages/RegisterUser/RegisterUser.js";
-import RegisterProject from "./pages/RegisterProject/RegisterProject.js";
-import RegisterMentor from "./pages/RegisterMentor/RegisterMentor.js";
-import ResetPassword from "./pages/ResetPassword/ResetPassword.js";
-// import Profile from "./pages/Profile/Profile.js";
+const Project = lazy(() => import("./pages/Project/Projectv2.js"));
+const Explore = lazy(() => import("./pages/Explore/ExploreV2.js"));
+const Mentors = lazy(() => import("./pages/Mentors/Mentors.js"));
+const RegisterUser = lazy(() => import("./pages/RegisterUser/RegisterUser.js"));
+const RegisterProject = lazy(() => import("./pages/RegisterProject/RegisterProject.js"));
+const RegisterMentor = lazy(() => import("./pages/RegisterMentor/RegisterMentor.js"));
+const ProgressCatalog = lazy(() => import("./pages/ProgressCatalog/ProgressCatalog.js"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword/ResetPassword.js"));
 
 // to use styles, import the necessary CSS files
 import "../utilities.css";
@@ -50,6 +48,7 @@ const App = () => {
                 <Home path="/" />
                 <Project path="/project"/>
                 <AuthenticatedPage component={Explore} path="/explore" />
+                <AuthenticatedPage component={ProgressCatalog} path="/inProgress"/>
                 <AuthenticatedPage component={Mentors} path="/mentors" />
                 <AuthenticatedPage component={RegisterProject} path="/registerProject"/>
                 <RegisterMentor path="/registerMentor" />
