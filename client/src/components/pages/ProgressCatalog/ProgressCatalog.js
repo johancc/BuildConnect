@@ -24,7 +24,7 @@ let generateProjectCard = (proj) => {
                 <br />
             </div>
             <RoundedButton label="Learn More" icon={GoIcon} bgcolor={DARK_BLUE}
-                callback={() => { navigate("/project", { state: { projectData: proj } }) }} />
+                callback={() => { navigate("/InProgressProject", { state: { projectData: proj } }) }} />
         </div>);
 };
 

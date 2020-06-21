@@ -4,7 +4,6 @@ import { Router, createHistory, LocationProvider } from "@reach/router";
 // GOOGLE ANALYTICS
 import ReactGA from "react-ga";
 
-// NOT NEEDED UNTIL ACCOUNTS ARE ACCEPTED AND REVIEWED.
 // Providers
 import UserProvider from "../providers/UserProvider";
 import AuthenticatedPage from "./modules/AuthenticatedPage.js";
@@ -19,6 +18,7 @@ const RegisterProject = lazy(() => import("./pages/RegisterProject/RegisterProje
 const RegisterMentor = lazy(() => import("./pages/RegisterMentor/RegisterMentor.js"));
 const ProgressCatalog = lazy(() => import("./pages/ProgressCatalog/ProgressCatalog.js"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword/ResetPassword.js"));
+const InProgressProject = lazy(() => import("./pages/InProgressProject/InProgresProject.js"));
 
 // to use styles, import the necessary CSS files
 import "../utilities.css";
@@ -47,6 +47,7 @@ const App = () => {
               <Router>
                 <Home path="/" />
                 <Project path="/project"/>
+                <InProgressProject path="/InProgressProject"/>
                 <AuthenticatedPage component={Explore} path="/explore" />
                 <AuthenticatedPage component={ProgressCatalog} path="/inProgress"/>
                 <AuthenticatedPage component={Mentors} path="/mentors" />
