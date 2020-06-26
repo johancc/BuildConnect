@@ -354,9 +354,9 @@ router.post("/requestToJoin", firebaseMiddleware, (req, res) => {
         });
 })
 
-// TODO: Add request mentor
 router.post("/requestMentor", firebaseMiddleware, (req, res) => {
-    const { message, mentorID} = req.body;
+    const message = req.body.message;
+    const mentorID = req.body.mentor._id;
     Mentor.findOne({_id: mentorID})
         .then((mentor) => {
             return User.findOne({firebase_uid: req.user.user_id})
