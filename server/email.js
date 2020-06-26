@@ -25,7 +25,7 @@ const verificationSource = fs.readFileSync(verificationFilepath, "utf-8").toStri
 const verificationTemplate = handlebars.compile(verificationSource);
 
 // 3. The mentor receives a mentorship request.
-const mentorshipRequestFilepath = path.join(__dirname, 'templates/request.html');
+const mentorshipRequestFilepath = path.join(__dirname, 'templates/mentorRequest.html');
 const mentorshipRequestSource = fs.readFileSync(mentorshipRequestFilepath, 'utf-8').toString();
 const mentorshipRequestTemplate = handlebars.compile(mentorshipRequestSource);
 // 4. Verification that your mentorship request was received.
@@ -83,17 +83,20 @@ const sendJoinRequestEmails = async (user, message, proj, ownerEmail, cb) => {
 
 const sendMentorshipRequest = async (user, message, mentorName, mentorEmail, cb) => {
     let firstName = mentorName.split(" ").slice(0, -1).join(' ')
+
     const replacements = {
         mentorFirstName: firstName,
         studentEmail: user.email,
         studentName: user.name,
         message: message,
     };
+    console.log("Replacements: ");
+    console.log(replacements);
 
     const requestHtmlToSend = mentorshipRequestTemplate(replacements);
     const mentorshipMailOptions = {
         from: "Build Connect <buildconnectteam@gmail.com>",
-        to: mentorEmail,
+        to: "jccamacho19992@gmail.com",
         bcc: BUILD_CONNECT_EMAIL,
         subject: "Mentorship Request",
         html: requestHtmlToSend,

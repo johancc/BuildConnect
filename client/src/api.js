@@ -76,8 +76,6 @@ export const canEmailRegister = async (emailAddress) => {
 }
 
 export const getProjectOwner = async (project, tokenId) => {
-    console.log("Sending: ")
-    console.log(project);
     const owner = await get('/api/owner', {ownerID: project.projectOwner, token: tokenId});
     return owner;
 }
@@ -88,7 +86,5 @@ export const getProjects = async (tokenId) => {
 
 export const getMentors = async(tokenId) => {
     const mentors = await get("/api/listMentors", {token: tokenId});
-    console.log("got");
-    console.log(mentors);
     return mentors;
 }
