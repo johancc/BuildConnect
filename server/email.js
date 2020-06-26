@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const handlebars = require("handlebars");
 const fs = require('fs');
 const path = require("path");
+const mentor = require("./models/mentor");
 require("dotenv").config();
 let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -96,7 +97,7 @@ const sendMentorshipRequest = async (user, message, mentorName, mentorEmail, cb)
     const requestHtmlToSend = mentorshipRequestTemplate(replacements);
     const mentorshipMailOptions = {
         from: "Build Connect <buildconnectteam@gmail.com>",
-        to: "jccamacho19992@gmail.com",
+        to:  mentorEmail,
         bcc: BUILD_CONNECT_EMAIL,
         subject: "Mentorship Request",
         html: requestHtmlToSend,
