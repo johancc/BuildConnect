@@ -22,7 +22,7 @@ const User = require("./models/user.js");
 const Project  = require("./models/project.js");
 const Email = require("./models/email.js");
 const Mentor = require("./models/mentor.js");
-
+const Team = require("./models/team.js");
 // Email utilities.
 const email = require("./email.js");
 
@@ -88,6 +88,9 @@ router.get("/project", firebaseMiddleware, (req, res) => {
         });
 });
 
+router.get("/teams", firebaseMiddleware, (req, res) => {
+    Team.find({}).then((teams) => res.send(teams));
+});
 
 // Returns a list of emails from whitelist that match the given email address
 router.get("/whitelist/:email", (req, res) => {
@@ -364,7 +367,31 @@ router.post("/requestMentor", firebaseMiddleware, (req, res) => {
                         return email.sendMentorshipRequest(user, message, mentor.name, mentor.email, () => res.send({}));
                     });
         });
+});
+
+// TODO: Support images.
+router.post("/teamUpdate", firebaseMiddleware, (req, res) => {
+    const update = req.body.update;
+    const teamID = req.body.teamID;
+    if (update.description === undefined || 
+        update.title === undefined ||
+        teamID === undefined) {
+        res.sendStatus(403).json({err: "Malformed request."});
+    }
+    Team.findOne({_id: TeamID}).then((team) => {
+        let newUpdate = {
+            title: update.title,
+            description: update.description,
+            date: Date.now(),
+        }
+        team.updates.push(newUpdate);
+        team.save().then((resp) => res.send(resp));
+    })
+    .catch((err)=> {
+        res.sendStatus(500).json(err);
+    })
 })
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
     console.log(`API route not found: ${req.method} ${req.url}`);

@@ -11,13 +11,7 @@ import "./InProgressProject.css";
 const HAND_ICON = (<img src={HandSVG} />);
 const TIME_ICON = (<img src={TimeSVG} />);
 const TROPHY_ICON = (<img src={TrophySVG} />)
-const MOCK_UPDATE = {
-    title: "The Premise",
-    date_posted: Date.now(),
-    description: "Out team members are based on the each coast. \
-    Some of the include Alyssa P Hacker (allysa@mit.edu) and Ben Bitdiddle (benbit@mit.edu).",
-    image: "https://cdn.shopify.com/s/files/1/1260/4715/products/2131-60-silvergray_8d500761-2f28-40b1-8cbd-8ded6903fbb5_2000x.png?v=1533073130",
-}
+
 /*
 Generates a box outlining the update of a project.
 An update has the following structure - 

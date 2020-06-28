@@ -86,10 +86,10 @@ export const getProjects = async (tokenId) => {
     return projects;
 }
 
-export const getInProgressProjects = async (tokenId) => {
+export const getTeams= async (tokenId) => {
     // TODO: Change endpoint once the server has it.
-    const projects = await get("/api/listProjects", {token: tokenId});
-    return projects;
+    const teams = await get("/api/teams", {token: tokenId});
+    return teams;
 }
 
 export const getMentors = async(tokenId) => {

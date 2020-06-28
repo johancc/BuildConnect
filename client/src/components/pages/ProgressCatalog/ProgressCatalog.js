@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { navigate } from "@reach/router";
 import { UserContext } from "../../../providers/UserProvider.js";
-import { getInProgressProjects } from "../../../api.js";
+import { getTeams } from "../../../api.js";
 
 // Assets
 import RoundedButton from "../../modules/RoundedButton.js";
@@ -12,7 +12,7 @@ const PeopleIcon = (<img src={PeopleSVG} alt="" />);
 const GoIcon = GoSVG;
 
 // Helper methods.
-let generateProjectCard = (proj) => {
+let generateTeamCard = (proj) => {
     return (
         <div className="ProjectBox">
             <img src={proj.photoURL} style={{ width: "100%", objectFit: "cover" }} />
@@ -33,14 +33,14 @@ class ProgressCatalog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects: [],
+            teams : [],
         }
     }
 
     componentDidMount() {
         // Get in progress 
-        getInProgressProjects(this.context.user.token)
-        .then((projects) => this.setState({projects: projects}))
+        getTeams(this.context.user.token)
+        .then((teams) => this.setState({teams: teams}))
     }
 
     getTitle() {
@@ -64,10 +64,10 @@ class ProgressCatalog extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    {this.state.projects.map((proj) => {
+                    {this.state.teams.map((team) => {
                         return (
                             <div className="x mt-3 mb-3 col-md-4">
-                                {generateProjectCard(proj)}
+                                {generateTeamCard(team)}
                             </div>
                         )
                     })}
@@ -76,7 +76,7 @@ class ProgressCatalog extends Component {
         );
     }
 
-    getProjectColumn() {
+    getTeamColumn() {
         return (
             <div className="container">
                 <div className="row">
@@ -91,13 +91,13 @@ class ProgressCatalog extends Component {
 
     render() {
         let titleRow = this.getTitle();
-        let projects = this.state.projects.length !== 0 ? this.getProjectColumn() : (<></>);
+        let teams = this.state.teams.length !== 0 ? this.getTeamColumn() : (<></>);
 
         return (
             <>
                 {titleRow}
                 <br />
-                {projects}
+                {teams}
             </>
         )
     }
