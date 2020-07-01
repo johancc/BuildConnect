@@ -1,30 +1,34 @@
 import React, { Component } from "react";
 import { navigate } from "@reach/router";
 import { UserContext } from "../../../providers/UserProvider.js";
-import { getTeams } from "../../../api.js";
+import { getTeams, getProject } from "../../../api.js";
 
 // Assets
 import RoundedButton from "../../modules/RoundedButton.js";
 import PeopleSVG from "../../../assets/icons/checkbox.svg";
 import GoSVG from "../../../assets/icons/go.svg";
+import project from "../../../../../server/models/project.js";
 const DARK_BLUE = "#13133A";
 const PeopleIcon = (<img src={PeopleSVG} alt="" />);
 const GoIcon = GoSVG;
 
 // Helper methods.
-let generateTeamCard = (proj) => {
+let generateTeamCard = (team) => {
+    console.log(team);
+    return (<h1>hi</h1>)
+    const projectData = team.projectData; // team.projectData
     return (
         <div className="ProjectBox">
-            <img src={proj.photoURL} style={{ width: "100%", objectFit: "cover" }} />
+            <img src={projectData.photoURL} style={{ width: "100%", objectFit: "cover" }} />
 
             <div className="col-md-12">
-                <h3> {proj.projectName} </h3>
-                <p> {proj.shortDescription} </p>
-                <div>{PeopleIcon} {proj.teamSize} members </div>
+                <h3> {projectData.projectName} </h3>
+                <p> {projectData.shortDescription} </p>
+                <div>{PeopleIcon} {projectData.teamSize} members </div>
                 <br />
             </div>
             <RoundedButton label="Learn More" icon={GoIcon} bgcolor={DARK_BLUE}
-                callback={() => { navigate("/InProgressProject", { state: { projectData: proj } }) }} />
+                callback={() => { navigate("/InProgressProject", { state: { projectData: projectData } }) }} />
         </div>);
 };
 
@@ -37,10 +41,21 @@ class ProgressCatalog extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // Get in progress 
         getTeams(this.context.user.token)
-        .then((teams) => this.setState({teams: teams}))
+        .then(async (teams) => {
+            // Teams only contain the _id of the project.
+            teams = await teams.map(async (team) => {
+                let projectData = await getProject(team.project, this.context.user.token);
+                team.projectData = projectData;
+                return team;
+            })
+            return teams;
+        })
+        .then((teams) => 
+            {console.log(teams);
+            this.setState({teams: []})});
     }
 
     getTitle() {
@@ -60,7 +75,7 @@ class ProgressCatalog extends Component {
         );
     }
 
-    getProjectListings() {
+    getTeamListings() {
         return (
             <div className="container">
                 <div className="row">
@@ -76,12 +91,12 @@ class ProgressCatalog extends Component {
         );
     }
 
-    getTeamColumn() {
+    getTeamSection() {
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        {this.getProjectListings()}
+                        hi
                     </div>
                 </div>
             </div>
@@ -91,7 +106,7 @@ class ProgressCatalog extends Component {
 
     render() {
         let titleRow = this.getTitle();
-        let teams = this.state.teams.length !== 0 ? this.getTeamColumn() : (<></>);
+        let teams = this.state.teams.length !== 0 ? this.getTeamSection() : (<></>);
 
         return (
             <>

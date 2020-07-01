@@ -89,7 +89,8 @@ router.get("/project", firebaseMiddleware, (req, res) => {
 });
 
 router.get("/teams", firebaseMiddleware, (req, res) => {
-    Team.find({}).then((teams) => res.send(teams));
+    Team.find({})
+        .then((teams) => res.send(teams));
 });
 
 // Returns a list of emails from whitelist that match the given email address
