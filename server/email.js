@@ -83,6 +83,9 @@ const sendJoinRequestEmails = async (user, message, proj, ownerEmail, cb) => {
 
 const sendMentorshipRequest = async (user, message, mentorName, mentorEmail, cb) => {
     let firstName = mentorName.split(" ").slice(0, -1).join(' ')
+    console.log("INFO: ");
+    console.log(user);
+    console.log(mentorEmail);
     const replacements = {
         mentorFirstName: firstName,
         studentEmail: user.email,
