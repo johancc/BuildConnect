@@ -10,11 +10,10 @@ export const createNewUser = async (values) => {
     let tokenId = undefined; 
     try {
         await auth.createUserWithEmailAndPassword(values.email, values.password);
-        tokenId = await auth.currentUser.getIdToken();
+        tokenId = await auth.currentUser.getIdToken(true);
         await postUser(tokenId, values);
         await auth.currentUser.sendEmailVerification();
     } catch (err) {
-        console.log(err);
         if (tokenId) await post("/api/removeUser", {token: tokenId}); // Remove from firebase if creation failed somehow.
         throw new Error("Cannot create new user.");
     }
