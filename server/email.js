@@ -2,7 +2,6 @@ const nodemailer = require("nodemailer");
 const handlebars = require("handlebars");
 const fs = require('fs');
 const path = require("path");
-const mentor = require("./models/mentor");
 require("dotenv").config();
 let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -84,16 +83,12 @@ const sendJoinRequestEmails = async (user, message, proj, ownerEmail, cb) => {
 
 const sendMentorshipRequest = async (user, message, mentorName, mentorEmail, cb) => {
     let firstName = mentorName.split(" ").slice(0, -1).join(' ')
-
     const replacements = {
         mentorFirstName: firstName,
         studentEmail: user.email,
         studentName: user.name,
         message: message,
     };
-    console.log("Replacements: ");
-    console.log(replacements);
-
     const requestHtmlToSend = mentorshipRequestTemplate(replacements);
     const mentorshipMailOptions = {
         from: "Build Connect <buildconnectteam@gmail.com>",
@@ -116,7 +111,6 @@ const sendMentorshipRequest = async (user, message, mentorName, mentorEmail, cb)
     }
 
     transporter.sendMail(verificationEmailOptions, (err, info) => {
-        console.log("Email sent!");
         cb({});
     });
 }
@@ -135,7 +129,6 @@ const sendProjectSubmittedEmail = async (user, project, cb) => {
         html: projectHtmlToSend,
     };
     await transporter.sendMail(projectMailOptions, (err, info) => {
-        console.log("Email sent!");
         cb({})
     });
 }

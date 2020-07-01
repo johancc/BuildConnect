@@ -361,7 +361,7 @@ router.post("/requestMentor", firebaseMiddleware, (req, res) => {
         .then((mentor) => {
             return User.findOne({firebase_uid: req.user.user_id})
                     .then( async (user) => {
-                        return email.sendMentorshipRequest(user, message, mentor.name, mentor.email, () => res.send({}));
+                       return email.sendMentorshipRequest(user, message, mentor.name, mentor.email, () => res.send({}));
                     });
         });
 })

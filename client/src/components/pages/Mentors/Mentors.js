@@ -16,13 +16,23 @@ import RequestMentorButton from "./RequestMentorButton.js";
 
 const ROLE_ICON = (<img src={RoleSvg}/>);
 const AVAILABILITY_ICON = (<img src={AvailabilitySvg}/>);
-
+const MIN_MENTOR_DESCRIPTION_LENGTH = 50;
 const MentorCard = ({mentor}) => {
     let name = mentor.name;
     let role = mentor.role;
     let availability = mentor.availability;
     // skipping pic for now. let profilePic = mentor.photoURL;
-    let shortBio = mentor.shortBio;
+    // johancc: We only want the first sentence so the box with is
+    // similar.
+    let sentences = mentor.shortBio.split(". ");
+    let shortBio = sentences[0];
+    
+    for (let i = 1; i < sentences.length; i++) {
+        if (shortBio.length >= MIN_MENTOR_DESCRIPTION_LENGTH) {
+            break;
+        };
+        shortBio = shortBio + ". " + sentences[i];
+    }
     return (
         <div className="mentorCard" style={{ marginBottom: "2em", padding: "2em"}} >
             <h3> {name} </h3>
@@ -75,7 +85,7 @@ class Mentors extends Component {
         let mentorCards = this.getMentorCards();
         return (
             <div className="container">
-                <div className="row justify-content-between">
+                <div className="row">
                     {mentorCards.map((card) => (<div className="col-md-4">{card} </div>))}
                 </div>
             </div>
@@ -83,7 +93,7 @@ class Mentors extends Component {
     }
 
     getMentorCards() {
-        if (this.state.mentorData.length == 0) { return []};
+        if (this.state.mentorData.length == 0) {return []};
         return (this.state.mentorData.map((mentor) => <MentorCard mentor={mentor}/>));
     }
     render() {
