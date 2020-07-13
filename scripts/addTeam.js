@@ -30,7 +30,7 @@ const Project = require("../server/models/project.js");
  */
 const addTeam = (team) => {
     const newEntry = Team(team);
-    newEntry.save().then(() =>console.log("Added team")).catch(() =>console.log("Couldn't add it."));
+    return newEntry.save().then(() =>console.log("Added team")).catch(() =>console.log("Couldn't add it."));
 };
 
 /**
@@ -50,11 +50,11 @@ const postTeamUpdate = (teamID, update) => {
             return;
         } 
         if (update.date === undefined) {
-            console.log("No date given, defaulting to now.");
+            console.log("No date given, defaulting to the current time.");
             update.date = Date.now()
         }
         team.updates.push(update);
-        team.save().then(console.log("Posted update.")).catch((err) => console.log(err));
+        team.save().then(() => console.log("Posted update.")).catch((err) => console.log(err));
     })
 }
 
@@ -68,10 +68,36 @@ const listProjects = ()=> {
 
 // End of helper methods
 
-let newTeam = {
-    teamName: "Test team",
-    members: ["Me"],
-    updates: [],
-    project: "5ee25d21e96b92002494e56f",
+// Describe what you want to do
+const add_new_team = false; 
+
+if (add_new_team) {
+    // How to add a team:
+    // 1) Create a new with the information needed:
+    let newTeam = {
+        teamName: "BuildConnectTestTeam",
+        members: ["Bit Bitdiddle", "Alyssa P. Hacker"], // The names of the people in the team.
+        updates: [], // Leave empty for now.
+    }
+    // 2) All teams have projects, thus use listProjects() to find the project they own.
+    //    Copy the _id field of the project they own.
+    listProjects();
+
+    // 3) Add the _id field to the team.
+    const _id = "5ee8445cb03ffd34389dc95c";
+    newTeam.project = _id;
+
+    // 4) Add the team to the database
+    let team = addTeam(newTeam);
+
+    // 5) If there are some updates for the team, add them:
+    let update = {
+        title: "Some update",
+        date: Date.now(), // Or include a specific date.
+        description: "Describe the update. Show what the team has done so far.",
+    }
+    postTeamUpdate(team._id, update);
+} else {
+    // Ad-hoc code goes here.
+    listTeams()
 }
-listProjects();
