@@ -148,7 +148,7 @@ const Home = () => {
         </div>);
     const contactSection = (
         <div className="col-md-12">
-                {makeSmallTitle("Contact Us")}
+                {makeSmallTitle("Contact Us!")}
                 {makeSection("Have questions or suggestions for new features?")}
                 {emailUsButton}
                 {moveBoxDown(makeSmallTitle(EMAIL))}
