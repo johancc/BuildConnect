@@ -152,7 +152,7 @@ const Home = () => {
                 {makeSection("Have questions or suggestions for new features?")}
                 {emailUsButton}
                 {moveBoxDown(makeSmallTitle(EMAIL))}
-                {makeSmallTitle("Grace Hsu - Johan Cervantes - Yanni Wang - Vanasa Liu")}
+                {makeSmallTitle("Grace Hsu - Yanni Wang - Johan Cervantes - Vanasa Liu")}
         </div>);
 
     // ABOUT
