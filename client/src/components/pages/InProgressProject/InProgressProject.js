@@ -52,8 +52,11 @@ class InProgressProject extends Component {
     static contextType = UserContext;
 
     getProjectInfoCol = () => {
+        console.log(this.props);
         const team = this.props.location.state.team;
+        console.log(team);
         const projectData = team.projectData;
+    
         const mainText = (
             <div className="container">
                 <div className="row">
@@ -86,14 +89,14 @@ class InProgressProject extends Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.team.name ?
+                    {team.teamName ?
                         <div className="col-md-2 infobarLabel">
                             <div className="container">
                                 <div className="row">
                                     {TROPHY_ICON}
                                     <div>
                                         Project Owner <br />
-                                        <div className="infobarInfo">{team.name}</div>
+                                        <div className="infobarInfo">{team.teamName}</div>
                                     </div>
                                 </div>
                             </div>
