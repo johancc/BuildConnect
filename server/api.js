@@ -26,6 +26,10 @@ const Team = require("./models/team.js");
 // Email utilities.
 const email = require("./email.js");
 
+// Helper
+const getProjectData = async (team) => {
+    return Project.findOne(team.project);
+}
 // api endpoints: all these paths will be prefixed with "/api/"
 
 // GET
@@ -90,7 +94,18 @@ router.get("/project", firebaseMiddleware, (req, res) => {
 
 router.get("/teams", firebaseMiddleware, (req, res) => {
     Team.find({})
-        .then((teams) => res.send(teams));
+        .then(async (teams) => {
+            teams = teams.map(async (team) => {
+                // This is sketch.
+                team = team.toObject();
+                let projData = await getProjectData(team);
+                team.projectData = projData;
+                return team;
+            })
+            return Promise.all(teams);
+        })
+        .then((teams) =>  res.send(teams))
+        .catch((err) => res.sendStatus(500).json(err));
 });
 
 // Returns a list of emails from whitelist that match the given email address

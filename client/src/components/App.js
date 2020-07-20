@@ -29,7 +29,7 @@ const ProgressCatalog = lazy(() =>
 const ResetPassword = lazy(() =>
   import('./pages/ResetPassword/ResetPassword.js'));
 const InProgressProject = lazy(() =>
-  import('./pages/InProgressProject/InProgresProject.js'));
+  import('./pages/InProgressProject/InProgressProject.js'));
 
 // to use styles, import the necessary CSS files
 import '../utilities.css';

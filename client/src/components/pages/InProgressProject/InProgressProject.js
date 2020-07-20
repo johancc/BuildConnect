@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {UserContext} from "../../../providers/UserProvider.js";
-import { getProjectOwner } from "../../../api.js";
 
 // Assets
 import HandSVG from "../../../assets/images/people_needed.svg";
@@ -10,8 +9,7 @@ import "../Project/Project.css";
 import "./InProgressProject.css";
 const HAND_ICON = (<img src={HandSVG} />);
 const TIME_ICON = (<img src={TimeSVG} />);
-const TROPHY_ICON = (<img src={TrophySVG} />)
-
+const TROPHY_ICON = (<img src={TrophySVG} />);
 /*
 Generates a box outlining the update of a project.
 An update has the following structure - 
@@ -21,18 +19,17 @@ An update has the following structure -
     description: string,
     image: string,
 }
-TODO: Support images.
 */
 
 const updateFactory = (update) => {
     if (update.description.length === 0 || update.title.length == 0) {
         return;
     }
-    const time_ago = FindWeeksPassed(update.date_posted);
+    const time_ago = FindWeeksPassed(update.date);
     return (
         <div className="ProjectUpdate">
             <h3>{update.title}</h3>
-            {time_ago === 0 ? 
+            {time_ago <= 0 ? 
                 <p>This week</p> :
                 <p>{time_ago} weeks ago</p>
             }
@@ -43,9 +40,9 @@ const updateFactory = (update) => {
 }
 
 // Helper function to print dates nicely.
-const FindWeeksPassed =  (priorMilli) => {
+const FindWeeksPassed =  (startTime) => {
     const todayMilli = Date.now();
-    const milliDelta = todayMilli - priorMilli;
+    const milliDelta = todayMilli - startTime;
     const millis_in_a_week = 604800000;
     const milliWeeks = milliDelta / millis_in_a_week;
     return Math.floor(milliWeeks);
@@ -54,24 +51,9 @@ const FindWeeksPassed =  (priorMilli) => {
 class InProgressProject extends Component {
     static contextType = UserContext;
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            ownerName: "",
-        }
-    }
-
-    async componentDidMount() {
-        let projData = this.props.location.state.projectData;
-
-        let owner = await getProjectOwner(projData, this.context.user.token);
-        this.setState({
-            ownerName: owner.name,
-        });
-    }
-
     getProjectInfoCol = () => {
-        const projectData = this.props.location.state.projectData;
+        const team = this.props.location.state.team;
+        const projectData = team.projectData;
         const mainText = (
             <div className="container">
                 <div className="row">
@@ -104,14 +86,14 @@ class InProgressProject extends Component {
                             </div>
                         </div>
                     </div>
-                    {this.state.ownerName ?
+                    {this.state.team.name ?
                         <div className="col-md-2 infobarLabel">
                             <div className="container">
                                 <div className="row">
                                     {TROPHY_ICON}
                                     <div>
                                         Project Owner <br />
-                                        <div className="infobarInfo">{this.state.ownerName}</div>
+                                        <div className="infobarInfo">{team.name}</div>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +127,10 @@ class InProgressProject extends Component {
     };
 
     getUpdatesCol = () => {
-        let cards = [MOCK_UPDATE].map((update)=>updateFactory(update));
+        if (this.props.location.state.team.projectData === undefined) {
+            return(<> </>)
+        }
+        const updates = this.props.location.state.team.updates.map((update)=>updateFactory(update));
         return (
             <>
                 <div className="container">
@@ -153,7 +138,7 @@ class InProgressProject extends Component {
                         <div className="description" style={{marginTop: "3em", marginBottom: "1em"}}>
                             Updates
                         </div>
-                        {cards}
+                        {updates}
                     </div>
                 </div>
             </>

@@ -7,16 +7,17 @@ import { getTeams, getProject } from "../../../api.js";
 import RoundedButton from "../../modules/RoundedButton.js";
 import PeopleSVG from "../../../assets/icons/checkbox.svg";
 import GoSVG from "../../../assets/icons/go.svg";
-import project from "../../../../../server/models/project.js";
+
 const DARK_BLUE = "#13133A";
 const PeopleIcon = (<img src={PeopleSVG} alt="" />);
 const GoIcon = GoSVG;
 
 // Helper methods.
 let generateTeamCard = (team) => {
-    console.log(team);
-    return (<h1>hi</h1>)
-    const projectData = team.projectData; // team.projectData
+    const projectData = team.projectData;
+    if (projectData === undefined) {
+        return <></>
+    }
     return (
         <div className="ProjectBox">
             <img src={projectData.photoURL} style={{ width: "100%", objectFit: "cover" }} />
@@ -28,7 +29,7 @@ let generateTeamCard = (team) => {
                 <br />
             </div>
             <RoundedButton label="Learn More" icon={GoIcon} bgcolor={DARK_BLUE}
-                callback={() => { navigate("/InProgressProject", { state: { projectData: projectData } }) }} />
+                callback={() => { navigate("/InProgressProject", { state: { team: team } }) }} />
         </div>);
 };
 
@@ -44,18 +45,9 @@ class ProgressCatalog extends Component {
     async componentDidMount() {
         // Get in progress 
         getTeams(this.context.user.token)
-        .then(async (teams) => {
-            // Teams only contain the _id of the project.
-            teams = await teams.map(async (team) => {
-                let projectData = await getProject(team.project, this.context.user.token);
-                team.projectData = projectData;
-                return team;
-            })
-            return teams;
-        })
-        .then((teams) => 
-            {console.log(teams);
-            this.setState({teams: []})});
+            .then((teams) => {
+                this.setState({teams: teams})
+            });
     }
 
     getTitle() {
@@ -96,7 +88,7 @@ class ProgressCatalog extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        hi
+                        {this.getTeamListings()}
                     </div>
                 </div>
             </div>
